@@ -4,22 +4,20 @@ import java.util.ArrayList;
 
 import javax.inject.Named;
 
+import com.dudko.highwave.deposit.DepositFactory;
+import com.dudko.highwave.deposit.deposits.Deposit;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 
 @Api(name = "deposits", version = "v0")
 public class DepositService {
-	public static ArrayList<Deposit> deposits = new ArrayList<Deposit>();
+	public static DepositFactory depositFactory;
+
 	public static ArrayList<Bank> banks = new ArrayList<Bank>();
 
 	static {
-		deposits.add(new Deposit("Deposit 1.1", 0, 0));
-		deposits.add(new Deposit("Deposit 1.2", 1, 0));
-		deposits.add(new Deposit("Deposit 1.3", 2, 0));
-		deposits.add(new Deposit("Deposit 2.1", 3, 1));
-		deposits.add(new Deposit("Deposit 2.2", 4, 1));
-		deposits.add(new Deposit("Deposit 3.1", 5, 2));
+		depositFactory = new DepositFactory();
 
 		banks.add(new Bank("HomeCreditBank", 1));
 		banks.add(new Bank("IdeaBank", 2));
@@ -28,12 +26,13 @@ public class DepositService {
 
 	@ApiMethod(name = "get.deposits.list", path = "deposits", httpMethod = HttpMethod.GET)
 	public ArrayList<Deposit> getAllDeposites() {
-		return deposits;
+		return depositFactory.GetAllDeposits();
 	}
 
 	@ApiMethod(name = "get.deposit.by.deposit.id", path = "deposits/{depositId}", httpMethod = HttpMethod.GET)
 	public Deposit getDeposit(@Named("depositId") Integer depositId) {
-		return deposits.get(depositId);
+		DepositFactory factory = new DepositFactory();
+		return factory.GetDeposit(depositId);
 	}
 
 	@ApiMethod(name = "get.banks.list", path = "banks", httpMethod = HttpMethod.GET)
@@ -49,10 +48,11 @@ public class DepositService {
 	@ApiMethod(name = "get.deposits.list.by.bank.id", path = "banks/{bankId}/deposits", httpMethod = HttpMethod.GET)
 	public ArrayList<Deposit> getBankDeposites(@Named("bankId") Integer bankId) {
 		ArrayList<Deposit> bankDeposits = new ArrayList<Deposit>();
+		ArrayList<Deposit> deposits = depositFactory.GetAllDeposits();
 
 		for (int i = 0; i < deposits.size(); i++) {
 			Deposit deposit = deposits.get(i);
-			if (deposit.bankId == bankId) {
+			if (true) {
 				bankDeposits.add(deposit);
 			}
 		}

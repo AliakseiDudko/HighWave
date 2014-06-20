@@ -1,16 +1,20 @@
 package com.dudko.highwave;
 
-public class Bank {
-	public String bankName;
+import com.dudko.highwave.deposit.BankCode;
 
+public class Bank {
+	public BankCode code;
+	
+	public String name;
+	
+	public String displayName;
+
+	public String url;
+	
 	public int bankId;
 
-	public Bank() {
-
-	}
-
 	public Bank(String bankName, int bankId) {
-		this.bankName = bankName;
+		this.name = bankName;
 		this.bankId = bankId;
 	}
 }
