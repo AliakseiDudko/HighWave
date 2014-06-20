@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.dudko.highwave.deposit.deposits.Deposit;
 import com.dudko.highwave.deposit.deposits.StartDeposit;
 
 public class DepositFactory {
-	private static Map<Integer, Deposit> deposites;
+	private static final Map<Integer, Deposit> deposites;
 
 	static {
 		deposites = new HashMap<Integer, Deposit>();

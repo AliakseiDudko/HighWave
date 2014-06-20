@@ -4,24 +4,23 @@ import java.util.ArrayList;
 
 import javax.inject.Named;
 
+import com.dudko.highwave.bank.Bank;
+import com.dudko.highwave.bank.BankCode;
+import com.dudko.highwave.bank.BankFactory;
+import com.dudko.highwave.deposit.Deposit;
 import com.dudko.highwave.deposit.DepositFactory;
-import com.dudko.highwave.deposit.deposits.Deposit;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 
 @Api(name = "deposits", version = "v0")
 public class DepositService {
-	public static DepositFactory depositFactory;
-
-	public static ArrayList<Bank> banks = new ArrayList<Bank>();
+	public static final DepositFactory depositFactory;
+	public static final BankFactory bankFactory;
 
 	static {
 		depositFactory = new DepositFactory();
-
-		banks.add(new Bank("HomeCreditBank", 1));
-		banks.add(new Bank("IdeaBank", 2));
-		banks.add(new Bank("BelAgroPromBank", 3));
+		bankFactory = new BankFactory();
 	}
 
 	@ApiMethod(name = "get.deposits.list", path = "deposits", httpMethod = HttpMethod.GET)
@@ -37,12 +36,12 @@ public class DepositService {
 
 	@ApiMethod(name = "get.banks.list", path = "banks", httpMethod = HttpMethod.GET)
 	public ArrayList<Bank> getAllBanks() {
-		return banks;
+		return bankFactory.GetAllBanks();
 	}
 
 	@ApiMethod(name = "get.bank.by.bank.id", path = "banks/{bankId}", httpMethod = HttpMethod.GET)
 	public Bank getBank(@Named("bankId") Integer bankId) {
-		return banks.get(bankId);
+		return bankFactory.GetBank(BankCode.BelAgroPromBank);
 	}
 
 	@ApiMethod(name = "get.deposits.list.by.bank.id", path = "banks/{bankId}/deposits", httpMethod = HttpMethod.GET)

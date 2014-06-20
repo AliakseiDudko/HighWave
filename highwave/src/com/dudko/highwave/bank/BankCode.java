@@ -1,4 +1,4 @@
-package com.dudko.highwave.deposit;
+package com.dudko.highwave.bank;
 
 public enum BankCode {
 	Unknown,
