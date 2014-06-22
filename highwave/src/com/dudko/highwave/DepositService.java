@@ -24,7 +24,7 @@ public class DepositService {
 	}
 
 	@ApiMethod(name = "get.deposits.list", path = "deposits", httpMethod = HttpMethod.GET)
-	public ArrayList<Deposit> getAllDeposites() {
+	public Deposit[] getAllDeposites() {
 		return depositFactory.GetAllDeposits();
 	}
 
@@ -35,7 +35,7 @@ public class DepositService {
 	}
 
 	@ApiMethod(name = "get.banks.list", path = "banks", httpMethod = HttpMethod.GET)
-	public ArrayList<Bank> getAllBanks() {
+	public Bank[] getAllBanks() {
 		return bankFactory.GetAllBanks();
 	}
 
@@ -47,10 +47,10 @@ public class DepositService {
 	@ApiMethod(name = "get.deposits.list.by.bank.id", path = "banks/{bankId}/deposits", httpMethod = HttpMethod.GET)
 	public ArrayList<Deposit> getBankDeposites(@Named("bankId") Integer bankId) {
 		ArrayList<Deposit> bankDeposits = new ArrayList<Deposit>();
-		ArrayList<Deposit> deposits = depositFactory.GetAllDeposits();
+		Deposit[] deposits = depositFactory.GetAllDeposits();
 
-		for (int i = 0; i < deposits.size(); i++) {
-			Deposit deposit = deposits.get(i);
+		for (int i = 0; i < deposits.length; i++) {
+			Deposit deposit = deposits[i];
 			if (true) {
 				bankDeposits.add(deposit);
 			}
