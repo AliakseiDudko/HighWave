@@ -1,5 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- saved from url=(0021)http://ajaxload.info/ -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -7,217 +6,32 @@
 <title>Deposits Service</title>
 <meta name="description" content="Deposit Service Description">
 <link href="styles/styles.css" rel="stylesheet" media="screen">
-<script type="text/javascript" src="scripts/domel.js"></script>
-<script type="text/javascript" src="scripts/script.js"></script>
-<script type="text/javascript" src="scripts/color-picker.js"></script>
 </head>
 <body>
 	<div id="content">
-		<h1>Ajaxload</h1>
-		<span id="hey">(Beta) &lt;- Hey ! This service is Web 2.0</span>
-		<form action="http://ajaxload.info/#preview" id="generator"
-			method="post">
-			<fieldset>
+		<h1>Deposit Service</h1>
+		<span id="hey"></span>
+		<div id="generator">
+			<div id="data">
 				<h2>Generator</h2>
-				<div id="color-picker">
-					<div id="color-picker1" style="margin: 14px; display: none;">
-						<div
-							style="position: relative; width: 200px; height: 200px; background: rgb(255, 0, 0);">
-							<img width="200" height="200" src="images/sv.png"
-								style="display: block;"><img width="21" height="21"
-								src="images/crosshairs.png"
-								style="position: absolute; left: 189px; top: 189px;">
-						</div>
-						<div
-							style="position: absolute; right: 22px; top: 14px; width: 20px; height: 200px;">
-							<img width="20" height="200" src="images/h.png"
-								style="display: block;"><img width="20" height="11"
-								src="images/position.png" style="position: absolute; top: -5px;">
-						</div>
-						<div
-							style="height: 20px; width: 228px; position: absolute; top: 220px; left: 14px; border: 1px solid black; background: rgb(255, 255, 255);"></div>
-					</div>
-					<div id="color-picker2" style="margin: 14px; display: none;">
-						<div
-							style="position: relative; width: 200px; height: 200px; background: rgb(255, 0, 0);">
-							<img width="200" height="200" src="images/sv.png"
-								style="display: block;"><img width="21" height="21"
-								src="images/crosshairs.png"
-								style="position: absolute; left: -10px; top: 189px;">
-						</div>
-						<div
-							style="position: absolute; right: 22px; top: 14px; width: 20px; height: 200px;">
-							<img width="20" height="200" src="images/h.png"
-								style="display: block;"><img width="20" height="11"
-								src="images/position.png" style="position: absolute; top: -5px;">
-						</div>
-						<div
-							style="height: 20px; width: 228px; position: absolute; top: 220px; left: 14px; border: 1px solid black; background: rgb(0, 0, 0);"></div>
-					</div>
-					<img title="Close" src="images/color-picker-close.png" id="close">
-				</div>
-				<img id="indicator" src="images/indicator.gif" alt="Loading...">
-				<p>
-					<label for="type">Indicator type :</label>
-				<div id="typelist">
-					<a title="Circle ball" href="javascript:ALuseType(1)"><img
-						alt="Circle ball" src="images/examples/1.gif"></a><a
-						title="Indicator" href="javascript:ALuseType(2)"><img
-						alt="Indicator" src="images/examples/2.gif"></a><a title="Kit"
-						href="javascript:ALuseType(3)"><img alt="Kit"
-						src="images/examples/3.gif"></a><a title="Arrows"
-						href="javascript:ALuseType(4)"><img alt="Arrows"
-						src="images/examples/4.gif"></a><a title="Indicator Big"
-						href="javascript:ALuseType(5)"><img alt="Indicator Big"
-						src="images/examples/5.gif"></a><a title="Snake"
-						href="javascript:ALuseType(6)"><img alt="Snake"
-						src="images/examples/6.gif"></a><a title="Bouncing ball"
-						href="javascript:ALuseType(7)"><img alt="Bouncing ball"
-						src="images/examples/7.gif"></a><a title="Bar"
-						href="javascript:ALuseType(8)"><img alt="Bar"
-						src="images/examples/8.gif"></a><a title="Bar 2"
-						href="javascript:ALuseType(9)"><img alt="Bar 2"
-						src="images/examples/9.gif"></a><a title="Bar 3"
-						href="javascript:ALuseType(10)"><img alt="Bar 3"
-						src="images/examples/10.gif"></a><a title="Circling ball"
-						href="javascript:ALuseType(11)"><img alt="Circling ball"
-						src="images/examples/11.gif"></a><a title="Hypnotize"
-						href="javascript:ALuseType(12)"><img alt="Hypnotize"
-						src="images/examples/12.gif"></a><a title="Wheel"
-						href="javascript:ALuseType(13)"><img alt="Wheel"
-						src="images/examples/13.gif"></a><a title="Expanding Circle"
-						href="javascript:ALuseType(14)"><img alt="Expanding Circle"
-						src="images/examples/14.gif"></a><a title="Radar"
-						href="javascript:ALuseType(15)"><img alt="Radar"
-						src="images/examples/15.gif"></a><a title="Refresh"
-						href="javascript:ALuseType(16)"><img alt="Refresh"
-						src="images/examples/16.gif"></a><a title="Flower"
-						href="javascript:ALuseType(17)"><img alt="Flower"
-						src="images/examples/17.gif"></a><a title="Squares"
-						href="javascript:ALuseType(18)"><img alt="Squares"
-						src="images/examples/18.gif"></a><a title="Circle Thickbox"
-						href="javascript:ALuseType(19)"><img alt="Circle Thickbox"
-						src="images/examples/19.gif"></a><a title="Big Roller"
-						href="javascript:ALuseType(20)"><img alt="Big Roller"
-						src="images/examples/20.gif"></a><a title="Wheel Throbber"
-						href="javascript:ALuseType(21)"><img alt="Wheel Throbber"
-						src="images/examples/21.gif"></a><a title="Smallwait"
-						href="javascript:ALuseType(22)"><img alt="Smallwait"
-						src="images/examples/22.gif"></a><a title="3D Rotation"
-						href="javascript:ALuseType(23)"><img alt="3D Rotation"
-						src="images/examples/23.gif"></a><a title="Indicator lite"
-						href="javascript:ALuseType(24)"><img alt="Indicator lite"
-						src="images/examples/24.gif"></a><a title="Squares Circle"
-						href="javascript:ALuseType(25)"><img alt="Squares Circle"
-						src="images/examples/25.gif"></a><a title="Big Snake"
-						href="javascript:ALuseType(26)"><img alt="Big Snake"
-						src="images/examples/26.gif"></a><a title="Big Circle ball"
-						href="javascript:ALuseType(27)"><img alt="Big Circle ball"
-						src="images/examples/27.gif"></a><a title="Roller"
-						href="javascript:ALuseType(28)"><img alt="Roller"
-						src="images/examples/28.gif"></a><a title="Drip Circle"
-						href="javascript:ALuseType(29)"><img alt="Drip Circle"
-						src="images/examples/29.gif"></a><a title="Indicator Big 2"
-						href="javascript:ALuseType(30)"><img alt="Indicator Big 2"
-						src="images/examples/30.gif"></a><a title="Big Flower"
-						href="javascript:ALuseType(31)"><img alt="Big Flower"
-						src="images/examples/31.gif"></a><a title="Clock"
-						href="javascript:ALuseType(32)"><img alt="Clock"
-						src="images/examples/32.gif"></a><a title="Bar Circle"
-						href="javascript:ALuseType(33)"><img alt="Bar Circle"
-						src="images/examples/33.gif"></a><a title="Pik"
-						href="javascript:ALuseType(34)"><img alt="Pik"
-						src="images/examples/34.gif"></a><a title="Pk"
-						href="javascript:ALuseType(35)"><img alt="Pk"
-						src="images/examples/35.gif"></a><a title="Bert"
-						href="javascript:ALuseType(36)"><img alt="Bert"
-						src="images/examples/36.gif"></a><a title="Bert2"
-						href="javascript:ALuseType(37)"><img alt="Bert2"
-						src="images/examples/37.gif"></a><a title="Facebook"
-						href="javascript:ALuseType(38)"><img alt="Facebook"
-						src="images/examples/38.gif"></a><a title="Pac-Man"
-						href="javascript:ALuseType(39)"><img alt="Pac-Man"
-						src="images/examples/39.gif"></a>
-				</div>
-				<select id="type" name="type">
-					<option value="1">Circle ball</option>
-					<option value="2">Indicator</option>
-					<option value="3">Kit</option>
-					<option value="4">Arrows</option>
-					<option value="5">Indicator Big</option>
-					<option value="6">Snake</option>
-					<option value="7">Bouncing ball</option>
-					<option value="8">Bar</option>
-					<option value="9">Bar 2</option>
-					<option value="10">Bar 3</option>
-					<option value="11">Circling ball</option>
-					<option value="12">Hypnotize</option>
-					<option value="13">Wheel</option>
-					<option value="14">Expanding Circle</option>
-					<option value="15">Radar</option>
-					<option value="16">Refresh</option>
-					<option value="17">Flower</option>
-					<option value="18">Squares</option>
-					<option value="19">Circle Thickbox</option>
-					<option value="20">Big Roller</option>
-					<option value="21">Wheel Throbber</option>
-					<option value="22">Smallwait</option>
-					<option value="23">3D Rotation</option>
-					<option value="24">Indicator lite</option>
-					<option value="25">Squares Circle</option>
-					<option value="26">Big Snake</option>
-					<option value="27">Big Circle ball</option>
-					<option value="28">Roller</option>
-					<option value="29">Drip Circle</option>
-					<option value="30">Indicator Big 2</option>
-					<option value="31">Big Flower</option>
-					<option value="32">Clock</option>
-					<option value="33">Bar Circle</option>
-					<option value="34">Pik</option>
-					<option value="35">Pk</option>
-					<option value="36">Bert</option>
-					<option value="37">Bert2</option>
-					<option value="38">Facebook</option>
-					<option value="39">Pac-Man</option>
-				</select>
 				<div id="layer"></div>
-				</p>
-				<p>
-					<label class="sort" for="color1">Background color :</label> <span>#</span>
-					<input type="text" id="color1" name="color1" class="color"
-						value="FFFFFF">
-				</p>
-				<p>
-					<input type="checkbox" name="trans" id="trans" value="1"> <label
-						class="after" for="trans">Transparent background</label>
-				</p>
-				<p>
-					<label class="sort" for="color2">Foreground color :</label> <span>#</span>
-					<input type="text" id="color2" name="color2" class="color"
-						value="000000">
-				</p>
-				<input type="image" id="generateit" src="images/generate.gif"
-					alt="Generate it">
-			</fieldset>
-		</form>
+			</div>
+		</div>
 		<div id="advertisement">
 			<div id="adsense">
 				<h2>Advertisement</h2>
-				<script type="text/javascript"
-					src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 			</div>
 		</div>
 		<div id="preview">
 			<div id="previewinner">
 				<h2>Preview</h2>
 				<div id="loader">
-					<p>Create easily your own ajax loader icon :</p>
+					<p>Text:</p>
 					<ol>
-						<li>Select the type of indicator you want</li>
-						<li>Enter the background code color you want<br> (tick
-							"Transparent background" if you don't want one
+						<li>Text 1</li>
+						<li>Text 2<br>New line.
 						</li>
-						<li>Enter the foreground code color you want</li>
+						<li>Text 3</li>
 					</ol>
 					<p>Press "Generate it"</p>
 				</div>
@@ -225,13 +39,11 @@
 		</div>
 		<div id="footer">
 			<ul>
-				<li>Code : <a href="http://yannick.cr/"></a></li>
-				<li>Design : <a href="http://www.kath.fr/"></a></li>
-				<li>Generated gifs are totally free for use</li>
+				<li>Code : <a href="#"></a></li>
+				<li>Design : <a href="#"></a></li>
+				<li>Generated data are totally free for use</li>
 			</ul>
 		</div>
 	</div>
-
-
 </body>
 </html>
