@@ -255,7 +255,7 @@ h1 {
 	width: 180px;
 }
 
-#preview {
+#results {
 	margin-top: 26px;
 	background: #A91717 url(../images/preview-back.png) repeat-x left top;
 	width: 473px;
@@ -263,18 +263,18 @@ h1 {
 	height: 433px;
 }
 
-#preview h2 {
+#results h2 {
 	background: url(../images/preview.gif) repeat-x left top;
 	height: 39px;
 	text-indent: -1000em;
 }
 
-#preview #previewinner {
+#results #resultsinner {
 	background: url(../images/preview-corner.gif) no-repeat right bottom;
 	height: 433px;
 }
 
-#preview #loader,#preview #loaderin {
+#results #loader,#results #loaderin {
 	background: #FFF url(../images/preview-text-back.gif) no-repeat left top;
 	height: 115px;
 	width: 344px;
@@ -283,16 +283,16 @@ h1 {
 	font-size: .9em;
 }
 
-#preview #loaderin {
+#results #loaderin {
 	text-align: center;
 	line-height: 115px;
 }
 
-#preview div ol {
+#results div ol {
 	padding: 12px 30px;
 }
 
-#preview #downloadit {
+#results #downloadit {
 	display: block;
 	background: #FFF url(../images/download.gif) no-repeat left top;
 	width: 224px;
