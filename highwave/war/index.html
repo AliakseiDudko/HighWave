@@ -10,13 +10,40 @@
 <script src="./assets/scripts/json2.js" type="text/javascript"></script>
 <script src="./assets/scripts/underscore.js" type="text/javascript"></script>
 <script src="./assets/scripts/backbone.js" type="text/javascript"></script>
-<script
-	src="./marionette/assets/javascript/vendor/backbone.marionette.js"
+<script src="./assets/scripts/backbone.marionette.js"
 	type="text/javascript"></script>
-
 <script src="./assets/scripts/application.js" type="text/javascript"></script>
 
 <link href="./assets/styles/styles.css" rel="stylesheet" media="screen">
+
+<script type="text/template" id="banks-template">
+<thead>
+<tr>
+<th>Bank Name</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</script>
+
+<script type="text/template" id="bank-template">
+<td><%= name %></td>
+</script>
+
+<script type="text/template" id="deposits-template">
+<thead>
+<tr>
+<th>Deposit</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</script>
+
+<script type="text/template" id="deposit-template">
+<td><%= name %></td>
+<td><%= interest %></td>
+</script>
 
 </head>
 <body>
@@ -24,19 +51,6 @@
 		<h1>Deposit Service</h1>
 		<span id="hey"></span>
 		<div id="generator">
-			<script type="text/template" id="banks-template">
-<thead>
-<tr>
-<th>Name</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</script>
-			<script type="text/template" id="bank-template">
-<td><%= name %></td>
-</script>
-
 			<div id="data">
 				<h2>Generator</h2>
 				<div id="layer"></div>
