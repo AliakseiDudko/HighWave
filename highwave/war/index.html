@@ -1,25 +1,15 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Deposits Service</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="description" content="Deposit Calculator">
+<title>Deposit Calculator</title>
 
-<link href="./assets/css/styles.css" rel="stylesheet" media="screen">
-
-<script type="text/javascript" src="./assets/common/jquery-2.1.1.js"></script>
-<script type="text/javascript" src="./assets/common/json2.js"></script>
-<script type="text/javascript" src="./assets/common/underscore.js"></script>
-
-<script type="text/javascript" src="./assets/bootstrap/js/bootstrap.js"></script>
-
-<script type="text/javascript" src="./assets/backbone.marionette/backbone.js"></script>
-<script type="text/javascript" src="./assets/backbone.marionette/backbone.marionette.js"></script>
-
-<script type="text/javascript" src="./assets/js/app.js"></script>
-<script type="text/javascript" src="./assets/js/app.profit_app.js"></script>
-<script type="text/javascript" src="./assets/js/app.profit_app.deposit_list.js"></script>
+<link href="./assets/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="./assets/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+<link href="./assets/css/application.css" rel="stylesheet">
 
 <script type="text/template" id="deposit-template">
 <td><%- bankCode %></td>
@@ -48,49 +38,56 @@
 </div>
 <div id="results"></div>
 </script>
-
 </head>
-<body>
-	<div id="content"></div>
-	<div id="modal"></div>
-</body>
 
-<!-- <div id="content">
-	<h1>Deposit Service</h1>
-	<span id="hey"></span>
-	<div id="generator">
-		<div id="data">
-			<h2>Generator</h2>
-			<div id="layer"></div>
-		</div>
-	</div>
-	<div id="advertisement">
-		<div id="adsense">
-			<h2>Advertisement</h2>
-		</div>
-	</div>
-	<div id="results">
-		<div id="previewinner">
-			<h2>Preview</h2>
-			<div id="loader">
-				<p>Text:</p>
-				<ol>
-					<li>Text 1</li>
-					<li>Text 2<br>New line.
-					</li>
-					<li>Text 3</li>
-				</ol>
-				<p>Press "Generate it"</p>
+<body>
+	<div id="modal"></div>
+
+	<div class="container theme-showcase" role="main">
+		<div class="page-header"></div>
+		<div class="row">
+			<div class="col-sm-8">
+				<div id="search-panel" class="panel panel-warning">
+					<div class="panel-heading">
+						<h3 class="panel-title">Search</h3>
+					</div>
+					<div id="search" class="panel-body">Search</div>
+				</div>
+				<div id="results-panel" class="panel panel-danger">
+					<div class="panel-heading">
+						<h3 class="panel-title">Results</h3>
+					</div>
+					<div id="results" class="panel-body"></div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div id="ads-panel" class="panel panel-success">
+					<div class="panel-heading">
+						<h3 class="panel-title">Ads</h3>
+					</div>
+					<div class="panel-body">Advertisement to earn 400$ per month.</div>
+				</div>
+				<div id="news-panel" class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">News</h3>
+					</div>
+					<div class="panel-body">News feed here.</div>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div id="footer">
-		<ul>
-			<li>Code : <a href="#"></a></li>
-			<li>Design : <a href="#"></a></li>
-			<li>Generated data are totally free for use</li>
-		</ul>
-	</div>
-</div> -->
 
+	<script type="text/javascript" src="./assets/common/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="./assets/common/json2.js"></script>
+	<script type="text/javascript" src="./assets/common/underscore.js"></script>
+
+	<script type="text/javascript" src="./assets/bootstrap/js/bootstrap.js"></script>
+
+	<script type="text/javascript" src="./assets/backbone.marionette/backbone.js"></script>
+	<script type="text/javascript" src="./assets/backbone.marionette/backbone.marionette.js"></script>
+
+	<script type="text/javascript" src="./assets/js/app.js"></script>
+	<script type="text/javascript" src="./assets/js/app.profit_app.js"></script>
+	<script type="text/javascript" src="./assets/js/app.profit_app.deposit_list.js"></script>
+</body>
 </html>
