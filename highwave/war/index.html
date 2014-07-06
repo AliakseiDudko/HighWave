@@ -11,25 +11,53 @@
 <link href="./assets/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
 <link href="./assets/css/application.css" rel="stylesheet">
 
+<script type="text/template" id="search-template">
+<div class="row">
+<div class="col-md-2">
+<p class="text-info">Amount</p>
+</div>
+<div class="col-md-3">
+<input type="text">
+</div>
+</div>
+<div class="row">
+<div class="col-md-2">
+<p class="text-info">Period (days)</p>
+</div>
+<div class="col-md-3">
+<input type="text">
+</div>
+</div>
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-3">
+<button type="button" class="btn btn-sm btn-warning pull-right">Search</button>
+</div>
+</div>
+</script>
+
 <script type="text/template" id="deposit-template">
-<td><%- bankCode %></td>
+<td><%- depositId %></td>
 <td><%- name %></td>
+<td><%- currency %></td>
+</script>
+
+<script type="text/template" id="deposit-detail-template">
+<td><%- depositId %></td>
+<td><%- name %></td>
+<td><%- currency %></td>
 </script>
 
 <script type="text/template" id="deposit-list-template">
 <thead>
-	<tr>
-		<th>Bank</th>
-		<th>Deposit</th>
-	</tr>
+<tr>
+<th>#</th>
+<th>Deposit</th>
+<th>Currency</th>
+</tr>
 </thead>
 <tbody>
 </tbody>
-</script>
-
-<script type="text/template" id="deposit-detail-template">
-<h1><%- name %></h1>
-<h2><%- bankCode %></h2>
 </script>
 
 <script type="text/template" id="profit-layout">
@@ -51,13 +79,13 @@
 					<div class="panel-heading">
 						<h3 class="panel-title">Search</h3>
 					</div>
-					<div id="search" class="panel-body">Search</div>
+					<div id="search-region" class="panel-body"></div>
 				</div>
 				<div id="results-panel" class="panel panel-danger">
 					<div class="panel-heading">
 						<h3 class="panel-title">Results</h3>
 					</div>
-					<div id="results" class="panel-body"></div>
+					<div id="results-region" class="panel-body"></div>
 				</div>
 			</div>
 			<div class="col-sm-4">

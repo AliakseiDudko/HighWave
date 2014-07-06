@@ -2,9 +2,17 @@ body {
 	background: #F3F1E8 url(../img/backgroud.png) repeat-x center top;
 }
 
+#search-panel {
+	border-color: #f0ad4e;
+}
+
 #search-panel>.panel-heading {
 	color: #fff;
 	background-image: linear-gradient(to bottom, #f0ad4e 0, #eb9316 100%);
+}
+
+#results-panel {
+	border-color: #d9534f
 }
 
 #results-panel>.panel-heading {
@@ -12,9 +20,17 @@ body {
 	background-image: linear-gradient(to bottom, #d9534f 0, #c12e2a 100%);
 }
 
+#ads-panel {
+	border-color: #5cb85c
+}
+
 #ads-panel>.panel-heading {
 	color: #fff;
 	background-image: linear-gradient(to bottom, #5cb85c 0, #419641 100%);
+}
+
+#search-panel,#ads-panel {
+	height: 160px
 }
 
 .page-header {

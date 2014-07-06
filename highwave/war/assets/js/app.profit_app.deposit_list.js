@@ -6,6 +6,7 @@ MyApp.ProfitApp.DepositList = function() {
 	});
 
 	var DepositView = Backbone.Marionette.ItemView.extend({
+		tagName: "tr",
 		template : "#deposit-template",
 
 		events : {
@@ -22,6 +23,7 @@ MyApp.ProfitApp.DepositList = function() {
 
 	var DepositListView = Backbone.Marionette.CompositeView.extend({
 		tagName : "table",
+		className: "table table-striped",
 		id : "depositList",
 		template : "#deposit-list-template",
 		childView : DepositView,
