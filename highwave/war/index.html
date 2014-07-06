@@ -14,16 +14,16 @@
 
 <script type="text/javascript" src="./assets/bootstrap/js/bootstrap.js"></script>
 
-<script type="text/javascript" src="./assets/marionette/backbone.js"></script>
-<script type="text/javascript" src="./assets/marionette/backbone.marionette.js"></script>
+<script type="text/javascript" src="./assets/backbone.marionette/backbone.js"></script>
+<script type="text/javascript" src="./assets/backbone.marionette/backbone.marionette.js"></script>
 
 <script type="text/javascript" src="./assets/js/app.js"></script>
 <script type="text/javascript" src="./assets/js/app.profit_app.js"></script>
 <script type="text/javascript" src="./assets/js/app.profit_app.deposit_list.js"></script>
 
 <script type="text/template" id="deposit-template">
-<td><%= bankCode %></td>
-<td><%= name %></td>
+<td><%- bankCode %></td>
+<td><%- name %></td>
 </script>
 
 <script type="text/template" id="deposit-list-template">
@@ -38,8 +38,8 @@
 </script>
 
 <script type="text/template" id="deposit-detail-template">
-<h1><%= name %></h1>
-<h2><%= bankCode %></h2>
+<h1><%- name %></h1>
+<h2><%- bankCode %></h2>
 </script>
 
 <script type="text/template" id="profit-layout">
