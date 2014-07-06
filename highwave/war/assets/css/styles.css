@@ -12,13 +12,13 @@ select,input,textarea {
 }
 
 body {
-	background: url(../images/back.gif) repeat-y center center;
+	background: url(../img/back.gif) repeat-y center center;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: .75em;
 }
 
 html {
-	background: #F3F1E8 url(../images/back.png) repeat-x center top;
+	background: #F3F1E8 url(../img/back.png) repeat-x center top;
 }
 
 a:link,a:visited {
@@ -31,7 +31,7 @@ a:hover,a:active {
 }
 
 #content {
-	background: url(../images/top.png) no-repeat left top;
+	background: url(../img/top.png) no-repeat left top;
 	margin: 0 auto;
 	width: 800px;
 	padding: 1px 18px 0;
@@ -99,7 +99,7 @@ a:hover,a:active {
 }
 
 h1 {
-	background: url(../images/logo.png) no-repeat left top;
+	background: url(../img/logo.png) no-repeat left top;
 	text-indent: -1000em;
 	width: 400px;
 	height: 140px;
@@ -111,28 +111,28 @@ h1 {
 	top: 19px;
 	margin-left: 447px;
 	display: block;
-	background: url(../images/hey.png) no-repeat right top;
+	background: url(../img/hey.png) no-repeat right top;
 	text-indent: -1000em;
 	width: 380px;
 	height: 90px;
 }
 
 #generator {
-	background: #F9D955 url(../images/generator-back.png) repeat-x left top;
+	background: #F9D955 url(../img/generator-back.png) repeat-x left top;
 	width: 473px;
 	float: left;
 	position: relative;
 }
 
 #generator h2 {
-	background: url(../images/generator.gif) repeat-x left top;
+	background: url(../img/generator.gif) repeat-x left top;
 	height: 39px;
 	text-indent: -1000em;
 	margin-bottom: 12px;
 }
 
 #generator #data {
-	background: url(../images/generator-corner.gif) no-repeat right bottom;
+	background: url(../img/generator-corner.gif) no-repeat right bottom;
 	height: 254px;
 }
 
@@ -223,7 +223,7 @@ h1 {
 }
 
 #advertisement {
-	background: #C1E32D url(../images/advertisement-back.png) repeat-x left
+	background: #C1E32D url(../img/advertisement-back.png) repeat-x left
 		top;
 	width: 303px;
 	height: 254px;
@@ -231,7 +231,7 @@ h1 {
 }
 
 #advertisement h2 {
-	background: url(../images/advertisement.gif) repeat-x left top;
+	background: url(../img/advertisement.gif) repeat-x left top;
 	height: 39px;
 	text-indent: -1000em;
 }
@@ -244,7 +244,7 @@ h1 {
 }
 
 #advertisement div {
-	background: url(../images/advertisement-corner.gif) no-repeat left
+	background: url(../img/advertisement-corner.gif) no-repeat left
 		bottom;
 	height: 254px;
 }
@@ -257,25 +257,25 @@ h1 {
 
 #results {
 	margin-top: 26px;
-	background: #A91717 url(../images/preview-back.png) repeat-x left top;
+	background: #A91717 url(../img/preview-back.png) repeat-x left top;
 	width: 473px;
 	float: left;
 	height: 433px;
 }
 
 #results h2 {
-	background: url(../images/preview.gif) repeat-x left top;
+	background: url(../img/preview.gif) repeat-x left top;
 	height: 39px;
 	text-indent: -1000em;
 }
 
 #results #resultsinner {
-	background: url(../images/preview-corner.gif) no-repeat right bottom;
+	background: url(../img/preview-corner.gif) no-repeat right bottom;
 	height: 433px;
 }
 
 #results #loader,#results #loaderin {
-	background: #FFF url(../images/preview-text-back.gif) no-repeat left top;
+	background: #FFF url(../img/preview-text-back.gif) no-repeat left top;
 	height: 115px;
 	width: 344px;
 	padding: 40px 24px;
@@ -294,7 +294,7 @@ h1 {
 
 #results #downloadit {
 	display: block;
-	background: #FFF url(../images/download.gif) no-repeat left top;
+	background: #FFF url(../img/download.gif) no-repeat left top;
 	width: 224px;
 	height: 31px;
 	text-indent: -9000em;
@@ -307,25 +307,25 @@ h1 {
 
 #top10 {
 	margin-top: 26px;
-	background: #5CB9E9 url(../images/top10-back.png) repeat-x left top;
+	background: #5CB9E9 url(../img/top10-back.png) repeat-x left top;
 	width: 303px;
 	height: 433px;
 	float: right;
 }
 
 #top10inner {
-	background: url(../images/top10-corner.gif) no-repeat left bottom;
+	background: url(../img/top10-corner.gif) no-repeat left bottom;
 	height: 433px;
 }
 
 #top10 h2 {
-	background: url(../images/top10.gif) repeat-x left top;
+	background: url(../img/top10.gif) repeat-x left top;
 	height: 39px;
 	text-indent: -1000em;
 }
 
 #top10 ol {
-	background: #FFF url(../images/top10-back.gif) no-repeat left top;
+	background: #FFF url(../img/top10-back.gif) no-repeat left top;
 	margin: 10px 0 10px 20px;
 }
 
@@ -353,7 +353,7 @@ h1 {
 	position: absolute;
 	top: -90px;
 	left: 420px;
-	background: url(../images/color-picker.png) no-repeat left top;
+	background: url(../img/color-picker.png) no-repeat left top;
 	height: 258px;
 	width: 266px;
 	display: none;
