@@ -1,26 +1,6 @@
 App = new Marionette.Application();
 
-App.addRegions({
-	searchRegion : "#search-region"
-});
-
-App.SearchView = Marionette.ItemView.extend({
-	template : "#search-template"
-});
-
-App.on("start", function() {
-	var searchView = new App.SearchView();
-	App.searchRegion.show(searchView);
-});
-
-App.start();
-
-
-
-
-MyApp = new Marionette.Application();
-
-var ModalRegion = Backbone.Marionette.Region.extend({
+var ModalRegion = Marionette.Region.extend({
     el : "#modal",
 
     constructor : function() {
@@ -45,11 +25,11 @@ var ModalRegion = Backbone.Marionette.Region.extend({
     }
 });
 
-MyApp.addRegions({
-    content : "#results-region",
-    modal : ModalRegion
+App.addRegions({
+    calculatorRegion : "#calculator-region",
+    modalRegion : ModalRegion
 });
 
 $(document).ready(function() {
-	MyApp.start();
+	App.start();
 });

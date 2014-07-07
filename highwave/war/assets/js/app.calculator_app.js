@@ -1,12 +1,12 @@
-MyApp.ProfitApp = function() {
-	var ProfitApp = {};
+App.CalculatorApp = function() {
+	var CalculatorApp = {};
 
-	var Layout = Backbone.Marionette.LayoutView.extend({
-	    template : "#profit-layout",
+	var Layout = Marionette.LayoutView.extend({
+	    template : "#calculator-layout",
 
 	    regions : {
-	        search : "#search",
-	        results : "#results"
+	        search : "#search-region",
+	        results : "#results-region"
 	    }
 	});
 
@@ -19,7 +19,7 @@ MyApp.ProfitApp = function() {
 		    var self = this;
 
 		    _.bindAll(this, "search");
-		    MyApp.vent.on("search:term", function(term) {
+		    App.vent.on("search:term", function(term) {
 			    self.search(term);
 		    })
 
@@ -37,7 +37,7 @@ MyApp.ProfitApp = function() {
 			    if (deposits.length > 0) {
 				    self.reset(deposits);
 			    } else {
-				    MyApp.vent.trigger("search:noResults");
+				    App.vent.trigger("search:noResults");
 			    }
 		    });
 	    },
@@ -50,15 +50,14 @@ MyApp.ProfitApp = function() {
 		    this.loading = true;
 
 		    var self = this;
-		    MyApp.vent.trigger("search:start");
+		    App.vent.trigger("search:start");
 
 		    var query = "";
 		    $.ajax({
 		        url : "/_ah/api/deposits/v0/deposits",
-		        dataType : "json",
 		        data : query,
 		        success : function(res) {
-			        MyApp.vent.trigger("search:stop");
+			        App.vent.trigger("search:stop");
 			        if (res.items.length == 0) {
 				        callback([]);
 				        return [];
@@ -69,7 +68,7 @@ MyApp.ProfitApp = function() {
 				        var searchResults = [];
 				        _.each(res.items, function(item) {
 					        searchResults[searchResults.length] = new Deposit({
-					        	depositId: item.id,
+					            depositId : item.id,
 					            name : item.displayName,
 					            currency : item.currency
 					        });
@@ -78,7 +77,7 @@ MyApp.ProfitApp = function() {
 				        self.loading = false;
 				        return searchResults;
 			        } else if (res.error) {
-				        MyApp.vent.trigger("search:error");
+				        App.vent.trigger("search:error");
 				        self.loading = false;
 			        }
 		        }
@@ -86,23 +85,21 @@ MyApp.ProfitApp = function() {
 	    }
 	});
 
-	ProfitApp.Deposits = new Deposits();
+	CalculatorApp.Deposits = new Deposits();
 
-	ProfitApp.initializeLayout = function() {
-		ProfitApp.layout = new Layout();
-
-		ProfitApp.layout.on("show", function() {
-			MyApp.vent.trigger("layout:rendered")
+	CalculatorApp.initializeLayout = function() {
+		CalculatorApp.layout = new Layout();
+		CalculatorApp.layout.on("show", function() {
+			App.vent.trigger("layout:rendered");
 		});
 
-		MyApp.content.show(MyApp.ProfitApp.layout);
-
+		App.calculatorRegion.show(App.CalculatorApp.layout);
 	};
 
-	return ProfitApp;
+	return CalculatorApp;
 }();
 
-MyApp.addInitializer(function() {
-	MyApp.ProfitApp.initializeLayout();
-	MyApp.vent.trigger("search:term", "Day 7");
+App.addInitializer(function() {
+	App.CalculatorApp.initializeLayout();
+	App.vent.trigger("search:term", "Day 7");
 });
