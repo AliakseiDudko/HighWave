@@ -35,7 +35,8 @@ App.CalculatorApp = function() {
 		    var self = this;
 		    this.fetchDeposits(searchTerm, function(deposits) {
 			    if (deposits.length > 0) {
-				    self.reset(deposits);
+			    	App.CalculatorApp.DepositList.showDeposits(App.CalculatorApp.Deposits);
+			    	self.reset(deposits);
 			    } else {
 				    App.vent.trigger("search:noResults");
 			    }
@@ -54,7 +55,7 @@ App.CalculatorApp = function() {
 
 		    var query = "";
 		    $.ajax({
-		        url : "/_ah/api/deposits/v0/deposits",
+		        url : "https://high-wave-595.appspot.com/_ah/api/deposits/v0/deposits",
 		        data : query,
 		        success : function(res) {
 			        App.vent.trigger("search:stop");
@@ -101,5 +102,5 @@ App.CalculatorApp = function() {
 
 App.addInitializer(function() {
 	App.CalculatorApp.initializeLayout();
-	App.vent.trigger("search:term", "Day 7");
+	//App.vent.trigger("search:term", "Day 7");
 });
