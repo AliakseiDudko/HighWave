@@ -17,7 +17,7 @@ App.CalculatorApp.DepositList = function() {
 		    var detailView = new DepositDetailView({
 			    model : this.model
 		    });
-		    // App.modalRegion.show(detailView);
+		    App.modalRegion.show(detailView);
 	    }
 	});
 
