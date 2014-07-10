@@ -21,11 +21,17 @@ App.CalculatorApp.DepositList = function() {
 	    }
 	});
 
+	var DepositListEmptyView = Marionette.ItemView.extend({
+	    tagName : "tr",
+	    template : "#deposit-list-emtpy-template"
+	});
+
 	var DepositListView = Marionette.CompositeView.extend({
 	    template : "#deposit-list-template",
 	    className : "table table-striped",
 	    tagName : "table",
 	    childView : DepositView,
+	    emptyView : DepositListEmptyView,
 
 	    showMessage : function(message) {
 		    console.log(message);
@@ -46,19 +52,12 @@ App.CalculatorApp.DepositList = function() {
 	    }
 	});
 
-	var DepositLoadingView = Marionette.ItemView.extend({
-		template: "#deposit-loading-teplate",
-		tagName: "div"
-	});
-	
 	var SearchView = Marionette.ItemView.extend({
 	    template : "#search-template",
 
 	    initialize : function() {
 		    var self = this;
 		    App.vent.on("search:start", function() {
-		    	var loadingView = new DepositLoadingView();
-			    App.CalculatorApp.layout.results.show(loadingView);
 		    });
 		    App.vent.on("search:stop", function() {
 		    });

@@ -35,7 +35,6 @@ App.CalculatorApp = function() {
 		    var self = this;
 		    this.fetchDeposits(searchTerm, function(deposits) {
 			    if (deposits.length > 0) {
-			    	App.CalculatorApp.DepositList.showDeposits(App.CalculatorApp.Deposits);
 			    	self.reset(deposits);
 			    } else {
 				    App.vent.trigger("search:noResults");
@@ -102,5 +101,5 @@ App.CalculatorApp = function() {
 
 App.addInitializer(function() {
 	App.CalculatorApp.initializeLayout();
-	//App.vent.trigger("search:term", "Day 7");
+	App.vent.trigger("search:term", "Day 7");
 });
