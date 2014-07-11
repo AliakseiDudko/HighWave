@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Deposit Calculator</title>
+
+<link href="./assets/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="./assets/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+<link href="./assets/css/application.css" rel="stylesheet">
+
+<script type="text/template" id="calculator-layout">
+<div id="search-panel" class="panel panel-warning">
+<div class="panel-heading">
+<h3 class="panel-title">Search</h3>
+</div>
+<div id="search-region" class="panel-body"></div>
+</div>
+<div id="results-panel" class="panel panel-danger">
+<div class="panel-heading">
+<h3 class="panel-title">Results</h3>
+</div>
+<div id="results-region" class="panel-body"></div>
+</div>
+</script>
+
+<script type="text/template" id="search-template">
+<div class="row">
+<div class="col-md-2">
+<p class="text-info">Amount</p>
+</div>
+<div class="col-md-3">
+<input id="amountText" type="text">
+</div>
+</div>
+<div class="row">
+<div class="col-md-2">
+<p class="text-info">Period (days)</p>
+</div>
+<div class="col-md-3">
+<input type="text">
+</div>
+</div>
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-3">
+<button id="searchButton" type="button" class="btn btn-sm btn-warning pull-right">Search</button>
+</div>
+</div>
+</script>
+
+<script type="text/template" id="deposit-list-template">
+<thead>
+<tr>
+<th>#</th>
+<th>Deposit</th>
+<th>Currency</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</script>
+
+<script type="text/template" id="deposit-list-emtpy-template">
+<td colspan="3">
+<img class="row center-block" src="assets/img/red-ajax-loader-bar.gif" alt="Loading..." />
+</td>
+</script>
+
+<script type="text/template" id="deposit-template">
+<td><%- depositId %></td>
+<td><%- name %></td>
+<td><%- currency %></td>
+</script>
+</head>
+
+<script type="text/template" id="deposit-detail-template">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<h4 class="modal-title">Deposit Details</h4>
+</div>
+<div class="modal-body">
+<div class="row"><p class="text-info"><%- depositId %></p></div>
+<div class="row"><p class="text-info"><%- name %></p></div>
+<div class="row"><p class="text-info"><%- currency %></p></div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</script>
+
+<body>
+	<div class="modal fade"></div>
+
+	<div class="container theme-showcase" role="main">
+		<div class="page-header"></div>
+		<div class="row">
+			<div id="calculator-region" class="col-sm-8"></div>
+			<div class="col-sm-4">
+				<div id="ads-panel" class="panel panel-success">
+					<div class="panel-heading">
+						<h3 class="panel-title">Ads</h3>
+					</div>
+					<div class="panel-body">Advertisement to earn 400$ per month.</div>
+				</div>
+				<div id="news-panel" class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">News</h3>
+					</div>
+					<div class="panel-body">News feed here.</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="./assets/common/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="./assets/common/json2.js"></script>
+	<script type="text/javascript" src="./assets/common/underscore.js"></script>
+
+	<script type="text/javascript" src="./assets/bootstrap/js/bootstrap.js"></script>
+
+	<script type="text/javascript" src="./assets/backbone.marionette/backbone.js"></script>
+	<script type="text/javascript" src="./assets/backbone.marionette/backbone.marionette.js"></script>
+
+	<script type="text/javascript" src="./assets/js/app.js"></script>
+	<script type="text/javascript" src="./assets/js/app.calculator_app.js"></script>
+	<script type="text/javascript" src="./assets/js/app.calculator_app.deposit_list.js"></script>
+</body>
+</html>
