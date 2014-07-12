@@ -33,6 +33,9 @@ App.CalculatorApp = function() {
             this.page = 0;
 
             var self = this;
+
+            self.reset([]);
+
             this.fetchDeposits(searchTerm, function(deposits) {
                 if (deposits.length > 0) {
                     self.reset(deposits);
@@ -45,7 +48,7 @@ App.CalculatorApp = function() {
 
         fetchDeposits: function(searchTerm, callback) {
             if (this.loading) {
-                return true;
+                return;
             }
 
             this.loading = true;
@@ -82,12 +85,21 @@ App.CalculatorApp = function() {
                         App.vent.trigger("search:error");
                         self.loading = false;
                     }
+                    return null;
                 }
             });
         }
     });
 
+    var SearchModel = Backbone.Model.extend({
+        defaults: {
+            amount: 1000000,
+            period: 35
+        }
+    });
+
     CalculatorApp.Deposits = new Deposits();
+    CalculatorApp.SearchModel = new SearchModel();
 
     CalculatorApp.initializeLayout = function() {
         CalculatorApp.layout = new Layout();
@@ -103,5 +115,4 @@ App.CalculatorApp = function() {
 
 App.addInitializer(function() {
     App.CalculatorApp.initializeLayout();
-    App.vent.trigger("search:term", "Day 7");
 });

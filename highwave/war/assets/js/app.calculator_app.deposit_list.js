@@ -52,44 +52,12 @@ App.CalculatorApp.DepositList = function() {
         }
     });
 
-    var SearchView = Marionette.ItemView.extend({
-        template: "#search-template",
-
-        initialize: function() {
-            var self = this;
-            App.vent.on("search:start", function() {});
-            App.vent.on("search:stop", function() {});
-            App.vent.on("search:term", function(term) {
-                self.$("#amountText").val(term);
-            });
-        },
-
-        events: {
-            "click #searchButton": "search"
-        },
-
-        search: function() {
-            var searchTerm = this.$("#amountText").val().trim();
-            if (searchTerm.length > 0) {
-                App.vent.trigger("search:term", searchTerm);
-            }
-            else {
-                App.vent.trigger("search:noSearchTerm", searchTerm);
-            }
-        }
-    });
-
     DepositList.showDeposits = function(deposits) {
         var depositListView = new DepositListView({
             collection: deposits
         });
         App.CalculatorApp.layout.results.show(depositListView);
     };
-
-    App.vent.on("layout:rendered", function() {
-        var searchView = new SearchView();
-        App.CalculatorApp.layout.search.show(searchView);
-    });
 
     return DepositList;
 }();

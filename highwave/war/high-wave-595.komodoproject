@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Komodo Project File - DO NOT EDIT -->
 <project id="995ca1c7-71e2-b744-b05f-c8dff33455f7" kpf_version="5" name="high-wave-595.komodoproject">
+<file id="3b2bf3a0-47a7-694f-aaf0-b6543aacbeeb" idref="995ca1c7-71e2-b744-b05f-c8dff33455f7" name="index.html" url="index.html">
+</file>
 <livefolder id="8362b7c9-a255-3045-9295-f995d66c8588" idref="995ca1c7-71e2-b744-b05f-c8dff33455f7" name="assets" url="assets">
 </livefolder>
-<file id="cf4a4d9d-d2be-9f44-bf19-323d387c4d6a" idref="995ca1c7-71e2-b744-b05f-c8dff33455f7" name="index.html" url="index.html">
-</file>
 <file id="e89995cf-21fe-4547-b026-4bf888964d53" idref="995ca1c7-71e2-b744-b05f-c8dff33455f7" name="favicon.ico" url="favicon.ico">
 </file>
 </project>
