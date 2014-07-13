@@ -54,6 +54,7 @@
 <script type="text/template" id="deposit-list-template">
 <thead>
 <tr>
+<th>Bank</th>
 <th>#</th>
 <th>Deposit</th>
 <th>Currency</th>
@@ -64,12 +65,13 @@
 </script>
 
 <script type="text/template" id="deposit-list-emtpy-template">
-<td colspan="3">
+<td colspan="4">
 <img class="row center-block" src="assets/img/red-ajax-loader-bar.gif" alt="Loading..." />
 </td>
 </script>
 
 <script type="text/template" id="deposit-template">
+<td><img class="bank-logo-16 <%- bank %>"></td>
 <td><%- depositId %></td>
 <td><%- name %></td>
 <td><%- currency %></td>

@@ -72,6 +72,7 @@ App.CalculatorApp = function() {
                         var searchResults = [];
                         _.each(res.items, function(item) {
                             searchResults[searchResults.length] = new Deposit({
+                                bank: item.bankCode,
                                 depositId: item.id,
                                 name: item.displayName,
                                 currency: item.currency

@@ -36,3 +36,13 @@ body {
 .page-header {
 	border-bottom: 0px
 }
+
+.bank-logo-16 {
+	background: url(../img/bank-sprite-16.png) no-repeat;
+	width: 16px;
+	height: 16px;
+}
+
+.bank-logo-16.hcb {
+	background-position: 0 -32px
+}
