@@ -1,14 +1,18 @@
 package com.dudko.highwave;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Named;
+
+import twitter4j.Status;
 
 import com.dudko.highwave.bank.Bank;
 import com.dudko.highwave.bank.BankCode;
 import com.dudko.highwave.bank.BankFactory;
 import com.dudko.highwave.deposit.Deposit;
 import com.dudko.highwave.deposit.DepositFactory;
+import com.dudko.highwave.news.NewsFactory;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiMethod.HttpMethod;
@@ -17,10 +21,12 @@ import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 public class DepositService {
 	public static final DepositFactory depositFactory;
 	public static final BankFactory bankFactory;
+	public static final NewsFactory newsFactory;
 
 	static {
 		depositFactory = new DepositFactory();
 		bankFactory = new BankFactory();
+		newsFactory = new NewsFactory();
 	}
 
 	@ApiMethod(name = "get.deposits.list", path = "deposits", httpMethod = HttpMethod.GET)
@@ -45,7 +51,7 @@ public class DepositService {
 	}
 
 	@ApiMethod(name = "get.deposits.list.by.bank.id", path = "banks/{bankId}/deposits", httpMethod = HttpMethod.GET)
-	public ArrayList<Deposit> getBankDeposites(@Named("bankId") Integer bankId) {
+	public List<Deposit> getBankDeposites(@Named("bankId") Integer bankId) {
 		ArrayList<Deposit> bankDeposits = new ArrayList<Deposit>();
 		Deposit[] deposits = depositFactory.GetAllDeposits();
 
@@ -57,5 +63,10 @@ public class DepositService {
 		}
 
 		return bankDeposits;
+	}
+
+	@ApiMethod(name = "get.news.feed", path = "news", httpMethod = HttpMethod.GET)
+	public List<Status> getNewsFeed() {
+		return newsFactory.getNewsFeed();
 	}
 }

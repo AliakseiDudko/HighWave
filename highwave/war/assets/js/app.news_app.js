@@ -44,7 +44,7 @@ App.NewsApp = function() {
             App.vent.trigger("news:fetch:start");
 
             $.ajax({
-                url: "https://high-wave-595.appspot.com/_ah/api/deposits/v0/deposits",
+                url: "https://high-wave-595.appspot.com/_ah/api/deposits/v0/news",
                 success: function(res) {
                     App.vent.trigger("news:fetch:stop");
                     if (res.items.length == 0) {
@@ -55,7 +55,7 @@ App.NewsApp = function() {
                         var newsResults = [];
                         _.each(res.items, function(item) {
                             newsResults[newsResults.length] = new News({
-                                bank: item.bankCode
+                                text: item.text
                             });
                         });
                         callback(newsResults);
