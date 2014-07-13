@@ -54,7 +54,7 @@
 <script type="text/template" id="deposit-list-template">
 <thead>
 <tr>
-<th>Bank</th>
+<th></th>
 <th>#</th>
 <th>Deposit</th>
 <th>Currency</th>
@@ -76,7 +76,6 @@
 <td><%- name %></td>
 <td><%- currency %></td>
 </script>
-</head>
 
 <script type="text/template" id="deposit-detail-template">
 <div class="modal-dialog">
@@ -95,6 +94,18 @@
 </div>
 </div>
 </div>
+</script>
+</head>
+
+<script type="text/template" id="news-list-template">
+</script>
+
+<script type="text/template" id="news-list-empty-template">
+<img class="row center-block" src="assets/img/blue-ajax-loader-bar.gif" alt="Loading..." />
+</script>
+
+<script type="text/template" id="news-template">
+<input id="periodText" type="text" value="<%- bankCode %>">
 </script>
 
 <body>
@@ -115,7 +126,7 @@
 					<div class="panel-heading">
 						<h3 class="panel-title">News</h3>
 					</div>
-					<div class="panel-body">News feed here.</div>
+					<div id="news-region" class="panel-body"></div>
 				</div>
 			</div>
 		</div>
@@ -134,5 +145,7 @@
 	<script type="text/javascript" src="./assets/js/app.calculator_app.js"></script>
 	<script type="text/javascript" src="./assets/js/app.calculator_app.search.js"></script>
 	<script type="text/javascript" src="./assets/js/app.calculator_app.deposit_list.js"></script>
+	<script type="text/javascript" src="./assets/js/app.news_app.js"></script>
+	<script type="text/javascript" src="./assets/js/app.news_app.news_list.js"></script>
 </body>
 </html>

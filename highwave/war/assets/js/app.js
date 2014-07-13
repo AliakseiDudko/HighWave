@@ -27,6 +27,7 @@ var ModalRegion = Marionette.Region.extend({
 
 App.addRegions({
     calculatorRegion: "#calculator-region",
+	newsRegion : "#news-region",
     modalRegion: ModalRegion
 });
 
