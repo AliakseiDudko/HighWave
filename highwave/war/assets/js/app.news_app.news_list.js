@@ -2,11 +2,13 @@ App.NewsApp.NewsList = function() {
     var NewsList = {};
 
     var NewsView = Marionette.ItemView.extend({
-        template: "#news-template"
+        template: "#news-template",
+        className: "list-group-item"
     });
 
     var NewsListEmptyView = Marionette.ItemView.extend({
-        template: "#news-list-empty-template"
+        template: "#news-list-empty-template",
+        className: "panel-body"
     });
 
     var NewsListView = Marionette.CompositeView.extend({
@@ -35,7 +37,7 @@ App.NewsApp.NewsList = function() {
             collection: news
         });
         App.newsRegion.show(newsListView);
-        
+
         App.vent.trigger("news:load");
     };
 

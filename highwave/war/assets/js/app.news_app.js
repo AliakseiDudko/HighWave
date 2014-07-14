@@ -1,7 +1,16 @@
 App.NewsApp = function() {
     var NewsApp = {};
 
-    var News = Backbone.Model.extend({});
+    var News = Backbone.Model.extend({
+        defaults: {
+            user: {
+                screenName: ""
+            },
+            mediaEntities: [{
+                mediaURL: ""
+            }]
+        }
+    });
 
     var NewsFeed = Backbone.Collection.extend({
         model: News,
@@ -54,9 +63,8 @@ App.NewsApp = function() {
                     if (res.items) {
                         var newsResults = [];
                         _.each(res.items, function(item) {
-                            newsResults[newsResults.length] = new News({
-                                text: item.text
-                            });
+                            var tweet = item.retweetedStatus !== undefined ? item.retweetedStatus : item;
+                            newsResults[newsResults.length] = new News(tweet);
                         });
                         callback(newsResults);
                         self.loading = false;

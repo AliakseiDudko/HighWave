@@ -66,7 +66,7 @@
 
 <script type="text/template" id="deposit-list-emtpy-template">
 <td colspan="4">
-<img class="row center-block" src="assets/img/red-ajax-loader-bar.gif" alt="Loading..." />
+<img class="center-block" src="assets/img/red-ajax-loader-bar.gif" alt="Loading..." />
 </td>
 </script>
 
@@ -101,11 +101,17 @@
 </script>
 
 <script type="text/template" id="news-list-empty-template">
-<img class="row center-block" src="assets/img/blue-ajax-loader-bar.gif" alt="Loading..." />
+<img class="center-block" src="assets/img/blue-ajax-loader-bar.gif" alt="Loading..." />
 </script>
 
 <script type="text/template" id="news-template">
-<span><%- text %></span>
+<a href="https://twitter.com/<%- user.screenName %>" target="_blank">
+<img src="<%- user.profileImageURL %>"/>
+</a>
+<p><%- text %></p>
+<div>
+<img class="img-responsive" src="<%- mediaEntities[0].mediaURL %>"/>	
+</div>
 </script>
 
 <body>
@@ -126,7 +132,7 @@
 					<div class="panel-heading">
 						<h3 class="panel-title">News</h3>
 					</div>
-					<div id="news-region" class="panel-body"></div>
+					<div id="news-region"></div>
 				</div>
 			</div>
 		</div>
