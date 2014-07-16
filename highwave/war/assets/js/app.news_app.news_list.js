@@ -13,6 +13,7 @@ App.NewsApp.NewsList = function() {
 
     var NewsListView = Marionette.CompositeView.extend({
         template: "#news-list-template",
+        className: "",
         childView: NewsView,
         emptyView: NewsListEmptyView,
 
