@@ -6,6 +6,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.joda.time.Seconds;
 
+import twitter4j.Paging;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -31,7 +32,8 @@ public class NewsFactory {
 		Seconds interval = Seconds.secondsBetween(lastTimeGeneration, DateTime.now());
 		if (interval.isGreaterThan(generationInterval)) {
 			try {
-				newsFeed = twitter.getHomeTimeline();
+				Paging paging = new Paging(1, 5);
+				newsFeed = twitter.getHomeTimeline(paging);
 				lastTimeGeneration = DateTime.now();
 			} catch (TwitterException e) {
 				e.printStackTrace();
