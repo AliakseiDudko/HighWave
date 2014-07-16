@@ -27,26 +27,23 @@
 </script>
 
 <script type="text/template" id="search-template">
-<div class="row">
-<div class="col-md-2">
-<p class="text-info">Amount</p>
-</div>
-<div class="col-md-3">
-<input id="amountText" type="text" value="<%- amount %>">
-</div>
-</div>
-<div class="row">
-<div class="col-md-2">
-<p class="text-info">Period (days)</p>
-</div>
-<div class="col-md-3">
-<input id="periodText" type="text" value="<%- period %>">
+<div class="form-horizontal" role="form">
+<div class="form-group">
+<label for="amountText" class="col-md-2 control-label text-info">Amount</label>
+<div class="col-md-4">
+<input type="number" id="amountText" class="form-control" value="<%- amount %>" placeholder="Type here...">
 </div>
 </div>
-<div class="row">
-<div class="col-md-2"></div>
-<div class="col-md-3">
-<button id="searchButton" type="button" class="btn btn-sm btn-warning pull-right">Search</button>
+<div class="form-group">
+<label for="periodText" class="col-md-2 control-label text-info">Password</label>
+<div class="col-md-4">
+<input type="number" id="periodText" class="form-control" value="<%- period %>" placeholder="Period of days...">
+</div>
+</div>
+<div class="form-group">
+<div class="col-md-offset-2 col-md-5">
+<button type="button" id="searchButton" class="btn btn-md btn-warning">Search</button>
+</div>
 </div>
 </div>
 </script>

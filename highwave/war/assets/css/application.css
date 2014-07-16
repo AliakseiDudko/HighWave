@@ -30,7 +30,7 @@ body {
 }
 
 #ads-panel,#search-panel {
-	height: 160px
+	min-height: 215px
 }
 
 #news-panel img#profileImage {
