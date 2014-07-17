@@ -56,12 +56,8 @@ App.CalculatorApp.DepositList = function() {
         var depositListView = new DepositListView({
             collection: deposits
         });
-        App.CalculatorApp.layout.results.show(depositListView);
+        App.resultsRegion.show(depositListView);
     };
 
     return DepositList;
 }();
-
-App.vent.on("layout:rendered", function() {
-    App.CalculatorApp.DepositList.showDeposits(App.CalculatorApp.Deposits);
-});

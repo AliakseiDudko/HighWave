@@ -1,37 +1,27 @@
 App.CalculatorApp = function() {
     var CalculatorApp = {};
 
-    var Layout = Marionette.LayoutView.extend({
-        template: "#calculator-layout",
-
-        regions: {
-            search: "#search-region",
-            results: "#results-region"
-        }
-    });
-
     var Deposit = Backbone.Model.extend();
 
     var Deposits = Backbone.Collection.extend({
         model: Deposit,
 
+        showMessage: function(message) {
+            console.log(message);
+        },
+
         initialize: function() {
             var self = this;
 
             _.bindAll(this, "search");
-            App.vent.on("search:term", function(term) {
+            App.vent.on("search:search", function(term) {
                 self.search(term);
-            })
+            });
 
-            this.maxResults = 40;
-            this.page = 0;
             this.loading = false;
-            this.totalItems = null;
         },
 
         search: function(searchTerm) {
-            this.page = 0;
-
             var self = this;
 
             self.reset([]);
@@ -102,18 +92,10 @@ App.CalculatorApp = function() {
     CalculatorApp.Deposits = new Deposits();
     CalculatorApp.SearchModel = new SearchModel();
 
-    CalculatorApp.initializeLayout = function() {
-        CalculatorApp.layout = new Layout();
-        CalculatorApp.layout.on("show", function() {
-            App.vent.trigger("layout:rendered");
-        });
-
-        App.calculatorRegion.show(App.CalculatorApp.layout);
-    };
-
     return CalculatorApp;
 }();
 
 App.addInitializer(function() {
-    App.CalculatorApp.initializeLayout();
+    App.CalculatorApp.DepositList.showDeposits(App.CalculatorApp.Deposits);
+    App.CalculatorApp.Search.showSearch(App.CalculatorApp.SearchModel);
 });

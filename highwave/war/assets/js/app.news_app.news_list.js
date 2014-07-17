@@ -18,7 +18,7 @@ App.NewsApp.NewsList = function() {
         emptyView: NewsListEmptyView,
 
         showMessage: function(message) {
-            console.log("message");
+            console.log(message);
         },
 
         initialize: function() {
@@ -29,6 +29,12 @@ App.NewsApp.NewsList = function() {
             });
             App.vent.on("news:noResults", function() {
                 self.showMessage("No news found")
+            });
+            App.vent.on("news:fetch:start", function() {
+                self.showMessage("Loading news started.");
+            });
+            App.vent.on("news:fetch:stop", function() {
+                self.showMessage("Loading news finished.");
             });
         }
     });
@@ -44,7 +50,3 @@ App.NewsApp.NewsList = function() {
 
     return NewsList;
 }();
-
-App.vent.on("news:rendered", function() {
-    App.NewsApp.NewsList.showNews(App.NewsApp.NewsFeed);
-});

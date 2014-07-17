@@ -4,11 +4,25 @@ App.CalculatorApp.Search = function() {
     var SearchView = Marionette.ItemView.extend({
         template: "#search-template",
 
+        showMessage: function(message) {
+            console.log(message);
+        },
+
         initialize: function() {
+            _.bindAll(this, "showMessage");
             var self = this;
-            App.vent.on("search:start", function() {});
-            App.vent.on("search:stop", function() {});
-            App.vent.on("search:term", function() {});
+            App.vent.on("search:search", function(term) {
+                self.showMessage("Search " + term + ".");
+            });
+            App.vent.on("search:stop", function(term) {
+                self.showMessage("Search finished.");
+            });
+            App.vent.on("search:noSearchTerm", function() {
+                self.showMessage("No search term.")
+            });
+            App.vent.on("search:noResults", function() {
+                self.showMessage("No results were found.");
+            });
         },
 
         events: {
@@ -18,7 +32,7 @@ App.CalculatorApp.Search = function() {
         search: function() {
             var searchTerm = this.$("#amountText").val().trim();
             if (searchTerm.length > 0) {
-                App.vent.trigger("search:term", searchTerm);
+                App.vent.trigger("search:search", searchTerm);
             }
             else {
                 App.vent.trigger("search:noSearchTerm", searchTerm);
@@ -30,14 +44,10 @@ App.CalculatorApp.Search = function() {
         var searchView = new SearchView({
             model: search
         });
-        App.CalculatorApp.layout.search.show(searchView);
+        App.searchRegion.show(searchView);
 
-        App.vent.trigger("search:term");
+        searchView.search();
     };
 
     return Search;
 }();
-
-App.vent.on("layout:rendered", function() {
-    App.CalculatorApp.Search.showSearch(App.CalculatorApp.SearchModel);
-});

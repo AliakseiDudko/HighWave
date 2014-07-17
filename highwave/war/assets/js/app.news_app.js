@@ -23,7 +23,6 @@ App.NewsApp = function() {
                 self.load();
             });
 
-            this.maxResults = 20;
             this.loading = false;
         },
 
@@ -82,13 +81,9 @@ App.NewsApp = function() {
 
     NewsApp.NewsFeed = new NewsFeed();
 
-    NewsApp.initializeRegion = function() {
-        App.vent.trigger("news:rendered");
-    };
-
     return NewsApp;
 }();
 
 App.addInitializer(function() {
-    App.NewsApp.initializeRegion();
+    App.NewsApp.NewsList.showNews(App.NewsApp.NewsFeed);
 });

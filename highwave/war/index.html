@@ -12,18 +12,6 @@
 <link href="./assets/css/application.css" rel="stylesheet">
 
 <script type="text/template" id="calculator-layout">
-<div id="search-panel" class="panel panel-warning">
-<div class="panel-heading">
-<h3 class="panel-title">Search</h3>
-</div>
-<div id="search-region" class="panel-body"></div>
-</div>
-<div id="results-panel" class="panel panel-danger">
-<div class="panel-heading">
-<h3 class="panel-title">Results</h3>
-</div>
-<div id="results-region" class="panel-body"></div>
-</div>
 </script>
 
 <script type="text/template" id="search-template">
@@ -117,7 +105,14 @@
 	<div class="container theme-showcase" role="main">
 		<div class="page-header"></div>
 		<div class="row">
-			<div id="calculator-region" class="col-sm-8"></div>
+			<div class="col-sm-8">
+				<div id="search-panel" class="panel panel-warning">
+					<div class="panel-heading">
+						<h3 class="panel-title">Search</h3>
+					</div>
+					<div id="search-region" class="panel-body"></div>
+				</div>
+			</div>
 			<div class="col-sm-4">
 				<div id="ads-panel" class="panel panel-success">
 					<div class="panel-heading">
@@ -125,12 +120,25 @@
 					</div>
 					<div class="panel-body">Advertisement to earn 400$ per month.</div>
 				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-8">
+				<div id="results-panel" class="panel panel-danger">
+					<div class="panel-heading">
+						<h3 class="panel-title">Results</h3>
+					</div>
+					<div id="results-region" class="panel-body"></div>
+				</div>
+			</div>
+			<div class="col-sm-4">
 				<div id="news-panel" class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">News</h3>
 					</div>
 					<div id="news-region"></div>
 				</div>
+				<div></div>
 			</div>
 		</div>
 	</div>
