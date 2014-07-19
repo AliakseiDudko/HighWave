@@ -2,12 +2,12 @@ App.CalculatorApp.DepositList = function() {
     var DepositList = {};
 
     var DepositDetailView = Marionette.ItemView.extend({
-        template: "#deposit-detail-template"
+        template: Backbone.Marionette.TemplateCache.get("deposit-detail-template")
     });
 
     var DepositView = Marionette.ItemView.extend({
         tagName: "tr",
-        template: "#deposit-template",
+        template: Backbone.Marionette.TemplateCache.get("deposit-template"),
 
         events: {
             "click": "showDepositDetail"
@@ -23,11 +23,11 @@ App.CalculatorApp.DepositList = function() {
 
     var DepositListEmptyView = Marionette.ItemView.extend({
         tagName: "tr",
-        template: "#deposit-list-emtpy-template"
+        template: Backbone.Marionette.TemplateCache.get("deposit-list-emtpy-template")
     });
 
     var DepositListView = Marionette.CompositeView.extend({
-        template: "#deposit-list-template",
+        template: Backbone.Marionette.TemplateCache.get("deposit-list-template"),
         className: "table table-striped",
         tagName: "table",
         childView: DepositView,

@@ -10,99 +10,10 @@
 <link href="./assets/bootstrap/css/bootstrap.css" rel="stylesheet">
 <link href="./assets/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
 <link href="./assets/css/application.css" rel="stylesheet">
-
-<script type="text/template" id="calculator-layout">
-</script>
-
-<script type="text/template" id="search-template">
-<div class="form-horizontal" role="form">
-<div class="form-group">
-<label for="amountText" class="col-md-2 control-label text-info">Amount</label>
-<div class="col-md-4">
-<input type="number" id="amountText" class="form-control" value="<%- amount %>" placeholder="Type here...">
-</div>
-</div>
-<div class="form-group">
-<label for="periodText" class="col-md-2 control-label text-info">Password</label>
-<div class="col-md-4">
-<input type="number" id="periodText" class="form-control" value="<%- period %>" placeholder="Period of days...">
-</div>
-</div>
-<div class="form-group">
-<div class="col-md-offset-2 col-md-5">
-<button type="button" id="searchButton" class="btn btn-md btn-warning">Search</button>
-</div>
-</div>
-</div>
-</script>
-
-<script type="text/template" id="deposit-list-template">
-<thead>
-<tr>
-<th></th>
-<th>#</th>
-<th>Deposit</th>
-<th>Currency</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</script>
-
-<script type="text/template" id="deposit-list-emtpy-template">
-<td colspan="4">
-<img class="img-responsive center-block" src="assets/img/red-ajax-loader-bar.gif" alt="Loading..." />
-</td>
-</script>
-
-<script type="text/template" id="deposit-template">
-<td><img class="bank-logo-16 <%- bank %>"></td>
-<td><%- depositId %></td>
-<td><%- name %></td>
-<td><%- currency %></td>
-</script>
-
-<script type="text/template" id="deposit-detail-template">
-<div class="modal-dialog">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title">Deposit Details</h4>
-</div>
-<div class="modal-body">
-<div class="row"><p class="text-info"><%- depositId %></p></div>
-<div class="row"><p class="text-info"><%- name %></p></div>
-<div class="row"><p class="text-info"><%- currency %></p></div>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-</div>
-</div>
-</div>
-</script>
-</head>
-
-<script type="text/template" id="news-list-template">
-</script>
-
-<script type="text/template" id="news-list-empty-template">
-<img class="img-responsive center-block" src="assets/img/blue-ajax-loader-bar.gif" alt="Loading..." />
-</script>
-
-<script type="text/template" id="news-template">
-<div class="clearfix">
-<a href="https://twitter.com/<%- user.screenName %>" target="_blank">
-<img id="profileImage" class="pull-left" src="<%- user.profileImageURL %>"/>
-</a>
-<p><%- text %></p>
-</div>
-<img class="offset2 img-responsive" src="<%- mediaEntities[0].mediaURL %>"/>
-</script>
-
 <body>
 	<div class="modal fade"></div>
 
-	<div class="container theme-showcase" role="main">
+	<div class="container theme-showcase">
 		<div class="page-header"></div>
 		<div class="row">
 			<div class="col-sm-8">
@@ -152,6 +63,7 @@
 	<script type="text/javascript" src="./assets/backbone.marionette/backbone.js"></script>
 	<script type="text/javascript" src="./assets/backbone.marionette/backbone.marionette.js"></script>
 
+	<script type="text/javascript" src="./assets/js/template-cache.js"></script>
 	<script type="text/javascript" src="./assets/js/app.js"></script>
 	<script type="text/javascript" src="./assets/js/app.calculator_app.js"></script>
 	<script type="text/javascript" src="./assets/js/app.calculator_app.search.js"></script>

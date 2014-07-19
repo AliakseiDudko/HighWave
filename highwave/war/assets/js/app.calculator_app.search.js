@@ -2,7 +2,7 @@ App.CalculatorApp.Search = function() {
     var Search = {};
 
     var SearchView = Marionette.ItemView.extend({
-        template: "#search-template",
+        template: Backbone.Marionette.TemplateCache.get("search-template"),
 
         showMessage: function(message) {
             console.log(message);

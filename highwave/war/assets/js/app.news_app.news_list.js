@@ -2,17 +2,17 @@ App.NewsApp.NewsList = function() {
     var NewsList = {};
 
     var NewsView = Marionette.ItemView.extend({
-        template: "#news-template",
+        template: Backbone.Marionette.TemplateCache.get("news-template"),
         className: "list-group-item"
     });
 
     var NewsListEmptyView = Marionette.ItemView.extend({
-        template: "#news-list-empty-template",
+        template: Backbone.Marionette.TemplateCache.get("news-list-empty-template"),
         className: "panel-body"
     });
 
     var NewsListView = Marionette.CompositeView.extend({
-        template: "#news-list-template",
+        template: Backbone.Marionette.TemplateCache.get("news-list-template"),
         className: "",
         childView: NewsView,
         emptyView: NewsListEmptyView,
