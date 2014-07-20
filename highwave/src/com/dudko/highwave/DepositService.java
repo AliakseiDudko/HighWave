@@ -42,4 +42,9 @@ public class DepositService {
 	public Status[] getNewsFeed() {
 		return NewsFactory.getNewsFeed();
 	}
+
+	@ApiMethod(name = "add.daily.exchange.rates.tweet", path = "news/addDailyExchangeRateTweet", httpMethod = HttpMethod.GET)
+	public void addNews() {
+		NewsFactory.postDailyExchangeRateTweet();
+	}
 }

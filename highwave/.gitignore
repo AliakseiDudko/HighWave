@@ -1,6 +1,4 @@
-/.DS_Store
-/war/.DS_Store
-/war/assets/.DS_Store
-/war/assets/img/.DS_Store
-/war/WEB-INF
-
+/war/WEB-INF/classes
+/war/WEB-INF/deposits
+/war/WEB-INF/deposits-v0.api
+/war/WEB-INF/lib
