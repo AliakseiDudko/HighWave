@@ -28,7 +28,7 @@ public class NewsFactory {
 		lastTimeGeneration = DateTime.now().minusSeconds(seconds);
 	}
 
-	public List<Status> getNewsFeed() {
+	public static Status[] getNewsFeed() {
 		Seconds interval = Seconds.secondsBetween(lastTimeGeneration, DateTime.now());
 		if (interval.isGreaterThan(generationInterval)) {
 			try {
@@ -40,6 +40,6 @@ public class NewsFactory {
 			}
 		}
 
-		return newsFeed;
+		return newsFeed.toArray(new Status[newsFeed.size()]);
 	}
 }

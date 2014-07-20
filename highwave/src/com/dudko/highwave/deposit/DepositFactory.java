@@ -3,6 +3,8 @@ package com.dudko.highwave.deposit;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.dudko.highwave.deposit.deposits.Deposit;
+import com.dudko.highwave.deposit.deposits.OnWaveDeposit;
 import com.dudko.highwave.deposit.deposits.StartDeposit;
 
 public class DepositFactory {
@@ -12,15 +14,14 @@ public class DepositFactory {
 	static {
 		deposits = new HashMap<Integer, Deposit>();
 
-		deposits.put(1, new StartDeposit());
-		deposits.put(2, new StartDeposit());
-		deposits.put(3, new StartDeposit());
-		deposits.put(4, new StartDeposit());
-		deposits.put(5, new StartDeposit());
-		deposits.put(6, new StartDeposit());
-		deposits.put(7, new StartDeposit());
+		AddDeposit(new StartDeposit());
+		AddDeposit(new OnWaveDeposit());
 
 		depoisitsArray = deposits.values().toArray(new Deposit[deposits.size()]);
+	}
+
+	private static void AddDeposit(Deposit deposit) {
+		deposits.put(deposit.id, deposit);
 	}
 
 	public Deposit GetDeposit(int depositId) {

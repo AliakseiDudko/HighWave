@@ -2,7 +2,7 @@ App.NewsApp.NewsList = function() {
     var NewsList = {};
 
     var NewsView = Marionette.ItemView.extend({
-        template: Backbone.Marionette.TemplateCache.get("news-template"),
+        template: Backbone.Marionette.TemplateCache.get("news-list-item-template"),
         className: "list-group-item"
     });
 

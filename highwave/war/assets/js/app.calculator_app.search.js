@@ -11,10 +11,10 @@ App.CalculatorApp.Search = function() {
         initialize: function() {
             _.bindAll(this, "showMessage");
             var self = this;
-            App.vent.on("search:search", function(term) {
-                self.showMessage("Search " + term + ".");
+            App.vent.on("search:searchQuery", function(query) {
+                self.showMessage("Search " + query + ".");
             });
-            App.vent.on("search:stop", function(term) {
+            App.vent.on("search:stop", function() {
                 self.showMessage("Search finished.");
             });
             App.vent.on("search:noSearchTerm", function() {
@@ -30,12 +30,14 @@ App.CalculatorApp.Search = function() {
         },
 
         search: function() {
-            var searchTerm = this.$("#amountText").val().trim();
-            if (searchTerm.length > 0) {
-                App.vent.trigger("search:search", searchTerm);
-            }
-            else {
-                App.vent.trigger("search:noSearchTerm", searchTerm);
+            var amount = this.$("#amountText").val().trim();
+            var period = this.$("#periodText").val().trim();
+
+            if (amount.length !== 0 && period.length !== 0) {
+                var searchQuery = "amount=" + amount + "&period=" + period;
+                App.vent.trigger("search:searchQuery", searchQuery);
+            } else {
+                App.vent.trigger("search:noSearchQuery");
             }
         }
     });

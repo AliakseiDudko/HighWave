@@ -48,6 +48,10 @@ body {
 	height: 16px;
 }
 
+.bank-logo-16.bapb{
+	background-position: -48px 0
+}
+
 .bank-logo-16.hcb {
 	background-position: 0 -32px
 }

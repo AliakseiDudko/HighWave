@@ -7,7 +7,7 @@ App.CalculatorApp.DepositList = function() {
 
     var DepositView = Marionette.ItemView.extend({
         tagName: "tr",
-        template: Backbone.Marionette.TemplateCache.get("deposit-template"),
+        template: Backbone.Marionette.TemplateCache.get("deposit-list-item-template"),
 
         events: {
             "click": "showDepositDetail"

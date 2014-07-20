@@ -11,13 +11,13 @@ import com.dudko.highwave.deposit.AccountStatementRecord;
 import com.dudko.highwave.deposit.Currency;
 import com.dudko.highwave.deposit.DepositAccount;
 
-public class StartDeposit extends Deposit {
-	public StartDeposit() {
-		id = 1;
-		bank = BankFactory.GetBank(BankCode.BelAgroPromBank);
-		name = "Старт 34";
+public class OnWaveDeposit extends Deposit {
+	public OnWaveDeposit() {
+		id = 2;
+		bank = BankFactory.GetBank(BankCode.HomeCreditBank);
+		name = "На волне";
 		currency = Currency.BYR;
-		interestRate = 34.0f;
+		interestRate = 25.0f;
 	}
 
 	@Override
@@ -29,15 +29,11 @@ public class StartDeposit extends Deposit {
 		AccountStatementRecord record = new AccountStatementRecord(periodDate, periodAmount, interestRate, "Открытие вклада.");
 		list.add(record);
 
-		for (int i = 0; i < 3; i++) {
-			periodDate = periodDate.plusDays(30);
-			periodAmount = calculatePeriod(periodAmount, interestRate, 30);
-			record = new AccountStatementRecord(periodDate, periodAmount, interestRate, "Капитализация.");
-			list.add(record);
-		}
+		periodDate = periodDate.plusDays(10);
+		periodAmount = calculatePeriod(periodAmount, interestRate, 10);
+		record = new AccountStatementRecord(periodDate, periodAmount, interestRate, "Капитализация.");
+		list.add(record);
 
-		periodDate = periodDate.plusDays(5);
-		periodAmount = calculatePeriod(periodAmount, interestRate, 5);
 		record = new AccountStatementRecord(periodDate, periodAmount, interestRate, "Закрытие вклада.");
 		list.add(record);
 

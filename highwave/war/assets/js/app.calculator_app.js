@@ -14,19 +14,19 @@ App.CalculatorApp = function() {
             var self = this;
 
             _.bindAll(this, "search");
-            App.vent.on("search:search", function(term) {
-                self.search(term);
+            App.vent.on("search:searchQuery", function(query) {
+                self.search(query);
             });
 
             this.loading = false;
         },
 
-        search: function(searchTerm) {
+        search: function(searchQuery) {
             var self = this;
 
             self.reset([]);
 
-            this.fetchDeposits(searchTerm, function(deposits) {
+            this.fetchDeposits(searchQuery, function(deposits) {
                 if (deposits.length > 0) {
                     self.reset(deposits);
                 }
@@ -36,7 +36,7 @@ App.CalculatorApp = function() {
             });
         },
 
-        fetchDeposits: function(searchTerm, callback) {
+        fetchDeposits: function(searchQuery, callback) {
             if (this.loading) {
                 return;
             }
@@ -46,10 +46,9 @@ App.CalculatorApp = function() {
             var self = this;
             App.vent.trigger("search:start");
 
-            var query = "";
             $.ajax({
-                url: "https://high-wave-595.appspot.com/_ah/api/deposits/v0/deposits",
-                data: query,
+                url: "/_ah/api/deposits/v0/deposits",
+                data: searchQuery,
                 success: function(res) {
                     App.vent.trigger("search:stop");
                     if (res.items.length == 0) {
@@ -61,12 +60,7 @@ App.CalculatorApp = function() {
                         self.totalItems = res.totalItems;
                         var searchResults = [];
                         _.each(res.items, function(item) {
-                            searchResults[searchResults.length] = new Deposit({
-                                bank: item.bankCode,
-                                depositId: item.id,
-                                name: item.displayName,
-                                currency: item.currency
-                            });
+                            searchResults[searchResults.length] = new Deposit(item);
                         });
                         callback(searchResults);
                         self.loading = false;
