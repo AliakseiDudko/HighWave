@@ -59,7 +59,7 @@ public class NewsFactory {
 		return newsFeed.toArray(new Status[newsFeed.size()]);
 	}
 
-	public static void postDailyExchangeRateTweet() {
+	public static void addExchangeRateTweet() {
 		Map<String, String> map = parseDailyExchangeRate();
 
 		String tweet = "Официальный курс белорусского рубля:\n";

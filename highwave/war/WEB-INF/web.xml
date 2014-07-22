@@ -14,8 +14,25 @@
 			<param-value>com.dudko.highwave.DepositService</param-value>
 		</init-param>
 	</servlet>
+	<servlet>
+		<servlet-name>AddExchangeRateTweetServlet</servlet-name>
+		<servlet-class>com.dudko.highwave.cron.AddExchangeRateTweetServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>SystemServiceServlet</servlet-name>
 		<url-pattern>/_ah/spi/*</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddExchangeRateTweetServlet</servlet-name>
+		<url-pattern>/cron/addExchangeRateTweet</url-pattern>
+	</servlet-mapping>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>cron</web-resource-name>
+			<url-pattern>/cron/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
 </web-app>
