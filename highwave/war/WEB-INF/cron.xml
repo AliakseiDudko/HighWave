@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cronentries>
   <cron>
-    <url>/news/addDailyExchangeRateTweet</url>
-    <description>Add a new tweet with exchange rates information</description>
-    <schedule>every 1 minutes</schedule>
+    <url>/cron/addExchangeRateTweet</url>
+    <description>Add a new tweet with exchange rates information.</description>
+    <schedule>every day 12:00</schedule>
     <timezone>Europe/Minsk</timezone>
   </cron>
 </cronentries>
