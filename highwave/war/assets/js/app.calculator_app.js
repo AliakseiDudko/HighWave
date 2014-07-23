@@ -47,7 +47,7 @@ App.CalculatorApp = function() {
             App.vent.trigger("search:start");
 
             $.ajax({
-                url: "/_ah/api/deposits/v0/deposits",
+                url: "https://high-wave-595.appspot.com/_ah/api/deposits/v0/deposits",
                 data: searchQuery,
                 success: function(res) {
                     App.vent.trigger("search:stop");

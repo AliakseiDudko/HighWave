@@ -1,5 +1,6 @@
 package com.dudko.highwave.news;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,8 +23,10 @@ import org.xml.sax.SAXException;
 
 import com.dudko.highwave.deposit.Currency;
 
+import twitter4j.GeoLocation;
 import twitter4j.Paging;
 import twitter4j.Status;
+import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -62,12 +65,19 @@ public class NewsFactory {
 	public static void addExchangeRateTweet() {
 		Map<String, String> map = parseDailyExchangeRate();
 
-		String tweet = "Официальный курс белорусского рубля:\n";
-		tweet += Currency.USD + ": " + map.get(Currency.USD.toString()) + "\n";
-		tweet += Currency.EUR + ": " + map.get(Currency.EUR.toString()) + "\n";
-		tweet += Currency.RUB + ": " + map.get(Currency.RUB.toString()) + "\n";
-		System.out.println(tweet);
-		System.out.println(DateTime.now());
+		String message = "Официальный курс белорусского рубля:\r\n";
+		message += Currency.USD + ": " + map.get(Currency.USD.toString()) + "\r\n";
+		message += Currency.EUR + ": " + map.get(Currency.EUR.toString()) + "\r\n";
+		message += Currency.RUB + ": " + map.get(Currency.RUB.toString()) + "\r\n";
+
+		String filePath = String.format("./assets/tweet/media/%d.jpg", DateTime.now().getDayOfMonth());
+		File image = new File(filePath);
+
+		GeoLocation location = new GeoLocation(53.900066d, 27.558531d);
+
+		StatusUpdate tweet = new StatusUpdate(message);
+		tweet.setMedia(image);
+		tweet.setLocation(location);
 
 		try {
 			twitter.updateStatus(tweet);

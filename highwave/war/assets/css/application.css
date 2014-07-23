@@ -33,9 +33,15 @@ body {
 	min-height: 215px
 }
 
-#news-panel img#profileImage {
-	margin-right: 10px;
-	margin-bottom: 10px;
+#news-panel #tweet-header img {
+	border-radius: 4px;
+	height: 24px;
+	margin: 0 6px 0 0;
+	width: 24px;
+}
+
+#news-panel .list-group-item p {
+	white-space: pre-wrap
 }
 
 .page-header {
@@ -48,7 +54,7 @@ body {
 	height: 16px;
 }
 
-.bank-logo-16.bapb{
+.bank-logo-16.bapb {
 	background-position: -48px 0
 }
 

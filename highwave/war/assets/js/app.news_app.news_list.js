@@ -13,7 +13,6 @@ App.NewsApp.NewsList = function() {
 
     var NewsListView = Marionette.CompositeView.extend({
         template: Backbone.Marionette.TemplateCache.get("news-list-template"),
-        className: "",
         childView: NewsView,
         emptyView: NewsListEmptyView,
 
