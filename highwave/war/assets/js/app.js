@@ -33,7 +33,7 @@ App.addRegions({
     modalRegion: ModalRegion
 });
 
-App.ApiUrl = window.location.origin + "/_ah/api";
+App.ApiUrl = "https://high-wave-595.appspot.com/_ah/api";
 
 function initGoogleApi() {
     gapi.client.load("deposits", "v0", function() {
