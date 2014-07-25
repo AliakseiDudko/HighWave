@@ -33,7 +33,7 @@ App.addRegions({
     modalRegion: ModalRegion
 });
 
-App.ApiUrl = "//" + window.location.host + "/_ah/api";
+App.ApiUrl = window.location.origin + "/_ah/api";
 
 function initGoogleApi() {
     gapi.client.load("deposits", "v0", function() {
