@@ -34,7 +34,10 @@ App.CalculatorApp.Search = function() {
             var period = this.$("#periodText").val().trim();
 
             if (amount.length !== 0 && period.length !== 0) {
-                var searchQuery = "amount=" + amount + "&period=" + period;
+                var searchQuery = {
+                    amount: amount,
+                    period: period
+                };
                 App.vent.trigger("search:searchQuery", searchQuery);
             } else {
                 App.vent.trigger("search:noSearchQuery");

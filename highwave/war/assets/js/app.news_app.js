@@ -6,9 +6,9 @@ App.NewsApp = function() {
             user: {
                 screenName: ""
             },
-            mediaEntities: [{
+            mediaEntities: [ {
                 mediaURL: ""
-            }]
+            } ]
         }
     });
 
@@ -34,8 +34,7 @@ App.NewsApp = function() {
             this.fetchNews(function(news) {
                 if (news.length > 0) {
                     self.reset(news);
-                }
-                else {
+                } else {
                     App.vent.trigger("news:noResults");
                 }
             });
@@ -51,29 +50,21 @@ App.NewsApp = function() {
             var self = this;
             App.vent.trigger("news:fetch:start");
 
-            $.ajax({
-                url: "https://high-wave-595.appspot.com/_ah/api/deposits/v0/news",
-                success: function(res) {
-                    App.vent.trigger("news:fetch:stop");
-                    if (res.items.length == 0) {
-                        callback([]);
-                        return [];
-                    }
-                    if (res.items) {
-                        var newsResults = [];
-                        _.each(res.items, function(item) {
-                            var tweet = item.retweetedStatus !== undefined ? item.retweetedStatus : item;
-                            newsResults[newsResults.length] = new News(tweet);
-                        });
-                        callback(newsResults);
-                        self.loading = false;
-                        return newsResults;
-                    }
-                    else if (res.error) {
-                        App.vent.trigger("news:error");
-                        self.loading = false;
-                    }
-                    return null;
+            gapi.client.deposits.get.news.feed().execute(function(res) {
+                App.vent.trigger("news:fetch:stop");
+                if (res.error) {
+                    App.vent.trigger("news:error");
+                    callback([]);
+                    self.loading = false;
+                }
+                if (res.items) {
+                    var newsResults = [];
+                    _.each(res.items, function(item) {
+                        var tweet = item.retweetedStatus !== undefined ? item.retweetedStatus : item;
+                        newsResults[newsResults.length] = new News(tweet);
+                    });
+                    callback(newsResults);
+                    self.loading = false;
                 }
             });
         }

@@ -29,8 +29,7 @@ App.CalculatorApp = function() {
             this.fetchDeposits(searchQuery, function(deposits) {
                 if (deposits.length > 0) {
                     self.reset(deposits);
-                }
-                else {
+                } else {
                     App.vent.trigger("search:noResults");
                 }
             });
@@ -46,31 +45,20 @@ App.CalculatorApp = function() {
             var self = this;
             App.vent.trigger("search:start");
 
-            $.ajax({
-                url: "https://high-wave-595.appspot.com/_ah/api/deposits/v0/deposits",
-                data: searchQuery,
-                success: function(res) {
-                    App.vent.trigger("search:stop");
-                    if (res.items.length == 0) {
-                        callback([]);
-                        return [];
-                    }
-                    if (res.items) {
-                        self.page++;
-                        self.totalItems = res.totalItems;
-                        var searchResults = [];
-                        _.each(res.items, function(item) {
-                            searchResults[searchResults.length] = new Deposit(item);
-                        });
-                        callback(searchResults);
-                        self.loading = false;
-                        return searchResults;
-                    }
-                    else if (res.error) {
-                        App.vent.trigger("search:error");
-                        self.loading = false;
-                    }
-                    return null;
+            gapi.client.deposits.get.deposits.list(searchQuery).execute(function(res) {
+                App.vent.trigger("search:stop");
+                if (res.error) {
+                    App.vent.trigger("search:error");
+                    callback([]);
+                    self.loading = false;
+                }
+                if (res.items) {
+                    var searchResults = [];
+                    _.each(res.items, function(item) {
+                        searchResults[searchResults.length] = new Deposit(item);
+                    });
+                    callback(searchResults);
+                    self.loading = false;
                 }
             });
         }
