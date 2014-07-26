@@ -48,6 +48,14 @@ body {
 	border-bottom: 0px
 }
 
+.progress {
+	margin-bottom: 0;
+}
+
+.progress-bar-zero {
+	background-image: linear-gradient(to bottom, #FFD2D2 0%, #FD9D9D 100%)
+}
+
 .bank-logo-16 {
 	background: url(../img/bank-sprite-16.png) no-repeat;
 	width: 16px;
