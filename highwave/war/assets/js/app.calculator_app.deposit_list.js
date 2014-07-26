@@ -5,6 +5,18 @@ App.CalculatorApp.DepositList = function() {
         template: Backbone.Marionette.TemplateCache.get("deposit-detail-template")
     });
 
+    var AccountStatementItemView = Marionette.ItemView.extend({
+        tagName: "tr",
+        template: Backbone.Marionette.TemplateCache.get("account-statement-list-item-template")
+    });
+
+    var AccountStatementView = Marionette.CompositeView.extend({
+        template: Backbone.Marionette.TemplateCache.get("account-statement-list-template"),
+        className: "table table-striped",
+        tagName: "table",
+        childView: AccountStatementItemView
+    });
+
     var DepositView = Marionette.ItemView.extend({
         tagName: "tr",
         template: Backbone.Marionette.TemplateCache.get("deposit-list-item-template"),
@@ -14,10 +26,17 @@ App.CalculatorApp.DepositList = function() {
         },
 
         showDepositDetail: function() {
+            App.CalculatorApp.AccountStatement.reset(this.model.get("accountStatement"));
+            
             var detailView = new DepositDetailView({
                 model: this.model
             });
             App.modalRegion.show(detailView);
+
+            var accountStatementView = new AccountStatementView({
+                collection: App.CalculatorApp.AccountStatement
+            });
+            App.accountStatementRegion.show(accountStatementView);
         }
     });
 

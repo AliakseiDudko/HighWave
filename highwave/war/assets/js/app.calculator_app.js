@@ -1,6 +1,12 @@
 App.CalculatorApp = function() {
     var CalculatorApp = {};
 
+    var AccountStatementItem = Backbone.Model.extend();
+
+    var AccountStatement = Backbone.Collection.extend({
+        model: AccountStatementItem
+    });
+
     var Deposit = Backbone.Model.extend();
 
     var Deposits = Backbone.Collection.extend({
@@ -73,6 +79,7 @@ App.CalculatorApp = function() {
 
     CalculatorApp.Deposits = new Deposits();
     CalculatorApp.SearchModel = new SearchModel();
+    CalculatorApp.AccountStatement = new AccountStatement();
 
     return CalculatorApp;
 }();
