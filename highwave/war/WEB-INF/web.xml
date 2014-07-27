@@ -18,6 +18,10 @@
 		<servlet-name>AddExchangeRateTweetServlet</servlet-name>
 		<servlet-class>com.dudko.highwave.cron.AddExchangeRateTweetServlet</servlet-class>
 	</servlet>
+	<servlet>
+	    <servlet-name>AddExchangeRateStatsTweetServlet</servlet-name>
+	    <servlet-class>com.dudko.highwave.cron.AddExchangeRateStatsTweetServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>SystemServiceServlet</servlet-name>
 		<url-pattern>/_ah/spi/*</url-pattern>
@@ -25,6 +29,10 @@
 	<servlet-mapping>
 		<servlet-name>AddExchangeRateTweetServlet</servlet-name>
 		<url-pattern>/cron/addExchangeRateTweet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	    <servlet-name>AddExchangeRateStatsTweetServlet</servlet-name>
+	    <url-pattern>/cron/addExchangeRateStatsTweet</url-pattern>
 	</servlet-mapping>
 	<security-constraint>
 		<web-resource-collection>

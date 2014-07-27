@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cronentries>
-  <cron>
-    <url>/cron/addExchangeRateTweet</url>
-    <description>Add a new tweet with exchange rates information.</description>
-    <schedule>every day 12:00</schedule>
-    <timezone>Europe/Minsk</timezone>
-  </cron>
+	<cron>
+		<url>/cron/addExchangeRateTweet</url>
+		<description>Add a new tweet with exchange rates information.
+		</description>
+		<schedule>every mon,tue,wed,thu,fri 12:00</schedule>
+		<timezone>Europe/Minsk</timezone>
+	</cron>
+	<cron>
+		<url>/cron/addExchangeRateStatsTweet</url>
+		<description>Add a new tweet with exchange rate statistic.
+		</description>
+		<schedule>every mon,tue,wed,thu,fri 9:00</schedule>
+		<timezone>Europe/Minsk</timezone>
+	</cron>
 </cronentries>

@@ -14,6 +14,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Seconds;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -35,25 +36,27 @@ public class NewsFactory {
 	private static final Twitter twitter;
 	private static List<Status> newsFeed;
 
-	private static final Seconds generationInterval;
 	private static DateTime lastTimeGeneration;
+
+	private static DateTimeZone minskZone;
 
 	static {
 		twitter = new TwitterFactory().getInstance();
 		newsFeed = new ArrayList<Status>();
 
-		int seconds = 60;
-		generationInterval = Seconds.seconds(seconds);
-		lastTimeGeneration = DateTime.now().minusHours(1);
+		minskZone = DateTimeZone.forID("Europe/Minsk");
+		lastTimeGeneration = DateTime.now(minskZone).minusHours(1);
 	}
 
 	public static Status[] getNewsFeed() {
-		Seconds interval = Seconds.secondsBetween(lastTimeGeneration, DateTime.now());
+		Seconds generationInterval = Seconds.seconds(60);
+
+		Seconds interval = Seconds.secondsBetween(lastTimeGeneration, DateTime.now(minskZone));
 		if (interval.isGreaterThan(generationInterval)) {
 			try {
 				Paging paging = new Paging(1, 5);
 				newsFeed = twitter.getHomeTimeline(paging);
-				lastTimeGeneration = DateTime.now();
+				lastTimeGeneration = DateTime.now(minskZone);
 			} catch (TwitterException e) {
 				e.printStackTrace();
 			}
@@ -63,14 +66,16 @@ public class NewsFactory {
 	}
 
 	public static void addExchangeRateTweet() {
-		Map<String, String> map = parseDailyExchangeRate();
+		DateTime today = DateTime.now(minskZone);
 
-		String message = "Официальный курс белорусского рубля:\r\n";
-		message += Currency.USD + ": " + map.get(Currency.USD.toString()) + "\r\n";
-		message += Currency.EUR + ": " + map.get(Currency.EUR.toString()) + "\r\n";
-		message += Currency.RUB + ": " + map.get(Currency.RUB.toString()) + "\r\n";
+		Map<String, Double> map = getExchangeRatesOnDate(today);
 
-		String filePath = String.format("./assets/tweet/media/%d.jpg", DateTime.now().getDayOfMonth());
+		String message = "Официальный курс рубля:\r\n";
+		message += String.format("%s: %,.0f\r\n", Currency.USD.toString(), map.get(Currency.USD.toString()));
+		message += String.format("%s: %,.0f\r\n", Currency.EUR.toString(), map.get(Currency.EUR.toString()));
+		message += String.format("%s: %,.0f\r\n", Currency.RUB.toString(), map.get(Currency.RUB.toString()));
+
+		String filePath = String.format("./assets/tweet/media/girls/%d.jpg", today.getDayOfMonth());
 		File image = new File(filePath);
 
 		GeoLocation location = new GeoLocation(53.900066d, 27.558531d);
@@ -86,12 +91,57 @@ public class NewsFactory {
 		}
 	}
 
-	private static Map<String, String> parseDailyExchangeRate() {
-		Map<String, String> map = new HashMap<String, String>();
+	public static void addExchangeRateStatsTweet() {
+		DateTime today = DateTime.now(minskZone);
+
+		Map<String, Double> todayStats = getExchangeRatesOnDate(today);
+		Map<String, Double> yesterdayStats = getExchangeRatesOnDate(today.minusDays(1));
+		Map<String, Double> monthAgoStats = getExchangeRatesOnDate(today.minusMonths(1));
+		Map<String, Double> yearAgoStats = getExchangeRatesOnDate(today.minusYears(1));
+
+		String usd = Currency.USD.toString();
+		double yesterdayUsd = todayStats.get(usd) - yesterdayStats.get(usd);
+		double monthAgoUsd = todayStats.get(usd) - monthAgoStats.get(usd);
+		double yearAgoUsd = todayStats.get(usd) - yearAgoStats.get(usd);
+
+		String eur = Currency.EUR.toString();
+		double yesterdayEur = todayStats.get(eur) - yesterdayStats.get(eur);
+		double monthAgoEur = todayStats.get(eur) - monthAgoStats.get(eur);
+		double yearAgoEur = todayStats.get(eur) - yearAgoStats.get(eur);
+
+		String rub = Currency.RUB.toString();
+		double yesterdayRub = todayStats.get(rub) - yesterdayStats.get(rub);
+		double monthAgoRub = todayStats.get(rub) - monthAgoStats.get(rub);
+		double yearAgoRub = todayStats.get(rub) - yearAgoStats.get(rub);
+
+		String message = "Изменение официального курса рубля за день/месяц/год:\r\n";
+		message += String.format("%s: %+,.0f/%+,.0f/%+,.0f\r\n", usd, yesterdayUsd, monthAgoUsd, yearAgoUsd);
+		message += String.format("%s: %+,.0f/%+,.0f/%+,.0f\r\n", eur, yesterdayEur, monthAgoEur, yearAgoEur);
+		message += String.format("%s: %+,.0f/%+,.0f/%+,.0f\r\n", rub, yesterdayRub, monthAgoRub, yearAgoRub);
+
+		String filePath = String.format("./assets/tweet/media/cats/%d.jpg", today.getDayOfMonth());
+		File image = new File(filePath);
+
+		GeoLocation location = new GeoLocation(53.900066d, 27.558531d);
+
+		StatusUpdate tweet = new StatusUpdate(message);
+		tweet.setMedia(image);
+		tweet.setLocation(location);
+
+		try {
+			twitter.updateStatus(tweet);
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static Map<String, Double> getExchangeRatesOnDate(DateTime date) {
+		Map<String, Double> map = new HashMap<String, Double>();
 
 		URL xmlUrl;
 		try {
-			xmlUrl = new URL("http://www.nbrb.by/Services/XmlExRates.aspx");
+			String xmlUrlPattern = "http://www.nbrb.by/Services/XmlExRates.aspx?onDate=" + date.toString("MM/dd/yyyy");
+			xmlUrl = new URL(xmlUrlPattern);
 		} catch (MalformedURLException exception) {
 			exception.printStackTrace();
 			return map;
@@ -124,7 +174,7 @@ public class NewsFactory {
 				String currencyCharCode = element.getElementsByTagName("CharCode").item(0).getChildNodes().item(0).getNodeValue();
 				String currencyRate = element.getElementsByTagName("Rate").item(0).getChildNodes().item(0).getNodeValue();
 
-				map.put(currencyCharCode, currencyRate);
+				map.put(currencyCharCode, Double.parseDouble(currencyRate));
 			}
 		}
 
