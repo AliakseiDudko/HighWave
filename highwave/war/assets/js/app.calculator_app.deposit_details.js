@@ -20,7 +20,15 @@ App.CalculatorApp.DepositDetails = function() {
     });
 
     var DepositDetailView = Marionette.ItemView.extend({
-        template: Backbone.Marionette.TemplateCache.get("deposit-details-template")
+        template: Backbone.Marionette.TemplateCache.get("deposit-details-template"),
+
+        onShow: function() {
+            var statementView = new AccountStatementView({
+                collection: new AccountStatement(this.model.get("accountStatement"))
+            });
+            statementView.render();
+            $("#account-statement-region").append(statementView.el);
+        }
     });
 
     DepositDetails.showDepositDetails = function(model) {
@@ -28,12 +36,6 @@ App.CalculatorApp.DepositDetails = function() {
             model: model
         });
         App.modalRegion.show(detailView);
-
-        var collection = new AccountStatement(model.get("accountStatement"));
-        var accountStatementView = new AccountStatementView({
-            collection: collection
-        });
-        App.accountStatementRegion.show(accountStatementView);
     };
 
     return DepositDetails;

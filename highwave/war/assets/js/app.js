@@ -30,8 +30,7 @@ App.addRegions({
     resultsRegion: "#results-region",
     calculatorRegion: "#calculator-region",
     newsRegion: "#news-region",
-    modalRegion: ModalRegion,
-    accountStatementRegion: "#account-statement-region"
+    modalRegion: ModalRegion
 });
 
 App.ApiUrl = "https://high-wave-595.appspot.com/_ah/api";
