@@ -1,4 +1,4 @@
-Backbone.Marionette.TemplateCache.prototype.loadTemplate = function(templateId) {
+Marionette.TemplateCache.prototype.loadTemplate = function(templateId) {
     var template;
     var templateUrl = "/assets/template/" + templateId + ".html";
 
