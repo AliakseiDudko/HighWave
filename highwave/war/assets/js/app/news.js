@@ -60,8 +60,7 @@ App.NewsApp = function() {
                 if (res.items) {
                     var newsResults = [];
                     _.each(res.items, function(item) {
-                        var tweet = item.retweetedStatus !== undefined ? item.retweetedStatus : item;
-                        newsResults[newsResults.length] = new News(tweet);
+                        newsResults[newsResults.length] = new News(item);
                     });
                     callback(newsResults);
                     self.loading = false;

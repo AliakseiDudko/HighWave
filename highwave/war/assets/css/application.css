@@ -12,7 +12,7 @@ body {
 }
 
 #results-panel {
-	border-color: #d9534f
+	border-color: #d9534f;
 }
 
 #results-panel>.panel-heading {
@@ -21,7 +21,7 @@ body {
 }
 
 #ads-panel {
-	border-color: #5cb85c
+	border-color: #5cb85c;
 }
 
 #ads-panel>.panel-heading {
@@ -30,22 +30,16 @@ body {
 }
 
 #ads-panel,#search-panel {
-	min-height: 215px
+	min-height: 215px;
 }
 
-#news-panel #tweet-header img {
-	border-radius: 4px;
-	height: 24px;
-	margin: 0 6px 0 0;
-	width: 24px;
-}
-
-#news-panel .list-group-item p {
-	white-space: pre-wrap
+#news-panel iframe[id^='twitter-widget-'] {
+	max-width: 100% !important;
+	margin: 0 !important;
 }
 
 .page-header {
-	border-bottom: 0px
+	border-bottom: 0px;
 }
 
 .progress {
@@ -53,7 +47,7 @@ body {
 }
 
 .progress-bar-zero {
-	background-image: linear-gradient(to bottom, #FFD2D2 0%, #FD9D9D 100%)
+	background-image: linear-gradient(to bottom, #FFD2D2 0%, #FD9D9D 100%);
 }
 
 .bank-logo-16 {
@@ -63,9 +57,9 @@ body {
 }
 
 .bank-logo-16.bapb {
-	background-position: -48px 0
+	background-position: -48px 0;
 }
 
 .bank-logo-16.hcb {
-	background-position: 0 -32px
+	background-position: 0 -32px;
 }

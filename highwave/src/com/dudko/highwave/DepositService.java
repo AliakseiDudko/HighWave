@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.inject.Named;
 
-import twitter4j.Status;
+import twitter4j.OEmbed;
 
 import com.dudko.highwave.bank.BankFactory;
 import com.dudko.highwave.deposit.DepositAccount;
@@ -39,7 +39,7 @@ public class DepositService {
 	}
 
 	@ApiMethod(name = "get.news.feed", path = "news", httpMethod = HttpMethod.GET)
-	public Status[] getNewsFeed() {
+	public OEmbed[] getNewsFeed() {
 		return NewsFactory.getNewsFeed();
 	}
 }

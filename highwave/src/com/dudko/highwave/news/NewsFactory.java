@@ -25,6 +25,8 @@ import org.xml.sax.SAXException;
 import com.dudko.highwave.deposit.Currency;
 
 import twitter4j.GeoLocation;
+import twitter4j.OEmbed;
+import twitter4j.OEmbedRequest;
 import twitter4j.Paging;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
@@ -34,7 +36,7 @@ import twitter4j.TwitterFactory;
 
 public class NewsFactory {
 	private static final Twitter twitter;
-	private static List<Status> newsFeed;
+	private static List<OEmbed> newsFeed;
 
 	private static DateTime lastTimeGeneration;
 
@@ -42,32 +44,38 @@ public class NewsFactory {
 
 	static {
 		twitter = new TwitterFactory().getInstance();
-		newsFeed = new ArrayList<Status>();
+		newsFeed = new ArrayList<OEmbed>();
 
 		minskZone = DateTimeZone.forID("Europe/Minsk");
 		lastTimeGeneration = DateTime.now(minskZone).minusHours(1);
 	}
 
-	public static Status[] getNewsFeed() {
+	public static OEmbed[] getNewsFeed() {
 		Seconds generationInterval = Seconds.seconds(60);
 
 		Seconds interval = Seconds.secondsBetween(lastTimeGeneration, DateTime.now(minskZone));
 		if (interval.isGreaterThan(generationInterval)) {
 			try {
+				newsFeed.clear();
+
 				Paging paging = new Paging(1, 5);
-				newsFeed = twitter.getHomeTimeline(paging);
+				for (Status tweet : twitter.getHomeTimeline(paging)) {
+					OEmbedRequest req = new OEmbedRequest(tweet.getId(), "").HideMedia(false).MaxWidth(550);
+					OEmbed oEmbed = twitter.getOEmbed(req);
+					newsFeed.add(oEmbed);
+				}
+
 				lastTimeGeneration = DateTime.now(minskZone);
 			} catch (TwitterException e) {
 				e.printStackTrace();
 			}
 		}
 
-		return newsFeed.toArray(new Status[newsFeed.size()]);
+		return newsFeed.toArray(new OEmbed[newsFeed.size()]);
 	}
 
 	public static void addExchangeRateTweet() {
-		DateTime now = DateTime.now(minskZone);
-		DateTime today = now.getHourOfDay() < 12 ? now : now.plusDays(1);
+		DateTime today = DateTime.now(minskZone).plusDays(1);
 
 		Map<String, Double> map = getExchangeRatesOnDate(today);
 
@@ -93,8 +101,7 @@ public class NewsFactory {
 	}
 
 	public static void addExchangeRateStatsTweet() {
-		DateTime now = DateTime.now(minskZone);
-		DateTime today = now.getHourOfDay() < 12 ? now : now.plusDays(1);
+		DateTime today = DateTime.now(minskZone).plusDays(1);
 
 		Map<String, Double> todayStats = getExchangeRatesOnDate(today);
 		Map<String, Double> yesterdayStats = getExchangeRatesOnDate(today.minusDays(1));
