@@ -35,6 +35,7 @@ body {
 
 #news-panel iframe[id^='twitter-widget-'] {
 	max-width: 100% !important;
+	min-width: 200px !important;
 	margin: 0 !important;
 }
 
