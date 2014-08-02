@@ -11,37 +11,50 @@ App.CalculatorApp.Search = function() {
         initialize: function() {
             _.bindAll(this, "showMessage");
             var self = this;
-            App.vent.on("search:searchQuery", function(query) {
-                self.showMessage("Search " + query + ".");
-            });
-            App.vent.on("search:stop", function() {
-                self.showMessage("Search finished.");
-            });
-            App.vent.on("search:noSearchTerm", function() {
-                self.showMessage("No search term.")
-            });
-            App.vent.on("search:noResults", function() {
-                self.showMessage("No results were found.");
-            });
+            App.vent.on("search:searchQuery", self.showMessage("Search started."));
+            App.vent.on("search:stop", self.showMessage("Search finished."));
+            App.vent.on("search:noSearchTerm", self.showMessage("No search term."));
+            App.vent.on("search:noResults", self.showMessage("No results were found."));
+        },
+
+        ui: {
+            searchButton: "#searchButton",
+            amountText: "#amountText",
+            periodText: "#periodText"
         },
 
         events: {
-            "click #searchButton": "search"
+            "click #searchButton": "search",
+            "change #amountText": "amountChanged",
+            "change #periodText": "periodChanged",
+            "keyup #amountText": "amountChanged",
+            "keyup #periodText": "periodChanged"
         },
 
         search: function() {
-            var amount = this.$("#amountText").val().trim();
-            var period = this.$("#periodText").val().trim();
-
-            if (amount.length !== 0 && period.length !== 0) {
+            if (!this.model.isEmpty()) {
                 var searchQuery = {
-                    amount: amount,
-                    period: period
+                    amount: this.model.get("amount"),
+                    period: this.model.get("period")
                 };
                 App.vent.trigger("search:searchQuery", searchQuery);
             } else {
                 App.vent.trigger("search:noSearchQuery");
             }
+        },
+
+        amountChanged: function() {
+            var val = this.ui.amountText.val().trim();
+            var amount = val ? parseInt(val) : 0;
+            this.model.set("amount", amount);
+            
+            this.showMessage(amount);
+        },
+
+        periodChanged: function() {
+            var val = this.ui.periodText.val().trim();
+            var period = val ? parseInt(val) : 0;
+            this.model.set("period", period);
         }
     });
 

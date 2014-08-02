@@ -1,20 +1,20 @@
 <div class="form-horizontal" role="form">
 	<div class="form-group">
-		<label for="amountText" class="col-md-2 control-label text-info">Amount</label>
+		<label for="amountText" class="col-md-2 control-label text-info">Сумма</label>
 		<div class="col-md-4">
-			<input type="number" id="amountText" class="form-control" value="<%- amount %>" placeholder="Type here..." min="0" max="2000000000"
-				step="1000000">
+			<input type="number" id="amountText" class="form-control" value="<%- amount %>" placeholder="Сумма вклада..." min="0" max="2000000000"
+				step="10000000">
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="periodText" class="col-md-2 control-label text-info">Period</label>
+		<label for="periodText" class="col-md-2 control-label text-info">Срок</label>
 		<div class="col-md-4">
-			<input type="number" id="periodText" class="form-control" value="<%- period %>" placeholder="Period of days..." min=1>
+			<input type="number" id="periodText" class="form-control" value="<%- period %>" placeholder="Срок вклада..." min="0" step="10">
 		</div>
 	</div>
 	<div class="form-group">
 		<div class="col-md-offset-2 col-md-5">
-			<button type="button" id="searchButton" class="btn btn-md btn-warning">Search</button>
+			<button type="button" id="searchButton" class="btn btn-md btn-warning">Показать</button>
 		</div>
 	</div>
 </div>

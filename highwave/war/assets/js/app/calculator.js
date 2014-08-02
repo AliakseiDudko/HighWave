@@ -66,8 +66,12 @@ App.CalculatorApp = function() {
 
     var SearchModel = Backbone.Model.extend({
         defaults: {
-            amount: 1000000,
+            amount: 10000000,
             period: 35
+        },
+
+        isEmpty: function() {
+            return this.get("amount") === 0 || this.get("period") === 0;
         }
     });
 

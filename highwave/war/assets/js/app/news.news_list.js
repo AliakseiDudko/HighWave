@@ -12,7 +12,7 @@ App.NewsApp.NewsList = function() {
         className: "panel-body"
     });
 
-    var NewsListView = Marionette.CompositeView.extend({
+    var NewsListView = Marionette.CollectionView.extend({
         template: Backbone.Marionette.TemplateCache.get("news-list-template"),
         childView: NewsView,
         emptyView: NewsListEmptyView,
