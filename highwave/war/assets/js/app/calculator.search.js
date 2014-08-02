@@ -47,8 +47,6 @@ App.CalculatorApp.Search = function() {
             var val = this.ui.amountText.val().trim();
             var amount = val ? parseInt(val) : 0;
             this.model.set("amount", amount);
-            
-            this.showMessage(amount);
         },
 
         periodChanged: function() {

@@ -21,7 +21,7 @@ App.CalculatorApp.DepositList = function() {
 
     var DepositListView = Marionette.CompositeView.extend({
         template: Backbone.Marionette.TemplateCache.get("deposit-list-template"),
-        className: "table table-striped",
+        className: "table table-striped table-hover",
         tagName: "table",
         childView: DepositView,
         emptyView: DepositListEmptyView,
@@ -33,15 +33,9 @@ App.CalculatorApp.DepositList = function() {
         initialize: function() {
             _.bindAll(this, "showMessage");
             var self = this;
-            App.vent.on("search:error", function() {
-                self.showMessage("Error, please retry later :s");
-            });
-            App.vent.on("search:noSearchTerm", function() {
-                self.showMessage("Hummmm, can do better :)");
-            });
-            App.vent.on("search:noResults", function() {
-                self.showMessage("No books found");
-            });
+            App.vent.on("search:error", self.showMessage("Error, please retry later."));
+            App.vent.on("search:noSearchTerm", self.showMessage("Please enter amount and period."));
+            App.vent.on("search:noResults", self.showMessage("No resuls were found."));
         }
     });
 
