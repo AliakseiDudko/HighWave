@@ -10,6 +10,7 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.Seconds;
 
 import com.dudko.highwave.deposit.Currency;
+import com.dudko.highwave.utils.ExchangeRateStats;
 
 import twitter4j.GeoLocation;
 import twitter4j.OEmbed;
@@ -20,7 +21,6 @@ import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import utils.ExchangeRateStats;
 
 public class NewsFactory {
 	private static final Twitter twitter;

@@ -8,28 +8,42 @@
 				<span class="panel-title"><%- deposit.name %></span>
 			</div>
 			<div class="panel-body">
-				<div class="form-horizontal">
-					<div class="form-group">
-						<a class="col-md-4" href="<%- deposit.url %>" target="_blank"><%- deposit.name %> </a>
-					</div>
-					<div class="form-group">
-						<p class="col-md-4 text-info">Валюта</p>
-						<p class="col-md-4"><%- deposit.currency %></p>
-					</div>
-					<div class="form-group">
-						<p class="col-md-4 text-info">Процентная ставка</p>
-						<p class="col-md-4"><%- deposit.interestRate %></p>
-					</div>
-					<div class="form-group">
-						<p class="col-md-4 text-info">Сумма</p>
-						<p class="col-md-4"><%- endAmount %></p>
-					</div>
-					<div class="form-group">
-						<p class="col-md-4 text-info">Прибыль</p>
-						<p class="col-md-4"><%- profitRate %></p>
-					</div>
-					<div id="account-statement-region"></div>
-				</div>
+				<table class="table">
+					<thead>
+						<tr class="text-info">
+							<th></th>
+							<th>Начальная сумма</th>
+							<th>Итоговая сумма</th>
+							<th>Доход</th>
+							<th>Доход, %</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><strong class="text-info">BYR</strong></td>
+							<td><%- startAmount %></td>
+							<td><%- endAmount %></td>
+							<td><%- profit %></td>
+							<td><%- profitRate %></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><strong class="text-info">USD <span class="text-danger">*</span>
+							</strong></td>
+							<td><%- startAmountUsd %></td>
+							<td><%- endAmountUsd %></td>
+							<td><%- profitUsd %></td>
+							<td><%- profitRateUsd %></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				<p>
+					<strong><span class="text-danger">*</span></strong> Расчет произведен с предположением, что что <%- endDate %> курс доллара составит
+					<%- endUsdExchangeRate %> BYR/USD.
+				</p>
+				<div id="account-statement-region"></div>
 			</div>
 		</div>
 	</div>

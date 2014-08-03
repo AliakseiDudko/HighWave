@@ -1,4 +1,4 @@
-package utils;
+package com.dudko.highwave.utils;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

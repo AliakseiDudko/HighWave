@@ -5,9 +5,8 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
-import utils.ExchangeRateStats;
-
 import com.dudko.highwave.deposit.deposits.Deposit;
+import com.dudko.highwave.utils.ExchangeRateStats;
 
 public class DepositAccount {
 	public Deposit deposit;
@@ -22,6 +21,8 @@ public class DepositAccount {
 	public float profitRateUsd;
 	public float endUsdExchangeRate;
 
+	public String startDate;
+	public String endDate;
 	public int period;
 
 	public AccountStatementRecord[] accountStatement;
@@ -34,6 +35,8 @@ public class DepositAccount {
 			AccountStatementRecord lastRecord = accountStatement.get(accountStatement.size() - 1);
 			DateTime startDate = AccountStatementRecord.dateFormatter.parseDateTime(firstRecord.date);
 			DateTime endDate = AccountStatementRecord.dateFormatter.parseDateTime(lastRecord.date);
+			this.startDate = startDate.toString(AccountStatementRecord.dateFormatter);
+			this.endDate = endDate.toString(AccountStatementRecord.dateFormatter);
 			this.period = Days.daysBetween(startDate, endDate).getDays();
 
 			this.startAmount = firstRecord.amount;

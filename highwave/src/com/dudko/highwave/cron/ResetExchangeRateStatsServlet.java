@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import utils.ExchangeRateStats;
+import com.dudko.highwave.utils.ExchangeRateStats;
 
 @SuppressWarnings("serial")
 public class ResetExchangeRateStatsServlet extends HttpServlet {
