@@ -1,7 +1,7 @@
 App = new Marionette.Application();
 
 var ModalRegion = Marionette.Region.extend({
-    el: ".modal",
+    el: "#modal-region",
 
     constructor: function() {
         _.bindAll(this, "showModal", "hideModal");

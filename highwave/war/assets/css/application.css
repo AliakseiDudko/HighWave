@@ -15,7 +15,7 @@ body {
 	border-color: #d9534f;
 }
 
-#results-panel>.panel-heading {
+#results-panel>.panel-heading,#modal-panel>.panel-heading {
 	color: #fff;
 	background-image: linear-gradient(to bottom, #d9534f 0, #c12e2a 100%);
 }
@@ -37,6 +37,15 @@ body {
 	max-width: 100% !important;
 	min-width: 200px !important;
 	margin: 0 !important;
+}
+
+#modal-region .form-group,#modal-region .panel {
+	margin-bottom: 0px;
+}
+
+#modal-panel .close {
+	color: #fff;
+	opacity: 1.0;
 }
 
 .page-header {

@@ -24,6 +24,7 @@ App.CalculatorApp.DepositDetails = function() {
 
         onShow: function() {
             var statementView = new AccountStatementView({
+                model: this.model,
                 collection: new AccountStatement(this.model.get("accountStatement"))
             });
             statementView.render();
