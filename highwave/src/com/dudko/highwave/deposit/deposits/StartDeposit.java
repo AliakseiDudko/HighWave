@@ -15,9 +15,10 @@ public class StartDeposit extends Deposit {
 	public StartDeposit() {
 		id = 1;
 		bank = BankFactory.GetBank(BankCode.BelAgroPromBank);
-		name = "Старт 34";
+		name = "Старт!";
+		url = "http://www.belapb.by/natural/deposit/start_/";
 		currency = Currency.BYR;
-		interestRate = 34.0f;
+		interestRate = 31.0f;
 	}
 
 	@Override

@@ -6,13 +6,10 @@ import com.dudko.highwave.deposit.DepositAccount;
 
 public abstract class Deposit {
 	public int id;
-
 	public Bank bank;
-
 	public String name;
-
+	public String url;
 	public Currency currency;
-
 	public float interestRate;
 
 	public abstract DepositAccount calculateDeposit(float amount, int period);

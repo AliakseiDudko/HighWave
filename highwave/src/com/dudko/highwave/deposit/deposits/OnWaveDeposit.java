@@ -16,8 +16,9 @@ public class OnWaveDeposit extends Deposit {
 		id = 2;
 		bank = BankFactory.GetBank(BankCode.HomeCreditBank);
 		name = "На волне";
+		url = "http://www.homecredit.by/loans_and_services/na_volne/";
 		currency = Currency.BYR;
-		interestRate = 25.0f;
+		interestRate = 22.0f;
 	}
 
 	@Override
@@ -29,10 +30,12 @@ public class OnWaveDeposit extends Deposit {
 		AccountStatementRecord record = new AccountStatementRecord(periodDate, periodAmount, interestRate, "Открытие вклада.");
 		list.add(record);
 
-		periodDate = periodDate.plusDays(10);
-		periodAmount = calculatePeriod(periodAmount, interestRate, 10);
-		record = new AccountStatementRecord(periodDate, periodAmount, interestRate, "Капитализация.");
-		list.add(record);
+		for (int i = 0; i < period; i += 10) {
+			periodDate = periodDate.plusDays(10);
+			periodAmount = calculatePeriod(periodAmount, interestRate, 10);
+			record = new AccountStatementRecord(periodDate, periodAmount, interestRate, "Капитализация.");
+			list.add(record);
+		}
 
 		record = new AccountStatementRecord(periodDate, periodAmount, interestRate, "Закрытие вклада.");
 		list.add(record);

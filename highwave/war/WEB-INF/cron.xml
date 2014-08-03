@@ -14,4 +14,11 @@
 		<schedule>every day 12:30</schedule>
 		<timezone>Europe/Minsk</timezone>
 	</cron>
+	<cron>
+		<url>/cron/resetExchangeRateStats</url>
+		<description>Reset current USD exchange rate ant its daily delta.
+		</description>
+		<schedule>every day 12:15</schedule>
+		<timezone>Europe/Minsk</timezone>
+	</cron>
 </cronentries>

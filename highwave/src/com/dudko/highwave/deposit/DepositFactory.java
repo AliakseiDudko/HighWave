@@ -24,10 +24,6 @@ public class DepositFactory {
 		deposits.put(deposit.id, deposit);
 	}
 
-	public Deposit GetDeposit(int depositId) {
-		return deposits.get(depositId);
-	}
-
 	public Deposit[] GetAllDeposits() {
 		return depoisitsArray;
 	}

@@ -1,26 +1,13 @@
 package com.dudko.highwave.news;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Seconds;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import com.dudko.highwave.deposit.Currency;
 
@@ -33,6 +20,7 @@ import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import utils.ExchangeRateStats;
 
 public class NewsFactory {
 	private static final Twitter twitter;
@@ -77,7 +65,7 @@ public class NewsFactory {
 	public static void addExchangeRateTweet() {
 		DateTime today = DateTime.now(minskZone).plusDays(1);
 
-		Map<String, Double> map = getExchangeRatesOnDate(today);
+		Map<String, Double> map = ExchangeRateStats.getExchangeRatesOnDate(today);
 
 		String message = "Официальный курс рубля:\r\n";
 		message += String.format("%s: %,.0f\r\n", Currency.USD.toString(), map.get(Currency.USD.toString()));
@@ -103,10 +91,10 @@ public class NewsFactory {
 	public static void addExchangeRateStatsTweet() {
 		DateTime today = DateTime.now(minskZone).plusDays(1);
 
-		Map<String, Double> todayStats = getExchangeRatesOnDate(today);
-		Map<String, Double> yesterdayStats = getExchangeRatesOnDate(today.minusDays(1));
-		Map<String, Double> monthAgoStats = getExchangeRatesOnDate(today.minusMonths(1));
-		Map<String, Double> yearAgoStats = getExchangeRatesOnDate(today.minusYears(1));
+		Map<String, Double> todayStats = ExchangeRateStats.getExchangeRatesOnDate(today);
+		Map<String, Double> yesterdayStats = ExchangeRateStats.getExchangeRatesOnDate(today.minusDays(1));
+		Map<String, Double> monthAgoStats = ExchangeRateStats.getExchangeRatesOnDate(today.minusMonths(1));
+		Map<String, Double> yearAgoStats = ExchangeRateStats.getExchangeRatesOnDate(today.minusYears(1));
 
 		String usd = Currency.USD.toString();
 		double yesterdayUsd = todayStats.get(usd) - yesterdayStats.get(usd);
@@ -142,51 +130,5 @@ public class NewsFactory {
 		} catch (TwitterException e) {
 			e.printStackTrace();
 		}
-	}
-
-	private static Map<String, Double> getExchangeRatesOnDate(DateTime date) {
-		Map<String, Double> map = new HashMap<String, Double>();
-
-		URL xmlUrl;
-		try {
-			String xmlUrlPattern = "http://www.nbrb.by/Services/XmlExRates.aspx?onDate=" + date.toString("MM/dd/yyyy");
-			xmlUrl = new URL(xmlUrlPattern);
-		} catch (MalformedURLException exception) {
-			exception.printStackTrace();
-			return map;
-		}
-
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder;
-		try {
-			builder = factory.newDocumentBuilder();
-		} catch (ParserConfigurationException exception) {
-			exception.printStackTrace();
-			return map;
-		}
-
-		Document document;
-		try {
-			document = builder.parse(xmlUrl.openStream());
-		} catch (SAXException | IOException exception) {
-			exception.printStackTrace();
-			return map;
-		}
-
-		NodeList nodeList = document.getDocumentElement().getChildNodes();
-		for (int i = 0; i < nodeList.getLength(); i++) {
-			Node node = nodeList.item(i);
-
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
-				Element element = (Element) node;
-
-				String currencyCharCode = element.getElementsByTagName("CharCode").item(0).getChildNodes().item(0).getNodeValue();
-				String currencyRate = element.getElementsByTagName("Rate").item(0).getChildNodes().item(0).getNodeValue();
-
-				map.put(currencyCharCode, Double.parseDouble(currencyRate));
-			}
-		}
-
-		return map;
 	}
 }
