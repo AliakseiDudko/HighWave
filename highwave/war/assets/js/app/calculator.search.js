@@ -47,12 +47,24 @@ App.CalculatorApp.Search = function() {
             var val = this.ui.amountText.val().trim();
             var amount = val ? parseInt(val) : 0;
             this.model.set("amount", amount);
+
+            if (amount) {
+                this.ui.amountText.parent().parent().removeClass("has-error")
+            } else {
+                this.ui.amountText.parent().parent().addClass("has-error")
+            }
         },
 
         periodChanged: function() {
             var val = this.ui.periodText.val().trim();
             var period = val ? parseInt(val) : 0;
             this.model.set("period", period);
+
+            if (period) {
+                this.ui.periodText.parent().parent().removeClass("has-error")
+            } else {
+                this.ui.periodText.parent().parent().addClass("has-error")
+            }
         }
     });
 
