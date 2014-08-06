@@ -63,7 +63,7 @@ public class NewsFactory {
 	}
 
 	public static void addExchangeRateTweet() {
-		DateTime today = DateTime.now(minskZone).plusDays(1);
+		DateTime today = DateTime.now(minskZone);
 
 		Map<String, Double> map = ExchangeRateStats.getExchangeRatesOnDate(today);
 
@@ -89,7 +89,7 @@ public class NewsFactory {
 	}
 
 	public static void addExchangeRateStatsTweet() {
-		DateTime today = DateTime.now(minskZone).plusDays(1);
+		DateTime today = DateTime.now(minskZone);
 
 		Map<String, Double> todayStats = ExchangeRateStats.getExchangeRatesOnDate(today);
 		Map<String, Double> yesterdayStats = ExchangeRateStats.getExchangeRatesOnDate(today.minusDays(1));

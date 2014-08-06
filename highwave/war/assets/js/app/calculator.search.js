@@ -24,11 +24,11 @@ App.CalculatorApp.Search = function() {
         },
 
         events: {
-            "click #searchButton": "search",
-            "change #amountText": "amountChanged",
-            "change #periodText": "periodChanged",
-            "keyup #amountText": "amountChanged",
-            "keyup #periodText": "periodChanged"
+            "click @ui.searchButton": "search",
+            "change @ui.amountText": "amountChanged",
+            "change @ui.periodText": "periodChanged",
+            "keyup @ui.amountText": "amountChanged",
+            "keyup @ui.periodText": "periodChanged"
         },
 
         search: function() {

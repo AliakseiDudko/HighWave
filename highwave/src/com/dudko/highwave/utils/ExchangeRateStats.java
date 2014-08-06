@@ -30,7 +30,7 @@ public class ExchangeRateStats {
 
 	public static void resetExchangeRateStats() {
 		DateTimeZone minskZone = DateTimeZone.forID("Europe/Minsk");
-		DateTime today = DateTime.now(minskZone).plusDays(1);
+		DateTime today = DateTime.now(minskZone);
 
 		Map<String, Double> todayStats = getExchangeRatesOnDate(today);
 		Double todayUsdExchangeRate = todayStats.get(Currency.USD.toString());
