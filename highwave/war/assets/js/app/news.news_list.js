@@ -8,12 +8,12 @@ App.NewsApp.NewsList = function() {
     });
 
     var NewsListEmptyView = Marionette.ItemView.extend({
-        template: Backbone.Marionette.TemplateCache.get("news-list-empty-template"),
+        template: Marionette.TemplateCache.get("news-list-empty-template"),
         className: "panel-body"
     });
 
     var NewsListView = Marionette.CollectionView.extend({
-        template: Backbone.Marionette.TemplateCache.get("news-list-template"),
+        template: Marionette.TemplateCache.get("news-list-template"),
         childView: NewsView,
         emptyView: NewsListEmptyView,
 
@@ -28,7 +28,7 @@ App.NewsApp.NewsList = function() {
                 self.showMessage("Error, please retry later :s");
             });
             App.vent.on("news:noResults", function() {
-                self.showMessage("No news found")
+                self.showMessage("No news found");
             });
             App.vent.on("news:fetch:start", function() {
                 self.showMessage("Loading news started.");

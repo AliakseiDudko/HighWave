@@ -1,16 +1,7 @@
 App.NewsApp = function() {
     var NewsApp = {};
 
-    var News = Backbone.Model.extend({
-        defaults: {
-            user: {
-                screenName: ""
-            },
-            mediaEntities: [ {
-                mediaURL: ""
-            } ]
-        }
-    });
+    var News = Backbone.Model.extend({});
 
     var NewsFeed = Backbone.Collection.extend({
         model: News,

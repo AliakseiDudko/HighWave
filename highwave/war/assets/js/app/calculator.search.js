@@ -2,7 +2,7 @@ App.CalculatorApp.Search = function() {
     var Search = {};
 
     var SearchView = Marionette.ItemView.extend({
-        template: Backbone.Marionette.TemplateCache.get("search-template"),
+        template: Marionette.TemplateCache.get("search-template"),
 
         showMessage: function(message) {
             console.log(message);
@@ -11,10 +11,18 @@ App.CalculatorApp.Search = function() {
         initialize: function() {
             _.bindAll(this, "showMessage");
             var self = this;
-            App.vent.on("search:searchQuery", self.showMessage("Search started."));
-            App.vent.on("search:stop", self.showMessage("Search finished."));
-            App.vent.on("search:noSearchTerm", self.showMessage("No search term."));
-            App.vent.on("search:noResults", self.showMessage("No results were found."));
+            App.vent.on("search:searchQuery", function() {
+                self.showMessage("Search started.");
+            });
+            App.vent.on("search:stop", function() {
+                self.showMessage("Search finished.");
+            });
+            App.vent.on("search:noSearchTerm", function() {
+                self.showMessage("No search term.");
+            });
+            App.vent.on("search:noResults", function() {
+                self.showMessage("No results were found.");
+            });
         },
 
         ui: {

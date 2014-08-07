@@ -3,7 +3,7 @@ App.CalculatorApp.DepositList = function() {
 
     var DepositView = Marionette.ItemView.extend({
         tagName: "tr",
-        template: Backbone.Marionette.TemplateCache.get("deposit-list-item-template"),
+        template: Marionette.TemplateCache.get("deposit-list-item-template"),
 
         events: {
             "click": "showDepositDetails"
@@ -16,11 +16,11 @@ App.CalculatorApp.DepositList = function() {
 
     var DepositListEmptyView = Marionette.ItemView.extend({
         tagName: "tr",
-        template: Backbone.Marionette.TemplateCache.get("deposit-list-emtpy-template")
+        template: Marionette.TemplateCache.get("deposit-list-emtpy-template")
     });
 
     var DepositListView = Marionette.CompositeView.extend({
-        template: Backbone.Marionette.TemplateCache.get("deposit-list-template"),
+        template: Marionette.TemplateCache.get("deposit-list-template"),
         className: "table table-striped table-hover",
         tagName: "table",
         childView: DepositView,
@@ -33,9 +33,15 @@ App.CalculatorApp.DepositList = function() {
         initialize: function() {
             _.bindAll(this, "showMessage");
             var self = this;
-            App.vent.on("search:error", self.showMessage("Error, please retry later."));
-            App.vent.on("search:noSearchTerm", self.showMessage("Please enter amount and period."));
-            App.vent.on("search:noResults", self.showMessage("No resuls were found."));
+            App.vent.on("search:error", function() {
+                self.showMessage("Error, please retry later.");
+            });
+            App.vent.on("search:noSearchTerm", function() {
+                self.showMessage("Please enter amount and period.");
+            });
+            App.vent.on("search:noResults", function() {
+                self.showMessage("No resuls were found.");
+            });
         }
     });
 

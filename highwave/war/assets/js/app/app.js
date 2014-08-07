@@ -5,7 +5,7 @@ var ModalRegion = Marionette.Region.extend({
 
     constructor: function() {
         _.bindAll(this, "showModal", "hideModal");
-        Backbone.Marionette.Region.prototype.constructor.apply(this, arguments);
+        Marionette.Region.prototype.constructor.apply(this, arguments);
         this.on("show", this.showModal, this);
     },
 
@@ -28,7 +28,6 @@ var ModalRegion = Marionette.Region.extend({
 App.addRegions({
     searchRegion: "#search-region",
     resultsRegion: "#results-region",
-    calculatorRegion: "#calculator-region",
     newsRegion: "#news-region",
     modalRegion: ModalRegion
 });
