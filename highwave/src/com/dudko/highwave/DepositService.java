@@ -1,6 +1,8 @@
 package com.dudko.highwave;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Named;
@@ -34,6 +36,19 @@ public class DepositService {
 			DepositAccount depositAccount = deposit.calculateDeposit(amount, period);
 			list.add(depositAccount);
 		}
+
+		Comparator<DepositAccount> comparator = new Comparator<DepositAccount>() {
+			public int compare(DepositAccount o1, DepositAccount o2) {
+				if (o1.profitPerDay < o2.profitPerDay) {
+					return -1;
+				} else if (o1.profitPerDay > o2.profitPerDay) {
+					return 1;
+				} else {
+					return 0;
+				}
+			}
+		};
+		Collections.sort(list, Collections.reverseOrder(comparator));
 
 		return list.toArray(new DepositAccount[list.size()]);
 	}

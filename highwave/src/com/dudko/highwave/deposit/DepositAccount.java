@@ -14,11 +14,13 @@ public class DepositAccount {
 	public float endAmount;
 	public float profit;
 	public float profitRate;
+	public float profitPerDay;
 
 	public float startAmountUsd;
 	public float endAmountUsd;
 	public float profitUsd;
 	public float profitRateUsd;
+	public float profitPerDayUsd;
 	public float endUsdExchangeRate;
 
 	public String startDate;
@@ -43,11 +45,13 @@ public class DepositAccount {
 			this.endAmount = lastRecord.amount;
 			this.profit = this.endAmount - this.startAmount;
 			this.profitRate = 100.0f * this.profit / this.startAmount;
+			this.profitPerDay = this.profit / this.period;
 
 			this.endUsdExchangeRate = ExchangeRateStats.currentUsdExchangeRate + this.period * ExchangeRateStats.dailyUsdExchangeRateDelta;
 			this.startAmountUsd = this.startAmount / ExchangeRateStats.currentUsdExchangeRate;
 			this.endAmountUsd = this.endAmount / this.endUsdExchangeRate;
 			this.profitUsd = this.endAmountUsd - this.startAmountUsd;
+			this.profitPerDayUsd = this.profitUsd / this.period;
 			this.profitRateUsd = 100.0f * this.profitUsd / this.startAmountUsd;
 		}
 
