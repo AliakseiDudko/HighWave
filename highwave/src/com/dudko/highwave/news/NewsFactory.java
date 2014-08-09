@@ -10,7 +10,7 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.Seconds;
 
 import com.dudko.highwave.deposit.Currency;
-import com.dudko.highwave.utils.ExchangeRateStats;
+import com.dudko.highwave.utils.NationalBankServiceClient;
 
 import twitter4j.GeoLocation;
 import twitter4j.OEmbed;
@@ -28,20 +28,17 @@ public class NewsFactory {
 
 	private static DateTime lastTimeGeneration;
 
-	private static DateTimeZone minskZone;
-
 	static {
 		twitter = new TwitterFactory().getInstance();
 		newsFeed = new ArrayList<OEmbed>();
 
-		minskZone = DateTimeZone.forID("Europe/Minsk");
-		lastTimeGeneration = DateTime.now(minskZone).minusHours(1);
+		lastTimeGeneration = DateTime.now().minusHours(1);
 	}
 
 	public static OEmbed[] getNewsFeed() {
 		Seconds generationInterval = Seconds.seconds(60);
 
-		Seconds interval = Seconds.secondsBetween(lastTimeGeneration, DateTime.now(minskZone));
+		Seconds interval = Seconds.secondsBetween(lastTimeGeneration, DateTime.now());
 		if (interval.isGreaterThan(generationInterval)) {
 			try {
 				newsFeed.clear();
@@ -53,7 +50,7 @@ public class NewsFactory {
 					newsFeed.add(oEmbed);
 				}
 
-				lastTimeGeneration = DateTime.now(minskZone);
+				lastTimeGeneration = DateTime.now();
 			} catch (TwitterException e) {
 				e.printStackTrace();
 			}
@@ -63,9 +60,9 @@ public class NewsFactory {
 	}
 
 	public static void addExchangeRateTweet() {
-		DateTime today = DateTime.now(minskZone);
+		DateTime today = NationalBankServiceClient.GetLastDailyExRatesDate();
 
-		Map<String, Double> map = ExchangeRateStats.getExchangeRatesOnDate(today);
+		Map<String, Double> map = NationalBankServiceClient.getExchangeRatesOnDate(today);
 
 		String message = "Официальный курс рубля:\r\n";
 		message += String.format("%s: %,.0f\r\n", Currency.USD.toString(), map.get(Currency.USD.toString()));
@@ -89,12 +86,12 @@ public class NewsFactory {
 	}
 
 	public static void addExchangeRateStatsTweet() {
-		DateTime today = DateTime.now(minskZone);
+		DateTime today = NationalBankServiceClient.GetLastDailyExRatesDate();
 
-		Map<String, Double> todayStats = ExchangeRateStats.getExchangeRatesOnDate(today);
-		Map<String, Double> yesterdayStats = ExchangeRateStats.getExchangeRatesOnDate(today.minusDays(1));
-		Map<String, Double> monthAgoStats = ExchangeRateStats.getExchangeRatesOnDate(today.minusMonths(1));
-		Map<String, Double> yearAgoStats = ExchangeRateStats.getExchangeRatesOnDate(today.minusYears(1));
+		Map<String, Double> todayStats = NationalBankServiceClient.getExchangeRatesOnDate(today);
+		Map<String, Double> yesterdayStats = NationalBankServiceClient.getExchangeRatesOnDate(today.minusDays(1));
+		Map<String, Double> monthAgoStats = NationalBankServiceClient.getExchangeRatesOnDate(today.minusMonths(1));
+		Map<String, Double> yearAgoStats = NationalBankServiceClient.getExchangeRatesOnDate(today.minusYears(1));
 
 		String usd = Currency.USD.toString();
 		double yesterdayUsd = todayStats.get(usd) - yesterdayStats.get(usd);
