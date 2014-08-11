@@ -26,21 +26,63 @@ App.CalculatorApp.Search = function() {
         },
 
         ui: {
-            searchButton: "#searchButton",
-            amountText: "#amountText",
-            periodText: "#periodText"
+            searchButton: "[name=search]",
+            amountText: "[name=amount]",
+            periodText: "[name=period]"
         },
 
         events: {
-            "click @ui.searchButton": "search",
-            "change @ui.amountText": "amountChanged",
-            "change @ui.periodText": "periodChanged",
-            "keyup @ui.amountText": "amountChanged",
-            "keyup @ui.periodText": "periodChanged"
+            "click @ui.searchButton": "search"
+        },
+
+        bindings: {
+            "[name=amount]": {
+                observe: "amount",
+                onGet: function(value) {
+                    return value;
+                },
+                onSet: function(value) {
+                    return parseInt(value);
+                },
+                setOptions: {
+                    validate: true
+                }
+            },
+            "[name=period]": {
+                observe: "period",
+                onGet: function(value) {
+                    return value;
+                },
+                onSet: function(value) {
+                    return parseInt(value);
+                },
+                setOptions: {
+                    validate: true
+                }
+            }
+        },
+
+        onRender: function() {
+            this.stickit();
+            Backbone.Validation.bind(this, {
+                forceUpdate: true,
+                valid: this.valid,
+                invalid: this.invalid
+            });
+        },
+
+        valid: function(view, attr, selector) {
+            var $el = view.$("[" + selector + "=" + attr + "]");
+            $el.closest(".form-group").removeClass("has-error");
+        },
+
+        invalid: function(view, attr, error, selector) {
+            var $el = view.$("[" + selector + "=" + attr + "]");
+            $el.closest(".form-group").addClass("has-error");
         },
 
         search: function() {
-            if (!this.model.isEmpty()) {
+            if (this.model.isValid(true)) {
                 var searchQuery = {
                     amount: this.model.get("amount"),
                     period: this.model.get("period")
@@ -48,30 +90,6 @@ App.CalculatorApp.Search = function() {
                 App.vent.trigger("search:searchQuery", searchQuery);
             } else {
                 App.vent.trigger("search:noSearchQuery");
-            }
-        },
-
-        amountChanged: function() {
-            var val = this.ui.amountText.val().trim();
-            var amount = val ? parseInt(val) : 0;
-            this.model.set("amount", amount);
-
-            if (amount) {
-                this.ui.amountText.parent().parent().removeClass("has-error")
-            } else {
-                this.ui.amountText.parent().parent().addClass("has-error")
-            }
-        },
-
-        periodChanged: function() {
-            var val = this.ui.periodText.val().trim();
-            var period = val ? parseInt(val) : 0;
-            this.model.set("period", period);
-
-            if (period) {
-                this.ui.periodText.parent().parent().removeClass("has-error")
-            } else {
-                this.ui.periodText.parent().parent().addClass("has-error")
             }
         }
     });

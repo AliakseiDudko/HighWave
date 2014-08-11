@@ -70,8 +70,17 @@ App.CalculatorApp = function() {
             period: 35
         },
 
-        isEmpty: function() {
-            return this.get("amount") === 0 || this.get("period") === 0;
+        validation: {
+            amount: {
+                required: true,
+                pattern: "number",
+                range: [ 100000, 2000000000 ]
+            },
+            period: {
+                required: true,
+                pattern: "number",
+                min: 1
+            }
         }
     });
 
