@@ -1,5 +1,5 @@
 App.Globalize = function() {
-    var culture = "be-BY";// window.navigator.language || "ru-RU";
+    var culture = window.navigator.language || "ru-RU";
 
     var cldr = new Cldr(culture);
 
