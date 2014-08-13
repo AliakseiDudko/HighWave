@@ -37,8 +37,8 @@ public class DepositAccount {
 			AccountStatementRecord lastRecord = accountStatement.get(accountStatement.size() - 1);
 			DateTime startDate = AccountStatementRecord.dateFormatter.parseDateTime(firstRecord.date);
 			DateTime endDate = AccountStatementRecord.dateFormatter.parseDateTime(lastRecord.date);
-			this.startDate = startDate.toString(AccountStatementRecord.dateFormatter);
-			this.endDate = endDate.toString(AccountStatementRecord.dateFormatter);
+			this.startDate = firstRecord.date;
+			this.endDate = lastRecord.date;
 			this.period = Days.daysBetween(startDate, endDate).getDays();
 
 			this.startAmount = firstRecord.amount;
