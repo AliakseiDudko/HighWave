@@ -39,10 +39,10 @@ App.CalculatorApp.Search = function() {
             "[name=amount]": {
                 observe: "amount",
                 onGet: function(value) {
-                    return value;
+                    return App.Globalize.formatNumber(value);
                 },
                 onSet: function(value) {
-                    return parseInt(value);
+                    return App.Globalize.parseNumber(value);
                 },
                 setOptions: {
                     validate: true
@@ -51,10 +51,10 @@ App.CalculatorApp.Search = function() {
             "[name=period]": {
                 observe: "period",
                 onGet: function(value) {
-                    return value;
+                    return App.Globalize.formatNumber(value);
                 },
                 onSet: function(value) {
-                    return parseInt(value);
+                    return App.Globalize.parseNumber(value);
                 },
                 setOptions: {
                     validate: true

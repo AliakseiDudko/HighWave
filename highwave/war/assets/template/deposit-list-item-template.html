@@ -1,7 +1,7 @@
 <td><img class="bank-logo-16 <%- deposit.bank.css %>"></td>
 <td><%- deposit.name %></td>
-<td><%- endAmount %></td>
-<td><%- endAmount - startAmount %></td>
+<td><%- App.Globalize.formatNumber(endAmount) %></td>
+<td><%- App.Globalize.formatNumber(profit) %></td>
 <td>
 	<div class="progress">
 		<div class="progress-bar progress-bar-zero" style="width: <%- 100 - profitRate %>%"></div>
