@@ -15,9 +15,8 @@ App.Globalize = function() {
     _.each(cldrUrls, function(cldrUrl) {
         $.ajax({
             url: cldrUrl,
-            success: function(json) {
-                Cldr.load($.parseJSON(json));
-            },
+            dataType: "json",
+            success: Cldr.load,
             async: false
         });
     });
