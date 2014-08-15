@@ -8,7 +8,7 @@ App.Globalize = function() {
     var cldrUrls = [ "assets/js/globalize/cldr/supplemental/likelySubtags.json",
                      "assets/js/globalize/cldr/main/" + language + "/ca-gregorian.json",
                      "assets/js/globalize/cldr/main/" + language + "/numbers.json",
-                     "assets/js/globalize/cldr/main/" + culture + "/ca-gregorian.json", 
+                     "assets/js/globalize/cldr/main/" + culture + "/ca-gregorian.json",
                      "assets/js/globalize/cldr/main/" + culture + "/numbers.json",
                      "assets/js/globalize/cldr/supplemental/timeData.json",
                      "assets/js/globalize/cldr/supplemental/weekData.json" ];
@@ -22,6 +22,10 @@ App.Globalize = function() {
     });
 
     var globalize = new Globalize(cldr);
+
+    globalize.formatInt = function(value) {
+        return value ? globalize.formatNumber(value) : "";
+    };
 
     globalize.formatFloat = function(value, fractionDigits) {
         return globalize.formatNumber(value, {

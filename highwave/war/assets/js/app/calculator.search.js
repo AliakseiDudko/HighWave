@@ -23,6 +23,10 @@ App.CalculatorApp.Search = function() {
             App.vent.on("search:noResults", function() {
                 self.showMessage("No results were found.");
             });
+
+            this.listenTo(this.model, "change", function() {
+                this.stickit();
+            });
         },
 
         ui: {
@@ -39,10 +43,10 @@ App.CalculatorApp.Search = function() {
             "[name=amount]": {
                 observe: "amount",
                 onGet: function(value) {
-                    return App.Globalize.formatNumber(value);
+                    return App.Globalize.formatInt(value);
                 },
                 onSet: function(value) {
-                    return App.Globalize.parseNumber(value);
+                    return App.Globalize.parseNumber(value) || null;
                 },
                 setOptions: {
                     validate: true
@@ -51,10 +55,10 @@ App.CalculatorApp.Search = function() {
             "[name=period]": {
                 observe: "period",
                 onGet: function(value) {
-                    return App.Globalize.formatNumber(value);
+                    return App.Globalize.formatInt(value);
                 },
                 onSet: function(value) {
-                    return App.Globalize.parseNumber(value);
+                    return App.Globalize.parseNumber(value) || null;
                 },
                 setOptions: {
                     validate: true

@@ -74,12 +74,12 @@ App.CalculatorApp = function() {
             amount: {
                 required: true,
                 pattern: "number",
-                range: [ 100000, 2000000000 ]
+                range: [ 100000, 1000000000 ]
             },
             period: {
                 required: true,
                 pattern: "number",
-                min: 1
+                range: [1, 1000]
             }
         }
     });
