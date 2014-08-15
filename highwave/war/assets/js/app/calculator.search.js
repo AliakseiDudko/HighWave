@@ -54,9 +54,6 @@ App.CalculatorApp.Search = function() {
             },
             "[name=period]": {
                 observe: "period",
-                onGet: function(value) {
-                    return App.Globalize.formatInt(value);
-                },
                 onSet: function(value) {
                     return App.Globalize.parseNumber(value) || null;
                 },
