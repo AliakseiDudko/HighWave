@@ -40,7 +40,7 @@ App.CalculatorApp.DepositList = function() {
                 self.showMessage("Please enter amount and period.");
             });
             App.vent.on("search:noResults", function() {
-                self.showMessage("No resuls were found.");
+                self.showMessage("No results were found.");
             });
         }
     });

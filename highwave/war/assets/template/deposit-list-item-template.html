@@ -4,7 +4,7 @@
 <td><%- App.Globalize.formatNumber(profit) %></td>
 <td>
 	<div class="progress">
-		<div class="progress-bar progress-bar-zero" style="width: <%- 100 - profitRate %>%"></div>
-		<div class="progress-bar progress-bar-danger" style="width: <%- profitRate %>%"></div>
+		<div class="progress-bar progress-bar-zero" style="width: <%- 100 * startAmount / endAmount %>%"></div>
+		<div class="progress-bar progress-bar-danger" style="width: <%- 100 * profit / endAmount %>%"></div>
 	</div>
 </td>

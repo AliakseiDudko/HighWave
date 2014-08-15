@@ -30,10 +30,6 @@ body {
 	background-image: linear-gradient(to bottom, #5cb85c 0, #419641 100%);
 }
 
-#search-region {
-	min-height: 215px;
-}
-
 #news-panel iframe[id^='twitter-widget-'] {
 	max-width: 100% !important;
 	min-width: 200px !important;
