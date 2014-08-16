@@ -2,7 +2,6 @@ package com.dudko.highwave.deposit;
 
 import java.util.List;
 
-import org.joda.time.DateTime;
 import org.joda.time.Days;
 
 import com.dudko.highwave.deposit.deposits.Deposit;
@@ -35,26 +34,29 @@ public class DepositAccount {
 		if (!accountStatement.isEmpty()) {
 			AccountStatementRecord firstRecord = accountStatement.get(0);
 			AccountStatementRecord lastRecord = accountStatement.get(accountStatement.size() - 1);
-			DateTime startDate = AccountStatementRecord.dateFormatter.parseDateTime(firstRecord.date);
-			DateTime endDate = AccountStatementRecord.dateFormatter.parseDateTime(lastRecord.date);
 			this.startDate = firstRecord.date;
 			this.endDate = lastRecord.date;
-			this.period = Days.daysBetween(startDate, endDate).getDays();
+			this.period = Days.daysBetween(firstRecord.GetOriginalDate(), lastRecord.GetOriginalDate()).getDays();
 
-			this.startAmount = firstRecord.amount;
-			this.endAmount = lastRecord.amount;
+			this.startAmount = roundUpTo(firstRecord.amount, 50);
+			this.endAmount = roundUpTo(lastRecord.amount, 50);
 			this.profit = this.endAmount - this.startAmount;
 			this.profitRate = 100.0f * this.profit / this.startAmount;
 			this.profitPerDay = this.profit / this.period;
 
-			this.endUsdExchangeRate = ExchangeRateStats.currentUsdExchangeRate + this.period * ExchangeRateStats.dailyUsdExchangeRateDelta;
-			this.startAmountUsd = this.startAmount / ExchangeRateStats.currentUsdExchangeRate;
-			this.endAmountUsd = this.endAmount / this.endUsdExchangeRate;
+			float endUsdDelta = this.period * ExchangeRateStats.dailyUsdExchangeRateDelta;
+			this.endUsdExchangeRate = roundUpTo(ExchangeRateStats.currentUsdExchangeRate + endUsdDelta, 10);
+			this.endAmountUsd = roundUpTo(this.endAmount / this.endUsdExchangeRate, 0.1f);
+			this.startAmountUsd = roundUpTo(this.startAmount / ExchangeRateStats.currentUsdExchangeRate, 0.1f);
 			this.profitUsd = this.endAmountUsd - this.startAmountUsd;
-			this.profitPerDayUsd = this.profitUsd / this.period;
 			this.profitRateUsd = 100.0f * this.profitUsd / this.startAmountUsd;
+			this.profitPerDayUsd = this.profitUsd / this.period;
 		}
 
 		this.accountStatement = accountStatement.toArray(new AccountStatementRecord[accountStatement.size()]);
+	}
+
+	private float roundUpTo(float amount, float base) {
+		return (float) (base * (Math.floor(amount / base)));
 	}
 }

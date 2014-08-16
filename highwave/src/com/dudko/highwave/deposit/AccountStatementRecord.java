@@ -10,12 +10,16 @@ public class AccountStatementRecord {
 	public float interest;
 	public String description;
 
-	public static DateTimeFormatter dateFormatter = ISODateTimeFormat.date();
+	private static DateTimeFormatter dateFormatter = ISODateTimeFormat.date();
 
 	public AccountStatementRecord(DateTime date, float amount, float interest, String description) {
 		this.date = date.toString(dateFormatter);
 		this.amount = amount;
 		this.interest = interest;
 		this.description = description;
+	}
+
+	public DateTime GetOriginalDate() {
+		return dateFormatter.parseDateTime(date);
 	}
 }
