@@ -66,7 +66,7 @@ public class NewsFactory {
 		String message = "Официальный курс рубля:\r\n";
 		message += String.format("%s: %,.0f\r\n", Currency.USD.toString(), map.get(Currency.USD.toString()));
 		message += String.format("%s: %,.0f\r\n", Currency.EUR.toString(), map.get(Currency.EUR.toString()));
-		message += String.format("%s: %,.0f\r\n", Currency.RUB.toString(), map.get(Currency.RUB.toString()));
+		message += String.format("%s: %,.1f\r\n", Currency.RUB.toString(), map.get(Currency.RUB.toString()));
 
 		String filePath = String.format("./assets/tweet/media/girls/%d.jpg", today.getDayOfMonth());
 		File image = new File(filePath);
@@ -110,7 +110,7 @@ public class NewsFactory {
 		String message = "Изменение официального курса рубля за день/месяц/год:\r\n";
 		message += String.format("%s: %+,.0f/%+,.0f/%+,.0f\r\n", usd, yesterdayUsd, monthAgoUsd, yearAgoUsd);
 		message += String.format("%s: %+,.0f/%+,.0f/%+,.0f\r\n", eur, yesterdayEur, monthAgoEur, yearAgoEur);
-		message += String.format("%s: %+,.0f/%+,.0f/%+,.0f\r\n", rub, yesterdayRub, monthAgoRub, yearAgoRub);
+		message += String.format("%s: %+,.1f/%+,.1f/%+,.1f\r\n", rub, yesterdayRub, monthAgoRub, yearAgoRub);
 
 		String filePath = String.format("./assets/tweet/media/cats/%d.jpg", today.getDayOfMonth());
 		File image = new File(filePath);
