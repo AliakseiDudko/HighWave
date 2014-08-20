@@ -34,7 +34,9 @@ public class DepositService {
 
 		for (Deposit deposit : depositFactory.GetAllDeposits()) {
 			DepositAccount depositAccount = deposit.calculateDeposit(amount, period);
-			list.add(depositAccount);
+			if (depositAccount != null) {
+				list.add(depositAccount);
+			}
 		}
 
 		Comparator<DepositAccount> comparator = new Comparator<DepositAccount>() {

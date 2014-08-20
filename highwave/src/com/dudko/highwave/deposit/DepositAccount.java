@@ -9,6 +9,8 @@ import com.dudko.highwave.utils.ExchangeRateStats;
 
 public class DepositAccount {
 	public Deposit deposit;
+	public AccountStatementRecord[] accountStatement;
+
 	public float startAmount;
 	public float endAmount;
 	public float profit;
@@ -26,34 +28,44 @@ public class DepositAccount {
 	public String endDate;
 	public int period;
 
-	public AccountStatementRecord[] accountStatement;
-
 	public DepositAccount(Deposit deposit, List<AccountStatementRecord> accountStatement) {
 		this.deposit = deposit;
+		this.accountStatement = accountStatement.toArray(new AccountStatementRecord[accountStatement.size()]);
 
 		if (!accountStatement.isEmpty()) {
 			AccountStatementRecord firstRecord = accountStatement.get(0);
-			AccountStatementRecord lastRecord = accountStatement.get(accountStatement.size() - 1);
-			this.startDate = firstRecord.date;
-			this.endDate = lastRecord.date;
-			this.period = Days.daysBetween(firstRecord.GetOriginalDate(), lastRecord.GetOriginalDate()).getDays();
+			AccountStatementRecord lastRecord = getLastRecord();
+			startDate = firstRecord.date;
+			endDate = lastRecord.date;
+			period = Days.daysBetween(firstRecord.GetOriginalDate(), lastRecord.GetOriginalDate()).getDays();
 
-			this.startAmount = roundUpTo(firstRecord.amount, 50);
-			this.endAmount = roundUpTo(lastRecord.amount, 50);
-			this.profit = this.endAmount - this.startAmount;
-			this.profitRate = 100.0f * this.profit / this.startAmount;
-			this.profitPerDay = this.profit / this.period;
+			startAmount = roundUpTo(firstRecord.amount, 50);
+			endAmount = roundUpTo(lastRecord.amount, 50);
+			profit = endAmount - startAmount;
+			profitRate = 100.0f * profit / startAmount;
+			profitPerDay = profit / period;
 
-			float endUsdDelta = this.period * ExchangeRateStats.dailyUsdExchangeRateDelta;
-			this.endUsdExchangeRate = roundUpTo(ExchangeRateStats.currentUsdExchangeRate + endUsdDelta, 10);
-			this.endAmountUsd = roundUpTo(this.endAmount / this.endUsdExchangeRate, 0.1f);
-			this.startAmountUsd = roundUpTo(this.startAmount / ExchangeRateStats.currentUsdExchangeRate, 0.1f);
-			this.profitUsd = this.endAmountUsd - this.startAmountUsd;
-			this.profitRateUsd = 100.0f * this.profitUsd / this.startAmountUsd;
-			this.profitPerDayUsd = this.profitUsd / this.period;
+			float endUsdDelta = period * ExchangeRateStats.dailyUsdExchangeRateDelta;
+			endUsdExchangeRate = roundUpTo(ExchangeRateStats.currentUsdExchangeRate + endUsdDelta, 10);
+			endAmountUsd = roundUpTo(endAmount / endUsdExchangeRate, 0.1f);
+			startAmountUsd = roundUpTo(startAmount / ExchangeRateStats.currentUsdExchangeRate, 0.1f);
+			profitUsd = endAmountUsd - startAmountUsd;
+			profitRateUsd = 100.0f * profitUsd / startAmountUsd;
+			profitPerDayUsd = profitUsd / period;
+		}
+	}
+
+	private AccountStatementRecord getLastRecord() {
+		AccountStatementRecord lastRecord = accountStatement[accountStatement.length - 1];
+
+		for (AccountStatementRecord record : accountStatement) {
+			if (record.isLast) {
+				lastRecord = record;
+				break;
+			}
 		}
 
-		this.accountStatement = accountStatement.toArray(new AccountStatementRecord[accountStatement.size()]);
+		return lastRecord;
 	}
 
 	private float roundUpTo(float amount, float base) {
