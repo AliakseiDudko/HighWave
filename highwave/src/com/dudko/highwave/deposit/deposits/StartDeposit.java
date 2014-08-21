@@ -3,6 +3,8 @@ package com.dudko.highwave.deposit.deposits;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.joda.time.DateTime;
 
@@ -38,45 +40,32 @@ public class StartDeposit extends Deposit {
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 
 		DateTime currentDate = DateTime.now();
-
 		float depositAmount = amount;
+
 		AccountStatementRecord record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Открытие вклада.");
 		list.add(record);
 
-		List<Integer> days = Arrays.asList(capitalizationPeriod, 2 * capitalizationPeriod, 3 * capitalizationPeriod);
+		Set<Integer> setOfDays = new TreeSet<Integer>(Arrays.asList(0, 30, 60, 90, 95, period));
+		Integer[] days = setOfDays.toArray(new Integer[0]);
 
-		for (int day = 1; day <= depositTerm; day++) {
-			int _period = 0;
-			currentDate = currentDate.plusDays(1);
+		for (int i = 0; days[i] < depositTerm; i++) {
+			int day = days[i + 1];
+			int _period = day - days[i];
 
-			if (days.contains(day)) {
-				if (day == days.get(1) && period > days.get(0) && period < days.get(1)) {
-					_period = days.get(1) - period;
-				} else if (day == days.get(2) && period > days.get(1) && period < days.get(2)) {
-					_period = days.get(2) - period;
-				} else {
-					_period = capitalizationPeriod;
-				}
+			currentDate = currentDate.plusDays(_period);
+			depositAmount = calculatePeriod(depositAmount, interestRate, _period);
 
-				depositAmount = calculatePeriod(depositAmount, interestRate, _period);
+			boolean isLast = day == period || (day == depositTerm && depositTerm < period);
+
+			if (day % capitalizationPeriod == 0) {
 				record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Капитализация.");
 				list.add(record);
 			}
 
 			if (day == depositTerm) {
-				if (period > days.get(2) && period < depositTerm) {
-					_period = depositTerm - period;
-				} else {
-					_period = day - days.get(2);
-				}
-
-				depositAmount = calculatePeriod(depositAmount, interestRate, _period);
-				record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Закрытие вклада.").setIsLast(true);
+				record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Закрытие вклада.").setIsLast(isLast);
 				list.add(record);
 			} else if (day == period) {
-				_period = day % capitalizationPeriod;
-
-				depositAmount = calculatePeriod(depositAmount, interestRate, _period);
 				record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Частичное снятие вклада.").setIsLast(true);
 				list.add(record);
 

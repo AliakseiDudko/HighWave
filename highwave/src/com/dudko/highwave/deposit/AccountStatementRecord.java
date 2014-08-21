@@ -9,7 +9,7 @@ public class AccountStatementRecord {
 	public float amount;
 	public float interest;
 	public String description;
-	public Boolean isLast;
+	public boolean isLast;
 
 	private static DateTimeFormatter dateFormatter = ISODateTimeFormat.date();
 
@@ -18,7 +18,6 @@ public class AccountStatementRecord {
 		this.amount = amount;
 		this.interest = interest;
 		this.description = description;
-		this.isLast = false;
 	}
 
 	public AccountStatementRecord setIsLast(Boolean isLast) {
