@@ -70,3 +70,7 @@ body {
 .bank-logo-16.hcb {
 	background-position: 0 -32px;
 }
+
+.bank-logo-16.vtb {
+	background-position: -16px -48px;
+}

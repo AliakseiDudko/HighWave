@@ -6,6 +6,7 @@ import java.util.Map;
 import com.dudko.highwave.bank.banks.Bank;
 import com.dudko.highwave.bank.banks.BelAgroPromBank;
 import com.dudko.highwave.bank.banks.HomeCreditBank;
+import com.dudko.highwave.bank.banks.VTBBank;
 
 public class BankFactory {
 	private static final Map<BankCode, Bank> banks;
@@ -15,6 +16,7 @@ public class BankFactory {
 
 		AddBank(new BelAgroPromBank());
 		AddBank(new HomeCreditBank());
+		AddBank(new VTBBank());
 
 		banks.values().toArray(new Bank[banks.size()]);
 	}
