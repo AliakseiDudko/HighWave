@@ -12,6 +12,9 @@ import com.dudko.highwave.deposit.Currency;
 import com.dudko.highwave.deposit.DepositAccount;
 
 public class OnWaveDeposit extends Deposit {
+	private int depositTerm = 10;
+	private float minOpenAmount = 1000000;
+	
 	public OnWaveDeposit() {
 		id = 2;
 		bank = BankFactory.GetBank(BankCode.HomeCreditBank);
@@ -23,21 +26,27 @@ public class OnWaveDeposit extends Deposit {
 
 	@Override
 	public DepositAccount calculateDeposit(float amount, int period) {
+		if (amount < minOpenAmount || period < depositTerm) {
+			return null;
+		}
+		
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 
-		float periodAmount = amount;
-		DateTime periodDate = DateTime.now();
-		AccountStatementRecord record = new AccountStatementRecord(periodDate, periodAmount, interestRate, "Открытие вклада.");
+		DateTime currentDate = DateTime.now();
+		float depositAmount = amount;
+		
+		AccountStatementRecord record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Открытие вклада.");
 		list.add(record);
 
 		for (int i = 0; i < period; i += 10) {
-			periodDate = periodDate.plusDays(10);
-			periodAmount = calculatePeriod(periodAmount, interestRate, 10);
-			record = new AccountStatementRecord(periodDate, periodAmount, interestRate, "Капитализация.");
+			currentDate = currentDate.plusDays(10);
+			depositAmount = calculatePeriod(depositAmount, interestRate, 10);
+			
+			record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Капитализация.");
 			list.add(record);
 		}
 
-		record = new AccountStatementRecord(periodDate, periodAmount, interestRate, "Закрытие вклада.");
+		record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Закрытие вклада.").setIsLast(true);
 		list.add(record);
 
 		return new DepositAccount(this, list);

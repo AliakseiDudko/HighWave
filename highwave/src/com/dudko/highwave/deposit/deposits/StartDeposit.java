@@ -66,7 +66,7 @@ public class StartDeposit extends Deposit {
 				record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Закрытие вклада.").setIsLast(isLast);
 				list.add(record);
 			} else if (day == period) {
-				record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Частичное снятие вклада.").setIsLast(true);
+				record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Частичное снятие вклада.").setIsLast(isLast);
 				list.add(record);
 
 				depositAmount = minDepositAmount;
