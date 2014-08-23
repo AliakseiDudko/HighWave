@@ -13,6 +13,7 @@ public class BankFactory {
 		AddBank(new BelAgroPromBank());
 		AddBank(new HomeCreditBank());
 		AddBank(new VTBBank());
+		AddBank(new BTABank());
 
 		banks.values().toArray(new Bank[banks.size()]);
 	}
