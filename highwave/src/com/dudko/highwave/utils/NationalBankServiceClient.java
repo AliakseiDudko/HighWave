@@ -5,10 +5,15 @@ import java.net.*;
 import java.util.*;
 
 import javax.xml.parsers.*;
-import javax.xml.soap.*;
+import javax.xml.soap.MessageFactory;
+import javax.xml.soap.MimeHeaders;
+import javax.xml.soap.SOAPConnection;
+import javax.xml.soap.SOAPConnectionFactory;
+import javax.xml.soap.SOAPMessage;
 
 import org.joda.time.DateTime;
 import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
 public class NationalBankServiceClient {
 	public static DateTime GetLastDailyExRatesDate() {
