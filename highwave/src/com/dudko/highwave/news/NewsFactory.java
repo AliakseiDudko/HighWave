@@ -1,25 +1,14 @@
 package com.dudko.highwave.news;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import org.joda.time.DateTime;
-import org.joda.time.Seconds;
+import org.joda.time.*;
 
 import com.dudko.highwave.deposit.Currency;
 import com.dudko.highwave.utils.NationalBankServiceClient;
 
-import twitter4j.GeoLocation;
-import twitter4j.OEmbed;
-import twitter4j.OEmbedRequest;
-import twitter4j.Paging;
-import twitter4j.Status;
-import twitter4j.StatusUpdate;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
+import twitter4j.*;
 
 public class NewsFactory {
 	private static final Twitter twitter;

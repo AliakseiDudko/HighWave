@@ -1,12 +1,8 @@
 package com.dudko.highwave.bank;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-import com.dudko.highwave.bank.banks.Bank;
-import com.dudko.highwave.bank.banks.BelAgroPromBank;
-import com.dudko.highwave.bank.banks.HomeCreditBank;
-import com.dudko.highwave.bank.banks.VTBBank;
+import com.dudko.highwave.bank.banks.*;
 
 public class BankFactory {
 	private static final Map<BankCode, Bank> banks;

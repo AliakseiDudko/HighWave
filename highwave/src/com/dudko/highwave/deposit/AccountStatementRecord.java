@@ -1,8 +1,7 @@
 package com.dudko.highwave.deposit;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
+import org.joda.time.format.*;
 
 public class AccountStatementRecord {
 	public String date;

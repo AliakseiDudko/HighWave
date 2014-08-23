@@ -1,21 +1,16 @@
 package com.dudko.highwave;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import javax.inject.Named;
 
 import twitter4j.OEmbed;
 
 import com.dudko.highwave.bank.BankFactory;
-import com.dudko.highwave.deposit.DepositAccount;
-import com.dudko.highwave.deposit.DepositFactory;
+import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.deposit.deposits.Deposit;
 import com.dudko.highwave.news.NewsFactory;
-import com.google.api.server.spi.config.Api;
-import com.google.api.server.spi.config.ApiMethod;
+import com.google.api.server.spi.config.*;
 import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 
 @Api(name = "deposits", version = "v0")

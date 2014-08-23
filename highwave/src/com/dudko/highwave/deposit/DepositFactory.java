@@ -1,11 +1,8 @@
 package com.dudko.highwave.deposit;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-import com.dudko.highwave.deposit.deposits.Deposit;
-import com.dudko.highwave.deposit.deposits.OnWaveDeposit;
-import com.dudko.highwave.deposit.deposits.StartDeposit;
+import com.dudko.highwave.deposit.deposits.*;
 
 public class DepositFactory {
 	private static final Map<Integer, Deposit> deposits;
@@ -16,6 +13,7 @@ public class DepositFactory {
 
 		AddDeposit(new StartDeposit());
 		AddDeposit(new OnWaveDeposit());
+		AddDeposit(new SkarbonkaDeposit());
 
 		depoisitsArray = deposits.values().toArray(new Deposit[deposits.size()]);
 	}

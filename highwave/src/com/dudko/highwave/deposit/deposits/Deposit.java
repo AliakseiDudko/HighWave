@@ -1,8 +1,7 @@
 package com.dudko.highwave.deposit.deposits;
 
 import com.dudko.highwave.bank.banks.Bank;
-import com.dudko.highwave.deposit.Currency;
-import com.dudko.highwave.deposit.DepositAccount;
+import com.dudko.highwave.deposit.*;
 
 public abstract class Deposit {
 	public int id;
