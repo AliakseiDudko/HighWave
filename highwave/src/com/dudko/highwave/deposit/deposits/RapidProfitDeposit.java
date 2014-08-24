@@ -8,17 +8,18 @@ import org.joda.time.*;
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 
-public class SkarbonkaDeposit extends Deposit {
-	private int depositTerm = 395;
-	private float minOpenAmount = 200000;
+public class RapidProfitDeposit extends Deposit {
+	private int depositTerm = 10;
+	private float minOpenAmount = 1000000;
+	private float lowInterestRate = 0.01f;
 
-	public SkarbonkaDeposit() {
-		id = 3;
-		bank = BankFactory.GetBank(BankCode.VTBBank);
-		name = "Скарбонка";
-		url = "http://vtb-bank.by/personal/deposit/skarbonka/";
+	public RapidProfitDeposit() {
+		id = 4;
+		bank = BankFactory.GetBank(BankCode.BTABank);
+		name = "Стремительный доход";
+		url = "http://www.btabank.by/ru/block/1257/";
 		currency = Currency.BYR;
-		interestRate = 30.0f;
+		interestRate = 26.0f;
 	}
 
 	@Override
@@ -30,29 +31,29 @@ public class SkarbonkaDeposit extends Deposit {
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 
 		DateTime currentDate = DateTime.now();
-		DateTime endDate = currentDate.plusDays(Math.min(period, depositTerm));
+		DateTime endDate = currentDate.plusDays(period);
 		float depositAmount = amount;
 
 		AccountStatementRecord record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Открытие вклада.");
 		list.add(record);
 
 		DateTime previousDate = currentDate;
-		currentDate = currentDate.plusMonths(1);
+		currentDate = currentDate.plusDays(depositTerm);
 		while (currentDate.isBefore(endDate)) {
-			int _period = Days.daysBetween(previousDate, currentDate).getDays();
-			depositAmount = calculatePeriod(depositAmount, interestRate, _period);
+			depositAmount = calculatePeriod(depositAmount, interestRate, depositTerm);
 			record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Капитализация.");
 			list.add(record);
 
 			previousDate = currentDate;
-			currentDate = currentDate.plusMonths(1);
+			currentDate = currentDate.plusDays(depositTerm);
 		}
 
 		int _period = Days.daysBetween(previousDate, endDate).getDays();
-		depositAmount = calculatePeriod(depositAmount, interestRate, _period);
-		record = new AccountStatementRecord(endDate, depositAmount, interestRate, "Закрытие вклада.").setIsLast(true);
+		depositAmount = calculatePeriod(depositAmount, lowInterestRate, _period);
+		record = new AccountStatementRecord(endDate, depositAmount, lowInterestRate, "Закрытие вклада.").setIsLast(true);
 		list.add(record);
 
 		return new DepositAccount(this, list);
 	}
+
 }

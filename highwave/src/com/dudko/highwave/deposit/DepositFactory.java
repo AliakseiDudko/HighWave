@@ -14,6 +14,7 @@ public class DepositFactory {
 		AddDeposit(new StartDeposit());
 		AddDeposit(new OnWaveDeposit());
 		AddDeposit(new SkarbonkaDeposit());
+		AddDeposit(new RapidProfitDeposit());
 
 		depoisitsArray = deposits.values().toArray(new Deposit[deposits.size()]);
 	}
