@@ -53,8 +53,15 @@ public class RapidProfitDeposit extends Deposit {
 
 		int _period = Days.daysBetween(previousDate, endDate).getDays();
 		depositAmount = calculatePeriod(depositAmount, lowInterestRate, _period);
-		record = new AccountStatementRecord(endDate, depositAmount, lowInterestRate, "Закрытие вклада.").setIsLast(true);
-		list.add(record);
+		if (_period == 0) {
+			record = new AccountStatementRecord(endDate, depositAmount, interestRate, "Закрытие вклада.").setIsLast(true);
+			list.add(record);
+		} else {
+			record = new AccountStatementRecord(endDate, depositAmount, lowInterestRate, "Досрочное истребование депозита.");
+			list.add(record);
+			record = new AccountStatementRecord(endDate, depositAmount, lowInterestRate, "Закрытие вклада.").setIsLast(true);
+			list.add(record);
+		}
 
 		return new DepositAccount(this, list);
 	}
