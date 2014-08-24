@@ -10,7 +10,7 @@ import com.dudko.highwave.deposit.*;
 
 public class RapidProfitDeposit extends Deposit {
 	private int depositTerm = 10;
-	private float minOpenAmount = 1000000;
+	private float minOpenAmount = 1000000f;
 	private float lowInterestRate = 0.01f;
 
 	public RapidProfitDeposit() {

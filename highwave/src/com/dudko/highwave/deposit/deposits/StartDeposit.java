@@ -11,8 +11,8 @@ import com.dudko.highwave.deposit.Currency;
 public class StartDeposit extends Deposit {
 	private int depositTerm = 95;
 	private int capitalizationPeriod = 30;
-	private float minOpenAmount = 1000000;
-	private float minDepositAmount = 3000000;
+	private float minOpenAmount = 1000000f;
+	private float minDepositAmount = 3000000f;
 
 	public StartDeposit() {
 		id = 1;

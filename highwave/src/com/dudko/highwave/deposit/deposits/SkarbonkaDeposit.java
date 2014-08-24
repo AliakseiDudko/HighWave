@@ -10,7 +10,7 @@ import com.dudko.highwave.deposit.*;
 
 public class SkarbonkaDeposit extends Deposit {
 	private int depositTerm = 395;
-	private float minOpenAmount = 200000;
+	private float minOpenAmount = 200000f;
 
 	public SkarbonkaDeposit() {
 		id = 3;

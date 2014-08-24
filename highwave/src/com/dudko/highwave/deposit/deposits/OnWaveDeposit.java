@@ -10,7 +10,7 @@ import com.dudko.highwave.deposit.Currency;
 
 public class OnWaveDeposit extends Deposit {
 	private int depositTerm = 10;
-	private float minOpenAmount = 1000000;
+	private float minOpenAmount = 1000000f;
 
 	public OnWaveDeposit() {
 		id = 2;

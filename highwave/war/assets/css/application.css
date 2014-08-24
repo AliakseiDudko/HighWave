@@ -79,6 +79,10 @@ body {
 	background-position: 0 -32px;
 }
 
+.bank-logo-16.mtb {
+	background-position: -48px -32px;
+}
+
 .bank-logo-16.vtb {
 	background-position: -16px -48px;
 }

@@ -15,6 +15,7 @@ public class BankFactory {
 		AddBank(new VTBBank());
 		AddBank(new BTABank());
 		AddBank(new BelGazPromBank());
+		AddBank(new MTBank());
 
 		banks.values().toArray(new Bank[banks.size()]);
 	}
