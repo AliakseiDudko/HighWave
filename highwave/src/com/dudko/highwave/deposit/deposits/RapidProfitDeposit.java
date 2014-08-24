@@ -28,6 +28,8 @@ public class RapidProfitDeposit extends Deposit {
 			return null;
 		}
 
+		period = Math.min(period, 30);
+
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 
 		DateTime currentDate = DateTime.now();
@@ -39,7 +41,8 @@ public class RapidProfitDeposit extends Deposit {
 
 		DateTime previousDate = currentDate;
 		currentDate = currentDate.plusDays(depositTerm);
-		while (currentDate.isBefore(endDate)) {
+
+		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
 			depositAmount = calculatePeriod(depositAmount, interestRate, depositTerm);
 			record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Капитализация.");
 			list.add(record);

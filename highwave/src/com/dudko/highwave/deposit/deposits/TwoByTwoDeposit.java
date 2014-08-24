@@ -3,7 +3,7 @@ package com.dudko.highwave.deposit.deposits;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.joda.time.DateTime;
+import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
@@ -34,8 +34,11 @@ public class TwoByTwoDeposit extends Deposit {
 		list.add(record);
 
 		for (int i = 0; i < 2; i++) {
+			DateTime previousDate = currentDate;
 			currentDate = currentDate.plusMonths(1);
-			depositAmount = calculatePeriod(depositAmount, interestRate, 30);
+
+			int _period = Days.daysBetween(previousDate, currentDate).getDays();
+			depositAmount = calculatePeriod(depositAmount, interestRate, _period);
 			record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Капитализация.");
 			list.add(record);
 		}
