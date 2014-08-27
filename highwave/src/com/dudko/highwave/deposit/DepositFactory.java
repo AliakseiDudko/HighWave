@@ -19,6 +19,9 @@ public class DepositFactory {
 		AddDeposit(new MTSquirrels(6, "МТБелки 18-1", 28.0f, 1));
 		AddDeposit(new MTSquirrels(7, "МТБелки 18-3", 32.0f, 3));
 		AddDeposit(new EarlierMore2Deposit());
+		AddDeposit(new EasyChoiseDeposit(9, "Легкий выбор 30", 29.0f, 30));
+		AddDeposit(new EasyChoiseDeposit(10, "Легкий выбор 90", 32.0f, 90));
+		AddDeposit(new EasyChoiseDeposit(11, "Легкий выбор 180", 31.0f, 180));
 
 		depoisitsArray = deposits.values().toArray(new Deposit[deposits.size()]);
 	}
