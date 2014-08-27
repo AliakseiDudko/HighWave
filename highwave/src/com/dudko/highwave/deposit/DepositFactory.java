@@ -18,6 +18,7 @@ public class DepositFactory {
 		AddDeposit(new TwoByTwoDeposit());
 		AddDeposit(new MTSquirrels(6, "МТБелки 18-1", 28.0f, 1));
 		AddDeposit(new MTSquirrels(7, "МТБелки 18-3", 32.0f, 3));
+		AddDeposit(new EarlierMore2Deposit());
 
 		depoisitsArray = deposits.values().toArray(new Deposit[deposits.size()]);
 	}

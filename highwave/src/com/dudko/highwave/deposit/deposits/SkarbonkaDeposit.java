@@ -38,7 +38,7 @@ public class SkarbonkaDeposit extends Deposit {
 
 		DateTime previousDate = currentDate;
 		currentDate = currentDate.plusMonths(1);
-		while (currentDate.isBefore(endDate)) {
+		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
 			int _period = Days.daysBetween(previousDate, currentDate).getDays();
 			depositAmount = calculatePeriod(depositAmount, interestRate, _period);
 			record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Капитализация.");
