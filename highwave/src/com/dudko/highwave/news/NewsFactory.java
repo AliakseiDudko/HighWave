@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.*;
 
 import org.joda.time.*;
+import org.joda.time.format.*;
 
 import com.dudko.highwave.deposit.Currency;
 import com.dudko.highwave.utils.NationalBankServiceClient;
@@ -48,16 +49,16 @@ public class NewsFactory {
 	}
 
 	public static void addExchangeRateTweet() {
-		DateTime today = NationalBankServiceClient.GetLastDailyExRatesDate();
+		DateTime lastDate = NationalBankServiceClient.getLastDailyExRatesDate();
 
-		Map<String, Double> map = NationalBankServiceClient.getExchangeRatesOnDate(today);
+		Map<String, Double> map = NationalBankServiceClient.getExchangeRatesOnDate(lastDate);
 
-		String message = "Официальный курс рубля:\r\n";
+		String message = String.format("Официальный курс рубля на %s:\r\n", DateTimeFormat.forPattern("dd/MM/yy").print(lastDate));
 		message += String.format("%s: %,.0f\r\n", Currency.USD.toString(), map.get(Currency.USD.toString()));
 		message += String.format("%s: %,.0f\r\n", Currency.EUR.toString(), map.get(Currency.EUR.toString()));
 		message += String.format("%s: %,.1f\r\n", Currency.RUB.toString(), map.get(Currency.RUB.toString()));
 
-		String filePath = String.format("./assets/tweet/media/girls/%d.jpg", today.getDayOfMonth());
+		String filePath = String.format("./assets/tweet/media/girls/%d.jpg", lastDate.getDayOfMonth());
 		File image = new File(filePath);
 
 		GeoLocation location = new GeoLocation(53.900066d, 27.558531d);
@@ -74,12 +75,12 @@ public class NewsFactory {
 	}
 
 	public static void addExchangeRateStatsTweet() {
-		DateTime today = NationalBankServiceClient.GetLastDailyExRatesDate();
+		DateTime lastDate = NationalBankServiceClient.getLastDailyExRatesDate();
 
-		Map<String, Double> todayStats = NationalBankServiceClient.getExchangeRatesOnDate(today);
-		Map<String, Double> yesterdayStats = NationalBankServiceClient.getExchangeRatesOnDate(today.minusDays(1));
-		Map<String, Double> monthAgoStats = NationalBankServiceClient.getExchangeRatesOnDate(today.minusMonths(1));
-		Map<String, Double> yearAgoStats = NationalBankServiceClient.getExchangeRatesOnDate(today.minusYears(1));
+		Map<String, Double> todayStats = NationalBankServiceClient.getExchangeRatesOnDate(lastDate);
+		Map<String, Double> yesterdayStats = NationalBankServiceClient.getExchangeRatesOnDate(lastDate.minusDays(1));
+		Map<String, Double> monthAgoStats = NationalBankServiceClient.getExchangeRatesOnDate(lastDate.minusMonths(1));
+		Map<String, Double> yearAgoStats = NationalBankServiceClient.getExchangeRatesOnDate(lastDate.minusYears(1));
 
 		String usd = Currency.USD.toString();
 		double yesterdayUsd = todayStats.get(usd) - yesterdayStats.get(usd);
@@ -101,7 +102,7 @@ public class NewsFactory {
 		message += String.format("%s: %+,.0f/%+,.0f/%+,.0f\r\n", eur, yesterdayEur, monthAgoEur, yearAgoEur);
 		message += String.format("%s: %+,.1f/%+,.1f/%+,.1f\r\n", rub, yesterdayRub, monthAgoRub, yearAgoRub);
 
-		String filePath = String.format("./assets/tweet/media/cats/%d.jpg", today.getDayOfMonth());
+		String filePath = String.format("./assets/tweet/media/cats/%d.jpg", lastDate.getDayOfMonth());
 		File image = new File(filePath);
 
 		GeoLocation location = new GeoLocation(53.900066d, 27.558531d);

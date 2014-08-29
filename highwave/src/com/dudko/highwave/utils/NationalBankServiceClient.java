@@ -16,9 +16,8 @@ import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 public class NationalBankServiceClient {
-	public static DateTime GetLastDailyExRatesDate() {
-		DateTime today = DateTime.now();
-		DateTime lastDailyExRatesDate = today.minusDays(1);
+	public static DateTime getLastDailyExRatesDate() {
+		DateTime lastDailyExRatesDate = DateTime.now();
 
 		try {
 			SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
@@ -43,7 +42,7 @@ public class NationalBankServiceClient {
 			exception.printStackTrace();
 		}
 
-		return today.isBefore(lastDailyExRatesDate) ? today : lastDailyExRatesDate;
+		return lastDailyExRatesDate;
 	}
 
 	public static Map<String, Double> getExchangeRatesOnDate(DateTime date) {

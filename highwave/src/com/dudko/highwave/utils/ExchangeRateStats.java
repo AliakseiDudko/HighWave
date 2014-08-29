@@ -15,7 +15,7 @@ public class ExchangeRateStats {
 	}
 
 	public static void resetExchangeRateStats() {
-		DateTime today = NationalBankServiceClient.GetLastDailyExRatesDate();
+		DateTime today = NationalBankServiceClient.getLastDailyExRatesDate();
 
 		Map<String, Double> todayStats = NationalBankServiceClient.getExchangeRatesOnDate(today);
 		Double todayUsdExchangeRate = todayStats.get(Currency.USD.toString());
