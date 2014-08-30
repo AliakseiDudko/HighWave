@@ -1,5 +1,5 @@
 body {
-	background: #F3F1E8 url(../img/backgroud.png) repeat-x center top;
+	background: #F3F1E8;
 }
 
 #search-panel {
@@ -46,7 +46,9 @@ body {
 }
 
 .page-header {
-	border-bottom: 0px;
+	background: url(../img/backgroud.png) repeat-x center top;
+	height: 85px;
+	margin: 0px;
 }
 
 .progress {
