@@ -4,21 +4,21 @@
 		<url>/cron/addExchangeRateTweet</url>
 		<description>Add a new tweet with exchange rates information.
 		</description>
-		<schedule>every day 12:20</schedule>
+		<schedule>every day 09:00</schedule>
 		<timezone>Europe/Minsk</timezone>
 	</cron>
 	<cron>
 		<url>/cron/addExchangeRateStatsTweet</url>
 		<description>Add a new tweet with exchange rate statistic.
 		</description>
-		<schedule>every day 12:30</schedule>
+		<schedule>every day 09:10</schedule>
 		<timezone>Europe/Minsk</timezone>
 	</cron>
 	<cron>
 		<url>/cron/resetExchangeRateStats</url>
 		<description>Reset current USD exchange rate ant its daily delta.
 		</description>
-		<schedule>every day 12:20</schedule>
+		<schedule>every day 09:00</schedule>
 		<timezone>Europe/Minsk</timezone>
 	</cron>
 </cronentries>

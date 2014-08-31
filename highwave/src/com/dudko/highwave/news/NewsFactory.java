@@ -32,7 +32,7 @@ public class NewsFactory {
 			try {
 				newsFeed.clear();
 
-				Paging paging = new Paging(1, 5);
+				Paging paging = new Paging(1, 3);
 				for (Status tweet : twitter.getHomeTimeline(paging)) {
 					OEmbedRequest req = new OEmbedRequest(tweet.getId(), "").HideMedia(false).MaxWidth(550);
 					OEmbed oEmbed = twitter.getOEmbed(req);
@@ -50,6 +50,9 @@ public class NewsFactory {
 
 	public static void addExchangeRateTweet() {
 		DateTime lastDate = NationalBankServiceClient.getLastDailyExRatesDate();
+		if (lastDate.isAfterNow()) {
+			lastDate = DateTime.now();
+		}
 
 		Map<String, Double> map = NationalBankServiceClient.getExchangeRatesOnDate(lastDate);
 
@@ -76,6 +79,9 @@ public class NewsFactory {
 
 	public static void addExchangeRateStatsTweet() {
 		DateTime lastDate = NationalBankServiceClient.getLastDailyExRatesDate();
+		if (lastDate.isAfterNow()) {
+			lastDate = DateTime.now();
+		}
 
 		Map<String, Double> todayStats = NationalBankServiceClient.getExchangeRatesOnDate(lastDate);
 		Map<String, Double> yesterdayStats = NationalBankServiceClient.getExchangeRatesOnDate(lastDate.minusDays(1));
