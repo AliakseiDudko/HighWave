@@ -11,7 +11,7 @@ import com.dudko.highwave.deposit.*;
 public class AnnualDeposit extends Deposit {
 	private int depositTerm = 365;
 	private float minOpenAmount = 1000000f;
-	private float minInterestRate = 0.1f;
+	private float lowInterestRate = 1.0f;
 
 	public AnnualDeposit() {
 		id = 12;
@@ -24,51 +24,46 @@ public class AnnualDeposit extends Deposit {
 
 	@Override
 	public DepositAccount calculateDeposit(float amount, int period) {
-		if (amount < minOpenAmount || period <= 30) {
+		if (amount < minOpenAmount) {
 			return null;
 		}
 
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 
-		int term = Math.min(period, depositTerm);
+		period = Math.min(period, depositTerm);
 		DateTime currentDate = DateTime.now();
-		DateTime closeDate = currentDate.plusDays(term);
-		float _interestRate = interestRate(term);
-		float depositAmount = amount;
+		DateTime endDate = currentDate.plusDays(period);
+		float _interestRate = interestRate(period);
+		float _amount = amount;
 
-		AccountStatementRecord record = new AccountStatementRecord(currentDate, depositAmount, _interestRate, "Открытие вклада.");
-		list.add(record);
+		addRecord(list, currentDate, _amount, interestRate, "Открытие вклада.");
 
 		DateTime previousDate = currentDate;
 		currentDate = currentDate.plusMonths(1);
-		while (currentDate.isBefore(closeDate) || currentDate.isEqual(closeDate)) {
+		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
 			int _period = Days.daysBetween(previousDate, currentDate).getDays();
-			depositAmount = calculatePeriod(depositAmount, _interestRate, _period);
-			record = new AccountStatementRecord(currentDate, depositAmount, _interestRate, "Капитализация.");
-			list.add(record);
+			_amount = calculatePeriod(_amount, _interestRate, _period);
+			addRecord(list, currentDate, _amount, _interestRate, "Капитализация.");
 
 			previousDate = currentDate;
 			currentDate = currentDate.plusMonths(1);
 		}
 
-		if (period <= depositTerm) {
-			int _period = Days.daysBetween(previousDate, closeDate).getDays();
-			depositAmount = calculatePeriod(depositAmount, _interestRate, _period);
-			record = new AccountStatementRecord(closeDate, depositAmount, _interestRate, "Закрытие вклада.").setIsLast(true);
-			list.add(record);
-		} else {
-			int _period = period - depositTerm;
-			currentDate = previousDate.plusDays(_period);
-			depositAmount = calculatePeriod(depositAmount, minInterestRate, _period);
-			record = new AccountStatementRecord(currentDate, depositAmount, minInterestRate, "Закрытие вклада.").setIsLast(true);
-			list.add(record);
+		int _period = Days.daysBetween(previousDate, endDate).getDays();
+		if (_period > 0) {
+			_amount = calculatePeriod(_amount, _interestRate, _period);
+			addRecord(list, endDate, _amount, _interestRate, "Начисление процентов.");
 		}
+
+		addAccountStatementRecord(list, endDate, _amount, _interestRate, "Закрытие вклада.", true);
 
 		return new DepositAccount(this, list);
 	}
 
 	private float interestRate(int _period) {
-		if (_period <= 90) {
+		if (_period <= 30) {
+			return lowInterestRate;
+		} else if (_period <= 90) {
 			return interestRate - 2.0f;
 		} else {
 			return interestRate;
