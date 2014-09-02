@@ -55,7 +55,7 @@ public class AnnualDeposit extends Deposit {
 			addRecord(list, endDate, _amount, _interestRate, "Начисление процентов.");
 		}
 
-		addAccountStatementRecord(list, endDate, _amount, _interestRate, "Закрытие вклада.", true);
+		addRecord(list, endDate, _amount, _interestRate, "Закрытие вклада.", true);
 
 		return new DepositAccount(this, list);
 	}

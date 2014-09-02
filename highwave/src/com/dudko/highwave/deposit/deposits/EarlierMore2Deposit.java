@@ -20,7 +20,7 @@ public class EarlierMore2Deposit extends Deposit {
 		name = "Раньше-Больше 2";
 		url = "http://homecredit.by/loans_and_services/Ranshe_Bolshe_2/";
 		currency = Currency.BYR;
-		interestRate = 30.0f;
+		interestRate = 28.0f;
 	}
 
 	@Override
@@ -33,35 +33,36 @@ public class EarlierMore2Deposit extends Deposit {
 
 		int term = Math.min(period, depositTerm);
 		DateTime currentDate = DateTime.now();
-		DateTime closeDate = currentDate.plusDays(term);
+		DateTime endDate = currentDate.plusDays(term);
 		float _interestRate = interestRate(term);
 		float depositAmount = amount;
 
-		AccountStatementRecord record = new AccountStatementRecord(currentDate, depositAmount, _interestRate, "Открытие вклада.");
-		list.add(record);
+		addRecord(list, currentDate, depositAmount, interestRate, "Открытие вклада.");
 
 		DateTime previousDate = currentDate;
 		currentDate = currentDate.plusDays(capitalizationPeriod);
-		while (currentDate.isBefore(closeDate) || currentDate.isEqual(closeDate)) {
+		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
 			depositAmount = calculatePeriod(depositAmount, _interestRate, capitalizationPeriod);
-			record = new AccountStatementRecord(currentDate, depositAmount, _interestRate, "Капитализация.");
-			list.add(record);
+			addRecord(list, currentDate, depositAmount, _interestRate, "Капитализация.");
 
 			previousDate = currentDate;
 			currentDate = currentDate.plusDays(capitalizationPeriod);
 		}
 
-		if (period <= depositTerm) {
-			int _period = Days.daysBetween(previousDate, closeDate).getDays();
+		int _period = Days.daysBetween(previousDate, endDate).getDays();
+		if (_period > 0) {
 			depositAmount = calculatePeriod(depositAmount, _interestRate, _period);
-			record = new AccountStatementRecord(closeDate, depositAmount, _interestRate, "Закрытие вклада.").setIsLast(true);
-			list.add(record);
+			addRecord(list, endDate, depositAmount, _interestRate, "Начисление процентов.");
+		}
+
+		if (period <= depositTerm) {
+			addRecord(list, endDate, depositAmount, _interestRate, "Закрытие вклада.", true);
 		} else {
-			int _period = period - depositTerm;
+			_period = period - depositTerm;
 			currentDate = previousDate.plusDays(_period);
 			depositAmount = calculatePeriod(depositAmount, lowInterestRate, _period);
-			record = new AccountStatementRecord(currentDate, depositAmount, lowInterestRate, "Закрытие вклада.").setIsLast(true);
-			list.add(record);
+			addRecord(list, currentDate, depositAmount, lowInterestRate, "Начисление процентов.");
+			addRecord(list, currentDate, depositAmount, lowInterestRate, "Закрытие вклада.", true);
 		}
 
 		return new DepositAccount(this, list);
@@ -71,21 +72,21 @@ public class EarlierMore2Deposit extends Deposit {
 		if (_period <= 90) {
 			return 0.1f;
 		} else if (_period <= 105) {
-			return 32.0f;
-		} else if (_period <= 120) {
 			return 30.0f;
-		} else if (_period <= 135) {
+		} else if (_period <= 120) {
 			return 28.0f;
-		} else if (_period <= 150) {
+		} else if (_period <= 135) {
 			return 26.0f;
-		} else if (_period <= 165) {
+		} else if (_period <= 150) {
 			return 24.0f;
-		} else if (_period <= 180) {
+		} else if (_period <= 165) {
 			return 22.0f;
-		} else if (_period <= depositTerm) {
+		} else if (_period <= 180) {
 			return 20.0f;
+		} else if (_period <= depositTerm) {
+			return 18.0f;
 		}
 
-		return 0f;
+		return lowInterestRate;
 	}
 }

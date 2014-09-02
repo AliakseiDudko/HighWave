@@ -27,10 +27,10 @@ public abstract class Deposit {
 
 	public void addRecord(List<AccountStatementRecord> list, DateTime date, float amount, float interestRate,
 			String description) {
-		addAccountStatementRecord(list, date, amount, interestRate, description, false);
+		addRecord(list, date, amount, interestRate, description, false);
 	}
 
-	public void addAccountStatementRecord(List<AccountStatementRecord> list, DateTime date, float amount, float interestRate,
+	public void addRecord(List<AccountStatementRecord> list, DateTime date, float amount, float interestRate,
 			String description, Boolean isLast) {
 		AccountStatementRecord record = new AccountStatementRecord(date, amount, interestRate, description).setIsLast(isLast);
 		list.add(record);
