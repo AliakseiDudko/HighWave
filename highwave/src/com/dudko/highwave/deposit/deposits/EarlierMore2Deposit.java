@@ -59,7 +59,7 @@ public class EarlierMore2Deposit extends Deposit {
 			addRecord(list, endDate, depositAmount, _interestRate, "Закрытие вклада.", true);
 		} else {
 			_period = period - depositTerm;
-			currentDate = previousDate.plusDays(_period);
+			currentDate = endDate.plusDays(_period);
 			depositAmount = calculatePeriod(depositAmount, lowInterestRate, _period);
 			addRecord(list, currentDate, depositAmount, lowInterestRate, "Начисление процентов.");
 			addRecord(list, currentDate, depositAmount, lowInterestRate, "Закрытие вклада.", true);

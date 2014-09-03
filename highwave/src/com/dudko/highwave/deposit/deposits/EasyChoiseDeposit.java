@@ -20,6 +20,7 @@ public class EasyChoiseDeposit extends Deposit {
 
 		this.id = id;
 		this.name = name;
+		this.interestRate = interestRate;
 		this.depositTerm = depositTerm;
 	}
 
@@ -34,30 +35,28 @@ public class EasyChoiseDeposit extends Deposit {
 		int term = Math.min(period, depositTerm);
 		DateTime currentDate = DateTime.now();
 		DateTime endDate = currentDate.plusDays(term);
-		DateTime closeDate = currentDate.plusDays(period);
 		float _interestRate = interestRate(term);
 		float depositAmount = amount;
 
-		AccountStatementRecord record = new AccountStatementRecord(currentDate, depositAmount, _interestRate, "Открытие вклада.");
-		list.add(record);
+		addRecord(list, currentDate, depositAmount, interestRate, "Открытие вклада.");
 
+		currentDate = currentDate.plusDays(term);
 		depositAmount = calculatePeriod(depositAmount, _interestRate, term);
-		if (term < depositTerm) {
-			record = new AccountStatementRecord(endDate, depositAmount, _interestRate, "Начисление процентов.");
+		if (term == depositTerm) {
+			addRecord(list, currentDate, depositAmount, interestRate, "Капитализация.");
 		} else {
-			record = new AccountStatementRecord(endDate, depositAmount, _interestRate, "Капитализация.");
+			addRecord(list, currentDate, depositAmount, _interestRate, "Начисление процентов.");
 		}
-		list.add(record);
 
-		if (period > depositTerm) {
+		if (period <= depositTerm) {
+			addRecord(list, endDate, depositAmount, _interestRate, "Закрытие вклада.", true);
+		} else {
 			int _period = period - depositTerm;
+			currentDate = endDate.plusDays(_period);
 			depositAmount = calculatePeriod(depositAmount, lowInterestRate, _period);
-			record = new AccountStatementRecord(closeDate, depositAmount, lowInterestRate, "Начисление процентов.");
-			list.add(record);
+			addRecord(list, currentDate, depositAmount, lowInterestRate, "Начисление процентов.");
+			addRecord(list, currentDate, depositAmount, lowInterestRate, "Закрытие вклада.", true);
 		}
-
-		record = new AccountStatementRecord(closeDate, depositAmount, _interestRate, "Закрытие вклада.").setIsLast(true);
-		list.add(record);
 
 		return new DepositAccount(this, list);
 	}
@@ -79,10 +78,10 @@ public class EasyChoiseDeposit extends Deposit {
 		if (_period < 30) {
 			return 0.1f;
 		} else if (_period == 30) {
-			return 29.0f;
+			return interestRate;
 		}
 
-		return 0.0f;
+		return lowInterestRate;
 	}
 
 	private float interestRate90(int _period) {
@@ -93,10 +92,10 @@ public class EasyChoiseDeposit extends Deposit {
 		} else if (_period < 90) {
 			return 5.0f;
 		} else if (_period == 90) {
-			return 32.0f;
+			return interestRate;
 		}
 
-		return 0.0f;
+		return lowInterestRate;
 	}
 
 	private float interestRate180(int _period) {
@@ -109,9 +108,9 @@ public class EasyChoiseDeposit extends Deposit {
 		} else if (_period < 180) {
 			return 10.0f;
 		} else if (_period == 180) {
-			return 31.0f;
+			return interestRate;
 		}
 
-		return 0.0f;
+		return lowInterestRate;
 	}
 }
