@@ -18,7 +18,7 @@ public class OnWaveDeposit extends Deposit {
 		name = "На волне";
 		url = "http://www.homecredit.by/loans_and_services/na_volne/";
 		currency = Currency.BYR;
-		interestRate = 22.0f;
+		interestRate = 20.0f;
 	}
 
 	@Override
@@ -27,29 +27,26 @@ public class OnWaveDeposit extends Deposit {
 			return null;
 		}
 
-		period = Math.min(period, 30);
-
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 
+		int term = Math.min(period, 30);
 		DateTime currentDate = DateTime.now();
-		DateTime endDate = currentDate.plusDays(period);
-		float depositAmount = amount;
+		DateTime endDate = currentDate.plusDays(term);
+		float _amount = amount;
 
-		AccountStatementRecord record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Открытие вклада.");
-		list.add(record);
+		addRecord(list, currentDate, _amount, interestRate, "Открытие вклада.");
 
+		DateTime previousDate = currentDate;
 		currentDate = currentDate.plusDays(depositTerm);
-
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
-			depositAmount = calculatePeriod(depositAmount, interestRate, depositTerm);
-			record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Капитализация.");
-			list.add(record);
+			_amount = calculatePeriod(_amount, interestRate, depositTerm);
+			addRecord(list, currentDate, _amount, interestRate, "Капитализация.");
 
+			previousDate = currentDate;
 			currentDate = currentDate.plusDays(depositTerm);
 		}
 
-		record = new AccountStatementRecord(endDate, depositAmount, interestRate, "Закрытие вклада.").setIsLast(true);
-		list.add(record);
+		addRecord(list, previousDate, _amount, interestRate, "Закрытие вклада.", true);
 
 		return new DepositAccount(this, list);
 	}
