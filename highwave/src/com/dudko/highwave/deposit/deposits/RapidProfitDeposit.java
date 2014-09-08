@@ -19,7 +19,7 @@ public class RapidProfitDeposit extends Deposit {
 		name = "Стремительный доход";
 		url = "http://www.btabank.by/ru/block/1257/";
 		currency = Currency.BYR;
-		interestRate = 26.0f;
+		interestRate = 23.0f;
 	}
 
 	@Override
@@ -28,42 +28,34 @@ public class RapidProfitDeposit extends Deposit {
 			return null;
 		}
 
-		period = Math.min(period, 30);
-
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 
+		int term = Math.min(period, 30);
 		DateTime currentDate = DateTime.now();
-		DateTime endDate = currentDate.plusDays(period);
-		float depositAmount = amount;
+		DateTime endDate = currentDate.plusDays(term);
+		float _amount = amount;
 
-		AccountStatementRecord record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Открытие вклада.");
-		list.add(record);
+		addRecord(list, currentDate, _amount, interestRate, "Открытие вклада.");
 
 		DateTime previousDate = currentDate;
 		currentDate = currentDate.plusDays(depositTerm);
-
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
-			depositAmount = calculatePeriod(depositAmount, interestRate, depositTerm);
-			record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Капитализация.");
-			list.add(record);
+			_amount = calculatePeriod(_amount, interestRate, depositTerm);
+			addRecord(list, currentDate, _amount, interestRate, "Капитализация.");
 
 			previousDate = currentDate;
 			currentDate = currentDate.plusDays(depositTerm);
 		}
 
 		int _period = Days.daysBetween(previousDate, endDate).getDays();
-		depositAmount = calculatePeriod(depositAmount, lowInterestRate, _period);
 		if (_period == 0) {
-			record = new AccountStatementRecord(endDate, depositAmount, interestRate, "Закрытие вклада.").setIsLast(true);
-			list.add(record);
+			addRecord(list, endDate, _amount, interestRate, "Закрытие вклада.", true);
 		} else {
-			record = new AccountStatementRecord(endDate, depositAmount, lowInterestRate, "Досрочное истребование депозита.");
-			list.add(record);
-			record = new AccountStatementRecord(endDate, depositAmount, lowInterestRate, "Закрытие вклада.").setIsLast(true);
-			list.add(record);
+			_amount = calculatePeriod(_amount, lowInterestRate, _period);
+			addRecord(list, endDate, _amount, lowInterestRate, "Начисление процентов.");
+			addRecord(list, endDate, _amount, lowInterestRate, "Закрытие вклада.", true);
 		}
 
 		return new DepositAccount(this, list);
 	}
-
 }
