@@ -11,6 +11,7 @@ import com.dudko.highwave.deposit.*;
 public class SkarbonkaDeposit extends Deposit {
 	private int depositTerm = 395;
 	private float minOpenAmount = 200000f;
+	private float lowInterestRate = 0.1f;
 
 	public SkarbonkaDeposit() {
 		id = 3;
@@ -29,30 +30,41 @@ public class SkarbonkaDeposit extends Deposit {
 
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 
+		int term = Math.min(period, depositTerm);
 		DateTime currentDate = DateTime.now();
-		DateTime endDate = currentDate.plusDays(Math.min(period, depositTerm));
-		float depositAmount = amount;
+		DateTime endDate = currentDate.plusDays(term);
+		float _interestRate = interestRate(term);
+		float _amount = amount;
 
-		AccountStatementRecord record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Открытие вклада.");
-		list.add(record);
+		addRecord(list, currentDate, _amount, interestRate, "Открытие вклада.");
 
 		DateTime previousDate = currentDate;
 		currentDate = currentDate.plusMonths(1);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
 			int _period = Days.daysBetween(previousDate, currentDate).getDays();
-			depositAmount = calculatePeriod(depositAmount, interestRate, _period);
-			record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Капитализация.");
-			list.add(record);
+			_amount = calculatePeriod(_amount, _interestRate, _period);
+			addRecord(list, currentDate, _amount, _interestRate, "Капитализация.");
 
 			previousDate = currentDate;
 			currentDate = currentDate.plusMonths(1);
 		}
 
 		int _period = Days.daysBetween(previousDate, endDate).getDays();
-		depositAmount = calculatePeriod(depositAmount, interestRate, _period);
-		record = new AccountStatementRecord(endDate, depositAmount, interestRate, "Закрытие вклада.").setIsLast(true);
-		list.add(record);
+		if (_period != 0) {
+			_amount = calculatePeriod(_amount, _interestRate, _period);
+			addRecord(list, endDate, _amount, _interestRate, "Начисление процентов.");
+		}
+
+		addRecord(list, endDate, _amount, _interestRate, "Закрытие вклада.", true);
 
 		return new DepositAccount(this, list);
+	}
+
+	private float interestRate(int _period) {
+		DateTime currentDate = DateTime.now();
+		DateTime endDate = currentDate.plusDays(_period);
+		int months = Months.monthsBetween(currentDate, endDate).getMonths();
+
+		return months < 3 ? lowInterestRate : interestRate;
 	}
 }
