@@ -34,10 +34,9 @@ public class StartDeposit extends Deposit {
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 
 		DateTime currentDate = DateTime.now();
-		float depositAmount = amount;
+		float _amount = amount;
 
-		AccountStatementRecord record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Открытие вклада.");
-		list.add(record);
+		addRecord(list, currentDate, _amount, interestRate, "Открытие вклада.");
 
 		Set<Integer> setOfDays = new TreeSet<Integer>(Arrays.asList(0, 30, 60, 90, 95, period));
 		Integer[] days = setOfDays.toArray(new Integer[0]);
@@ -47,23 +46,19 @@ public class StartDeposit extends Deposit {
 			int _period = day - days[i];
 
 			currentDate = currentDate.plusDays(_period);
-			depositAmount = calculatePeriod(depositAmount, interestRate, _period);
+			_amount = calculatePeriod(_amount, interestRate, _period);
 
 			boolean isLast = day == period || (day == depositTerm && depositTerm < period);
 
 			if (day % capitalizationPeriod == 0) {
-				record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Капитализация.");
-				list.add(record);
+				addRecord(list, currentDate, _amount, interestRate, "Капитализация.");
 			}
 
 			if (day == depositTerm) {
-				record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Закрытие вклада.").setIsLast(isLast);
-				list.add(record);
+				addRecord(list, currentDate, _amount, interestRate, "Закрытие вклада.", isLast);
 			} else if (day == period) {
-				record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Частичное снятие вклада.").setIsLast(isLast);
-				list.add(record);
-
-				depositAmount = minDepositAmount;
+				addRecord(list, currentDate, _amount, interestRate, "Частичное снятие вклада.", isLast);
+				_amount = minDepositAmount;
 			}
 		}
 
