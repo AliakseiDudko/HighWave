@@ -29,22 +29,19 @@ public class TwoByTwoDeposit extends Deposit {
 
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 
-		float depositAmount = amount;
-		AccountStatementRecord record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Открытие вклада.");
-		list.add(record);
+		float _amount = amount;
+		addRecord(list, currentDate, _amount, interestRate, "Открытие вклада.");
 
 		for (int i = 0; i < 2; i++) {
 			DateTime previousDate = currentDate;
 			currentDate = currentDate.plusMonths(1);
 
 			int _period = Days.daysBetween(previousDate, currentDate).getDays();
-			depositAmount = calculatePeriod(depositAmount, interestRate, _period);
-			record = new AccountStatementRecord(currentDate, depositAmount, interestRate, "Капитализация.");
-			list.add(record);
+			_amount = calculatePeriod(_amount, interestRate, _period);
+			addRecord(list, currentDate, _amount, interestRate, "Капитализация.");
 		}
 
-		record = new AccountStatementRecord(endDate, depositAmount, interestRate, "Закрытие вклада.").setIsLast(true);
-		list.add(record);
+		addRecord(list, endDate, _amount, interestRate, "Закрытие вклада.", true);
 
 		return new DepositAccount(this, list);
 	}
