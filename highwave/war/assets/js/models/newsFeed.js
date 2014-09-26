@@ -1,6 +1,4 @@
-App.NewsApp = function() {
-    var NewsApp = {};
-
+define([ "backbone" ], function(Backbone) {
     var News = Backbone.Model.extend({});
 
     var NewsFeed = Backbone.Collection.extend({
@@ -10,7 +8,7 @@ App.NewsApp = function() {
             var self = this;
 
             _.bindAll(this, "load");
-            App.vent.on("news:load", function() {
+            Backbone.Events.on("news:load", function() {
                 self.load();
             });
 
@@ -26,7 +24,7 @@ App.NewsApp = function() {
                 if (news.length > 0) {
                     self.reset(news);
                 } else {
-                    App.vent.trigger("news:noResults");
+                    Backbone.Events.trigger("news:noResults");
                 }
             });
         },
@@ -39,12 +37,12 @@ App.NewsApp = function() {
             this.loading = true;
 
             var self = this;
-            App.vent.trigger("news:fetch:start");
+            Backbone.Events.trigger("news:fetch:start");
 
             gapi.client.deposits.get.news.feed().execute(function(res) {
-                App.vent.trigger("news:fetch:stop");
+                Backbone.Events.trigger("news:fetch:stop");
                 if (res.error) {
-                    App.vent.trigger("news:error");
+                    Backbone.Events.trigger("news:error");
                     callback([]);
                     self.loading = false;
                 }
@@ -60,11 +58,5 @@ App.NewsApp = function() {
         }
     });
 
-    NewsApp.NewsFeed = new NewsFeed();
-
-    return NewsApp;
-}();
-
-App.addInitializer(function() {
-    App.NewsApp.NewsList.showNews(App.NewsApp.NewsFeed);
+    return NewsFeed;
 });

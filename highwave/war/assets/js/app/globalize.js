@@ -1,34 +1,27 @@
-App.Globalize = function() {
-    var culture = window.navigator.language || "ru-RU";
+var culture = window.navigator.language || "ru-RU";
+var language = culture.substring(0, 2);
 
-    var cldr = new Cldr(culture);
+define([ "globalize/globalize", "json!globalize/cldr/supplemental/likelySubtags.json", "json!globalize/cldr/supplemental/timeData.json",
+        "json!globalize/cldr/supplemental/weekData.json", "json!globalize/cldr/main/" + language + "/ca-gregorian.json",
+        "json!globalize/cldr/main/" + language + "/numbers.json", "json!globalize/cldr/main/" + culture + "/ca-gregorian.json",
+        "json!globalize/cldr/main/" + culture + "/numbers.json", "globalize/globalize/number", "globalize/globalize/date" ], function(
+        Globalize, likelySubtags, timeData, weekData, langCaGregorian, langNubers, cultureCaGregorian, cultureNubers) {
+    Globalize.load(likelySubtags);
+    Globalize.load(timeData);
+    Globalize.load(weekData);
+    Globalize.load(langCaGregorian);
+    Globalize.load(langNubers);
+    Globalize.load(cultureCaGregorian);
+    Globalize.load(cultureNubers);
 
-    var language = cldr.attributes.language;
-
-    var cldrUrls = [ "assets/js/globalize/cldr/supplemental/likelySubtags.json",
-                     "assets/js/globalize/cldr/main/" + language + "/ca-gregorian.json",
-                     "assets/js/globalize/cldr/main/" + language + "/numbers.json",
-                     "assets/js/globalize/cldr/main/" + culture + "/ca-gregorian.json",
-                     "assets/js/globalize/cldr/main/" + culture + "/numbers.json",
-                     "assets/js/globalize/cldr/supplemental/timeData.json",
-                     "assets/js/globalize/cldr/supplemental/weekData.json" ];
-    _.each(cldrUrls, function(cldrUrl) {
-        $.ajax({
-            url: cldrUrl,
-            dataType: "json",
-            success: Cldr.load,
-            async: false
-        });
-    });
-
-    var globalize = new Globalize(cldr);
+    var globalize = Globalize(culture);
 
     globalize.formatInt = function(value) {
-        return value ? globalize.formatNumber(value) : "";
+        return value ? this.formatNumber(value) : "";
     };
 
     globalize.formatFloat = function(value, fractionDigits) {
-        return globalize.formatNumber(value, {
+        return this.formatNumber(value, {
             minimumFractionDigits: fractionDigits,
             maximumFractionDigits: fractionDigits
         });
@@ -36,10 +29,10 @@ App.Globalize = function() {
 
     globalize.formatIsoDate = function(value) {
         var date = new Date(value);
-        return globalize.formatDate(date, {
+        return this.formatDate(date, {
             pattern: "dd/MM/YY"
         });
     };
 
     return globalize;
-}();
+});

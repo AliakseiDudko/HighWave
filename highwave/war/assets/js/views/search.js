@@ -1,29 +1,8 @@
-App.CalculatorApp.Search = function() {
-    var Search = {};
-
+define([ "marionette", "app/globalize", "text!templates/search-template.html" ], function(Marionette, Globalize, templateHtml) {
     var SearchView = Marionette.ItemView.extend({
-        template: Marionette.TemplateCache.get("search-template"),
-
-        showMessage: function(message) {
-            console.log(message);
-        },
+        template: _.template(templateHtml),
 
         initialize: function() {
-            _.bindAll(this, "showMessage");
-            var self = this;
-            App.vent.on("search:searchQuery", function() {
-                self.showMessage("Search started.");
-            });
-            App.vent.on("search:stop", function() {
-                self.showMessage("Search finished.");
-            });
-            App.vent.on("search:noSearchTerm", function() {
-                self.showMessage("No search term.");
-            });
-            App.vent.on("search:noResults", function() {
-                self.showMessage("No results were found.");
-            });
-
             this.listenTo(this.model, "change", function() {
                 this.stickit();
             });
@@ -43,10 +22,10 @@ App.CalculatorApp.Search = function() {
             "[name=amount]": {
                 observe: "amount",
                 onGet: function(value) {
-                    return App.Globalize.formatInt(value);
+                    return Globalize.formatInt(value);
                 },
                 onSet: function(value) {
-                    return App.Globalize.parseNumber(value) || null;
+                    return Globalize.parseNumber(value) || null;
                 },
                 setOptions: {
                     validate: true
@@ -55,7 +34,7 @@ App.CalculatorApp.Search = function() {
             "[name=period]": {
                 observe: "period",
                 onSet: function(value) {
-                    return App.Globalize.parseNumber(value) || null;
+                    return Globalize.parseNumber(value) || null;
                 },
                 setOptions: {
                     validate: true
@@ -88,21 +67,12 @@ App.CalculatorApp.Search = function() {
                     amount: this.model.get("amount"),
                     period: this.model.get("period")
                 };
-                App.vent.trigger("search:searchQuery", searchQuery);
+                Backbone.Events.trigger("search:searchQuery", searchQuery);
             } else {
-                App.vent.trigger("search:noSearchQuery");
+                Backbone.Events.trigger("search:noSearchQuery");
             }
         }
     });
 
-    Search.showSearch = function(search) {
-        var searchView = new SearchView({
-            model: search
-        });
-        App.searchRegion.show(searchView);
-
-        searchView.search();
-    };
-
-    return Search;
-}();
+    return SearchView;
+});

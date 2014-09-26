@@ -1,6 +1,4 @@
-App.CalculatorApp = function() {
-    var CalculatorApp = {};
-
+define([ "backbone" ], function(Backbone) {
     var Deposit = Backbone.Model.extend();
 
     var Deposits = Backbone.Collection.extend({
@@ -14,7 +12,7 @@ App.CalculatorApp = function() {
             var self = this;
 
             _.bindAll(this, "search");
-            App.vent.on("search:searchQuery", function(query) {
+            Backbone.Events.on("search:searchQuery", function(query) {
                 self.search(query);
             });
 
@@ -43,12 +41,12 @@ App.CalculatorApp = function() {
             this.loading = true;
 
             var self = this;
-            App.vent.trigger("search:start");
+            Backbone.Events.trigger("search:start");
 
             gapi.client.deposits.get.deposits.list(searchQuery).execute(function(res) {
-                App.vent.trigger("search:stop");
+                Backbone.Events.trigger("search:stop");
                 if (res.error) {
-                    App.vent.trigger("search:error");
+                    Backbone.Events.trigger("search:error");
                     callback([]);
                     self.loading = false;
                 }
@@ -64,33 +62,5 @@ App.CalculatorApp = function() {
         }
     });
 
-    var SearchModel = Backbone.Model.extend({
-        defaults: {
-            amount: 10000000,
-            period: 35
-        },
-
-        validation: {
-            amount: {
-                required: true,
-                pattern: "number",
-                range: [ 100000, 1000000000 ]
-            },
-            period: {
-                required: true,
-                pattern: "number",
-                range: [1, 1000]
-            }
-        }
-    });
-
-    CalculatorApp.Deposits = new Deposits();
-    CalculatorApp.SearchModel = new SearchModel();
-
-    return CalculatorApp;
-}();
-
-App.addInitializer(function() {
-    App.CalculatorApp.DepositList.showDeposits(App.CalculatorApp.Deposits);
-    App.CalculatorApp.Search.showSearch(App.CalculatorApp.SearchModel);
+    return Deposits;
 });

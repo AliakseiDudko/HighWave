@@ -22,26 +22,26 @@
 					<tbody>
 						<tr>
 							<td><strong class="text-info">BYR</strong></td>
-							<td><%- App.Globalize.formatNumber(startAmount) %></td>
-							<td><%- App.Globalize.formatNumber(endAmount) %></td>
-							<td><%- App.Globalize.formatNumber(profit) %></td>
-							<td><%- App.Globalize.formatFloat(profitRate, 2) %></td>
+							<td><%- Globalize.formatNumber(startAmount) %></td>
+							<td><%- Globalize.formatNumber(endAmount) %></td>
+							<td><%- Globalize.formatNumber(profit) %></td>
+							<td><%- Globalize.formatFloat(profitRate, 2) %></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td><strong class="text-info">USD <span class="text-danger">*</span>
 							</strong></td>
-							<td><%- App.Globalize.formatFloat(startAmountUsd, 1) %></td>
-							<td><%- App.Globalize.formatFloat(endAmountUsd, 1) %></td>
-							<td><%- App.Globalize.formatFloat(profitUsd, 1) %></td>
-							<td><%- App.Globalize.formatFloat(profitRateUsd, 2) %></td>
+							<td><%- Globalize.formatFloat(startAmountUsd, 1) %></td>
+							<td><%- Globalize.formatFloat(endAmountUsd, 1) %></td>
+							<td><%- Globalize.formatFloat(profitUsd, 1) %></td>
+							<td><%- Globalize.formatFloat(profitRateUsd, 2) %></td>
 							<td></td>
 						</tr>
 					</tbody>
 				</table>
 				<p>
-					<strong><span class="text-danger">*</span></strong> Расчет произведен с предположением, что что <%- App.Globalize.formatIsoDate(endDate) %> курс доллара составит
-					<%- App.Globalize.formatNumber(endUsdExchangeRate) %> BYR/USD.
+					<strong><span class="text-danger">*</span></strong> Расчет произведен с предположением, что что <%- Globalize.formatIsoDate(endDate) %> курс доллара составит
+					<%- Globalize.formatNumber(endUsdExchangeRate) %> BYR/USD.
 				</p>
 				<div id="account-statement-region"></div>
 			</div>
