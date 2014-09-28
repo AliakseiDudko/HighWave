@@ -13,8 +13,6 @@ define([ "marionette", "regions/modal", "models/deposits", "models/search", "mod
     App.addInitializer(function() {
         var self = this;
 
-        _.bindAll(this, "showMessage");
-
         Backbone.Events.on("search:searchQuery", function() {
             self.showMessage("Search started.");
         });
@@ -51,6 +49,11 @@ define([ "marionette", "regions/modal", "models/deposits", "models/search", "mod
         Backbone.Events.on("app:showDepositDetails", function(details) {
             self.showDepositDetails(details);
         });
+
+        $("#search-panel").find(".panel-heading").find(".panel-title").text(Globalize.translate("panelHeaders/search"));
+        $("#ads-panel").find(".panel-heading").find(".panel-title").text(Globalize.translate("panelHeaders/ads"));
+        $("#results-panel").find(".panel-heading").find(".panel-title").text(Globalize.translate("panelHeaders/deposits"));
+        $("#news-panel").find(".panel-heading").find(".panel-title").text(Globalize.translate("panelHeaders/twitter"));
     });
 
     App.showMessage = function(message) {
