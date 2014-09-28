@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 
 import com.dudko.highwave.bank.banks.Bank;
 import com.dudko.highwave.deposit.*;
+import com.dudko.highwave.globalize.RecordDescriptions;
 
 public abstract class Deposit {
 	public int id;
@@ -25,13 +26,12 @@ public abstract class Deposit {
 		return amount * (1 + interestRate * period / (100.0f * 360));
 	}
 
-	public void addRecord(List<AccountStatementRecord> list, DateTime date, float amount, float interestRate,
-			String description) {
+	public void addRecord(List<AccountStatementRecord> list, DateTime date, float amount, float interestRate, RecordDescriptions description) {
 		addRecord(list, date, amount, interestRate, description, false);
 	}
 
 	public void addRecord(List<AccountStatementRecord> list, DateTime date, float amount, float interestRate,
-			String description, Boolean isLast) {
+			RecordDescriptions description, Boolean isLast) {
 		AccountStatementRecord record = new AccountStatementRecord(date, amount, interestRate, description).setIsLast(isLast);
 		list.add(record);
 	}

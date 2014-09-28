@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.deposit.Currency;
+import com.dudko.highwave.globalize.RecordDescriptions;
 
 public class StartDeposit extends Deposit {
 	private int depositTerm = 95;
@@ -36,7 +37,7 @@ public class StartDeposit extends Deposit {
 		DateTime currentDate = DateTime.now();
 		float _amount = amount;
 
-		addRecord(list, currentDate, _amount, interestRate, "Открытие вклада.");
+		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Depost);
 
 		Set<Integer> setOfDays = new TreeSet<Integer>(Arrays.asList(0, 30, 60, 90, 95, period));
 		Integer[] days = setOfDays.toArray(new Integer[0]);
@@ -51,13 +52,13 @@ public class StartDeposit extends Deposit {
 			boolean isLast = day == period || (day == depositTerm && depositTerm < period);
 
 			if (day % capitalizationPeriod == 0) {
-				addRecord(list, currentDate, _amount, interestRate, "Капитализация.");
+				addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_001_Capitalization);
 			}
 
 			if (day == depositTerm) {
-				addRecord(list, currentDate, _amount, interestRate, "Закрытие вклада.", isLast);
+				addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_003_Close_Deposit, isLast);
 			} else if (day == period) {
-				addRecord(list, currentDate, _amount, interestRate, "Частичное снятие вклада.", isLast);
+				addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_006_Partial_Withdrawal_Of_Deposit, isLast);
 				_amount = minDepositAmount;
 			}
 		}

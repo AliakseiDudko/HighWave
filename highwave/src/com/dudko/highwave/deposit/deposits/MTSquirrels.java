@@ -7,6 +7,7 @@ import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
+import com.dudko.highwave.globalize.RecordDescriptions;
 
 public class MTSquirrels extends Deposit {
 	private float minOpenAmount = 500000f;
@@ -35,7 +36,7 @@ public class MTSquirrels extends Deposit {
 		DateTime endDate = currentDate.plusDays(term);
 		float depositAmount = amount;
 
-		addRecord(list, currentDate, depositAmount, interestRate, "Открытие вклада.");
+		addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_000_Open_Depost);
 
 		DateTime previousDate = currentDate;
 		DateTime fixPeriodDate = currentDate.plusMonths(fixPeriodMonths);
@@ -47,7 +48,7 @@ public class MTSquirrels extends Deposit {
 			for (int i = 0; i < fixPeriodMonths && currentDate.isBefore(endDate) || currentDate.isEqual(endDate); i++) {
 				int _period = Days.daysBetween(previousDate, currentDate).getDays();
 				depositAmount = calculatePeriod(depositAmount, _interestRate, _period);
-				addRecord(list, currentDate, depositAmount, _interestRate, "Капитализация.");
+				addRecord(list, currentDate, depositAmount, _interestRate, RecordDescriptions.MSG_001_Capitalization);
 
 				months++;
 				previousDate = currentDate;
@@ -57,7 +58,7 @@ public class MTSquirrels extends Deposit {
 			int _period = Days.daysBetween(previousDate, endDate).getDays();
 			if (_period > 0 && months != 0 && months % fixPeriodMonths == 0) {
 				depositAmount *= 1.005f;
-				addRecord(list, currentDate, depositAmount, interestRate, "Бонус 0,5%.");
+				addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_004_Bonus_05_Percent);
 			}
 
 			fixPeriodDate = fixPeriodDate.plusMonths(fixPeriodMonths);
@@ -66,13 +67,13 @@ public class MTSquirrels extends Deposit {
 		int _period = Days.daysBetween(previousDate, endDate).getDays();
 		if (_period != 0) {
 			depositAmount = calculatePeriod(depositAmount, lowInterestRate, _period);
-			addRecord(list, endDate, depositAmount, lowInterestRate, "Начисление процентов.");
+			addRecord(list, endDate, depositAmount, lowInterestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 		}
 
 		if (months % fixPeriodMonths == 0 && _period == 0) {
-			addRecord(list, endDate, depositAmount, interestRate, "Закрытие вклада.", true);
+			addRecord(list, endDate, depositAmount, interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
 		} else {
-			addRecord(list, endDate, depositAmount, lowInterestRate, "Досрочное закрытие вклада.", true);
+			addRecord(list, endDate, depositAmount, lowInterestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
 		}
 
 		return new DepositAccount(this, list);

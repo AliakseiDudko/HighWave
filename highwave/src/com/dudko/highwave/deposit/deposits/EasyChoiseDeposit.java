@@ -7,6 +7,7 @@ import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
+import com.dudko.highwave.globalize.RecordDescriptions;
 
 public class EasyChoiseDeposit extends Deposit {
 	private int depositTerm;
@@ -38,24 +39,24 @@ public class EasyChoiseDeposit extends Deposit {
 		float _interestRate = interestRate(term);
 		float depositAmount = amount;
 
-		addRecord(list, currentDate, depositAmount, interestRate, "Открытие вклада.");
+		addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_000_Open_Depost);
 
 		currentDate = currentDate.plusDays(term);
 		depositAmount = calculatePeriod(depositAmount, _interestRate, term);
 		if (term == depositTerm) {
-			addRecord(list, currentDate, depositAmount, interestRate, "Капитализация.");
+			addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_001_Capitalization);
 		} else {
-			addRecord(list, currentDate, depositAmount, _interestRate, "Начисление процентов.");
+			addRecord(list, currentDate, depositAmount, _interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 		}
 
 		if (period <= depositTerm) {
-			addRecord(list, endDate, depositAmount, _interestRate, "Закрытие вклада.", true);
+			addRecord(list, endDate, depositAmount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
 		} else {
 			int _period = period - depositTerm;
 			currentDate = endDate.plusDays(_period);
 			depositAmount = calculatePeriod(depositAmount, lowInterestRate, _period);
-			addRecord(list, currentDate, depositAmount, lowInterestRate, "Начисление процентов.");
-			addRecord(list, currentDate, depositAmount, lowInterestRate, "Закрытие вклада.", true);
+			addRecord(list, currentDate, depositAmount, lowInterestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
+			addRecord(list, currentDate, depositAmount, lowInterestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
 		}
 
 		return new DepositAccount(this, list);

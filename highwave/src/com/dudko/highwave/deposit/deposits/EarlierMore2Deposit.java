@@ -7,6 +7,7 @@ import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
+import com.dudko.highwave.globalize.RecordDescriptions;
 
 public class EarlierMore2Deposit extends Deposit {
 	private int depositTerm = 270;
@@ -37,13 +38,13 @@ public class EarlierMore2Deposit extends Deposit {
 		float _interestRate = interestRate(term);
 		float depositAmount = amount;
 
-		addRecord(list, currentDate, depositAmount, interestRate, "Открытие вклада.");
+		addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_000_Open_Depost);
 
 		DateTime previousDate = currentDate;
 		currentDate = currentDate.plusDays(capitalizationPeriod);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
 			depositAmount = calculatePeriod(depositAmount, _interestRate, capitalizationPeriod);
-			addRecord(list, currentDate, depositAmount, _interestRate, "Капитализация.");
+			addRecord(list, currentDate, depositAmount, _interestRate, RecordDescriptions.MSG_001_Capitalization);
 
 			previousDate = currentDate;
 			currentDate = currentDate.plusDays(capitalizationPeriod);
@@ -52,17 +53,17 @@ public class EarlierMore2Deposit extends Deposit {
 		int _period = Days.daysBetween(previousDate, endDate).getDays();
 		if (_period > 0) {
 			depositAmount = calculatePeriod(depositAmount, _interestRate, _period);
-			addRecord(list, endDate, depositAmount, _interestRate, "Начисление процентов.");
+			addRecord(list, endDate, depositAmount, _interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 		}
 
 		if (period <= depositTerm) {
-			addRecord(list, endDate, depositAmount, _interestRate, "Закрытие вклада.", true);
+			addRecord(list, endDate, depositAmount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
 		} else {
 			_period = period - depositTerm;
 			currentDate = endDate.plusDays(_period);
 			depositAmount = calculatePeriod(depositAmount, lowInterestRate, _period);
-			addRecord(list, currentDate, depositAmount, lowInterestRate, "Начисление процентов.");
-			addRecord(list, currentDate, depositAmount, lowInterestRate, "Закрытие вклада.", true);
+			addRecord(list, currentDate, depositAmount, lowInterestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
+			addRecord(list, currentDate, depositAmount, lowInterestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
 		}
 
 		return new DepositAccount(this, list);
