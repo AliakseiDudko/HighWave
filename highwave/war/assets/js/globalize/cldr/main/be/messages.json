@@ -1,0 +1,54 @@
+{
+  "be": {
+    "recordMessages": {
+      "MSG_000_Open_Depost": "Открытие вклада.",
+      "MSG_001_Capitalization": "Капитализация.",
+      "MSG_002_Accrual_Of_Interest": "Начисление процентов.",
+      "MSG_003_Close_Deposit": "Закрытие вклада.",
+      "MSG_004_Bonus_05_Percent": "Бонус 0,5%.",
+      "MSG_005_Early_Withdrawal_Of_Deposit": "Досрочное закрытие вклада.",
+      "MSG_006_Partial_Withdrawal_Of_Deposit": "Частичное снятие вклада."
+    },
+    "panelHeaders": {
+      "search": "Поиск",
+      "ads": "Реклама",
+      "deposits": "Депозиты",
+      "twitter": "Twitter"
+    },
+    "searchPanel": {
+      "amountTextLabel": "Сумма",
+      "amountTextEmpty": "Сумма вклада...",
+      "periodTextLabel": "Срок",
+      "periodTextEmpty": "Срок вклада...",
+      "searchButton": "Показать"
+    },
+    "depositPanel": {
+      "tableHeaders": {
+        "depositName": "Депозит",
+        "endAmount": "Итого",
+        "profit": "Доход",
+        "progressBar": "Сумма вклада | Доход"
+      }
+    },
+    "depositDetails": {
+      "statementTableHeaders": {
+        "date": "Дата",
+        "amount": "Сумма",
+        "interest": "Cтавка, %",
+        "operation": "Операция"
+      },
+      "comparationTableHeaders": {
+        "startAmount": "Начальная сумма",
+        "endAmount": "Итоговая сумма",
+        "profit": "Доход",
+        "profitRate": "Доход, %"
+      },
+      "warningMessage": {
+        "part0": "Расчет произведен с предположением, что",
+        "part1": "курс доллара составит",
+        "part2": "BYR/USD."
+      },
+      "closeButton": "Закрыть"
+    }
+  }
+}

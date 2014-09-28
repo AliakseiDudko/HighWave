@@ -1,0 +1,54 @@
+{
+  "en": {
+    "recordMessages": {
+      "MSG_000_Open_Depost": "Deposit opening.",
+      "MSG_001_Capitalization": "Сapitalization.",
+      "MSG_002_Accrual_Of_Interest": "Accrual of interest.",
+      "MSG_003_Close_Deposit": "Deposit closing.",
+      "MSG_004_Bonus_05_Percent": "Bonus 0,5%.",
+      "MSG_005_Early_Withdrawal_Of_Deposit": "Early withdrawal.",
+      "MSG_006_Partial_Withdrawal_Of_Deposit": "Partial withdrawal."
+    },
+    "panelHeaders": {
+      "search": "Search",
+      "ads": "Ads",
+      "deposits": "Deposits",
+      "twitter": "Twitter"
+    },
+    "searchPanel": {
+      "amountTextLabel": "Deposit",
+      "amountTextEmpty": "Deposit amount...",
+      "periodTextLabel": "Term",
+      "periodTextEmpty": "Term amount...",
+      "searchButton": "Show"
+    },
+    "depositPanel": {
+      "tableHeaders": {
+        "depositName": "Deposit",
+        "endAmount": "End Amount",
+        "profit": "Profit",
+        "progressBar": "Start Amount | Profit"
+      }
+    },
+    "depositDetails": {
+      "statementTableHeaders": {
+        "date": "Date",
+        "amount": "Amount",
+        "interest": "Interest Rate, %",
+        "operation": "Operation"
+      },
+      "comparationTableHeaders": {
+        "startAmount": "Start Amount",
+        "endAmount": "End Amount",
+        "profit": "Profit",
+        "profitRate": "Profit, %"
+      },
+      "warningMessage": {
+        "part0": "The calculation was made with the assumption that on",
+        "part1": "dollar exchange rate will be",
+        "part2": "BYR/USD."
+      },
+      "closeButton": "Close"
+    }
+  }
+}
