@@ -1,5 +1,5 @@
-define([ "marionette", "text!templates/news-feed-empty-template.html", "text!templates/news-feed-template.html" ], function(Marionette,
-        emptyTemplateHtml, templateHtml) {
+define([ "marionette", "text!templates/news-feed-empty-template.html" ], function(Marionette,
+        emptyTemplateHtml) {
     var NewsView = Marionette.ItemView.extend({
         render: function() {
             this.$el.append(this.model.get("html"));
@@ -12,7 +12,6 @@ define([ "marionette", "text!templates/news-feed-empty-template.html", "text!tem
     });
 
     var NewsFeedView = Marionette.CollectionView.extend({
-        template: _.template(templateHtml),
         childView: NewsView,
         emptyView: NewsFeedEmptyView
     });
