@@ -3,7 +3,7 @@
 		<div id="modal-panel" class="panel panel-danger">
 			<div class="panel-heading">
 				<button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">&times;</span> <span class="sr-only">Закрыть</span>
+					<span aria-hidden="true">&times;</span> <span class="sr-only"><%- Globalize.translate("depositDetails/closeButton") %></span>
 				</button>
 				<span class="panel-title"><%- deposit.name %></span>
 			</div>
@@ -12,10 +12,10 @@
 					<thead>
 						<tr class="text-info">
 							<th></th>
-							<th>Начальная сумма</th>
-							<th>Итоговая сумма</th>
-							<th>Доход</th>
-							<th>Доход, %</th>
+							<th><%- Globalize.translate("depositDetails/comparationTableHeaders/startAmount") %></th>
+							<th><%- Globalize.translate("depositDetails/comparationTableHeaders/endAmount") %></th>
+							<th><%- Globalize.translate("depositDetails/comparationTableHeaders/profit") %></th>
+							<th><%- Globalize.translate("depositDetails/comparationTableHeaders/profitRate") %></th>
 							<th></th>
 						</tr>
 					</thead>
@@ -40,8 +40,9 @@
 					</tbody>
 				</table>
 				<p>
-					<strong><span class="text-danger">*</span></strong> Расчет произведен с предположением, что что <%- Globalize.formatIsoDate(endDate) %> курс доллара составит
-					<%- Globalize.formatNumber(endUsdExchangeRate) %> BYR/USD.
+					<strong><span class="text-danger">*</span></strong> <%- Globalize.translate("depositDetails/warningMessage/part0") %> <%-
+					Globalize.formatIsoDate(endDate) %> <%- Globalize.translate("depositDetails/warningMessage/part1") %> <%-
+					Globalize.formatNumber(endUsdExchangeRate) %> <%- Globalize.translate("depositDetails/warningMessage/part2") %>
 				</p>
 				<div id="account-statement-region"></div>
 			</div>

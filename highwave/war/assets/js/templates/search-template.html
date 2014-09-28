@@ -1,19 +1,19 @@
 <div class="form-horizontal" role="form">
 	<div class="form-group">
-		<label for="amountText" class="col-md-2 control-label text-info">Сумма</label>
+		<label for="amountText" class="col-md-2 control-label text-info"><%- Globalize.translate("searchPanel/amountTextLabel") %></label>
 		<div class="col-md-4">
-			<input name="amount" class="form-control" placeholder="Сумма вклада...">
+			<input name="amount" class="form-control" placeholder="<%- Globalize.translate('searchPanel/amountTextEmpty') %>">
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="periodText" class="col-md-2 control-label text-info">Срок</label>
+		<label for="periodText" class="col-md-2 control-label text-info"><%- Globalize.translate("searchPanel/periodTextLabel") %></label>
 		<div class="col-md-4">
-			<input name="period" class="form-control" placeholder="Срок вклада...">
+			<input name="period" class="form-control" placeholder="<%- Globalize.translate('searchPanel/periodTextEmpty') %>">
 		</div>
 	</div>
 	<div class="form-group">
 		<div class="col-md-offset-2 col-md-5">
-			<button type="button" name="search" class="btn btn-md btn-warning">Показать</button>
+			<button type="button" name="search" class="btn btn-md btn-warning"><%- Globalize.translate("searchPanel/searchButton") %></button>
 		</div>
 	</div>
 </div>
