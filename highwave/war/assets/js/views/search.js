@@ -3,8 +3,14 @@ define([ "marionette", "app/globalize", "text!templates/search-template.html" ],
         template: _.template(templateHtml),
 
         initialize: function() {
+            var self = this;
+
             this.listenTo(this.model, "change", function() {
                 this.stickit();
+            });
+
+            Backbone.Events.on("gapi:loaded", function() {
+                self.search();
             });
         },
 

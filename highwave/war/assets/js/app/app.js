@@ -40,12 +40,6 @@ define([ "marionette", "regions/modal", "models/deposits", "models/search", "mod
         Backbone.Events.on("news:fetch:stop", function() {
             self.showMessage("Loading news finished.");
         });
-
-        Backbone.Events.on("app:load", function() {
-            self.showDeposits(new Deposits());
-            self.showSearch(new SearchModel());
-            self.showNews(new NewsFeed());
-        });
         Backbone.Events.on("app:showDepositDetails", function(details) {
             self.showDepositDetails(details);
         });
@@ -54,35 +48,25 @@ define([ "marionette", "regions/modal", "models/deposits", "models/search", "mod
         $("#ads-panel").find(".panel-heading").find(".panel-title").text(Globalize.translate("panelHeaders/ads"));
         $("#results-panel").find(".panel-heading").find(".panel-title").text(Globalize.translate("panelHeaders/deposits"));
         $("#news-panel").find(".panel-heading").find(".panel-title").text(Globalize.translate("panelHeaders/twitter"));
+
+        var depositListView = new DepositListView({
+            collection: new Deposits()
+        });
+        this.resultsRegion.show(depositListView);
+
+        var searchView = new SearchView({
+            model: new SearchModel()
+        });
+        this.searchRegion.show(searchView);
+
+        var newsFeedView = new NewsFeedView({
+            collection: new NewsFeed()
+        });
+        this.newsRegion.show(newsFeedView);
     });
 
     App.showMessage = function(message) {
         console.log(message);
-    };
-
-    App.showDeposits = function(deposits) {
-        var depositListView = new DepositListView({
-            collection: deposits
-        });
-        this.resultsRegion.show(depositListView);
-    };
-
-    App.showSearch = function(search) {
-        var searchView = new SearchView({
-            model: search
-        });
-        this.searchRegion.show(searchView);
-
-        searchView.search();
-    };
-
-    App.showNews = function(news) {
-        var newsFeedView = new NewsFeedView({
-            collection: news
-        });
-        this.newsRegion.show(newsFeedView);
-
-        news.load();
     };
 
     App.showDepositDetails = function(details) {
@@ -90,7 +74,7 @@ define([ "marionette", "regions/modal", "models/deposits", "models/search", "mod
             model: details
         });
         this.modalRegion.show(detailsView);
-    }
+    };
 
     return App;
 });

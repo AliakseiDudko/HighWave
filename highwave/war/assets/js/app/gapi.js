@@ -2,7 +2,7 @@ define([ "backbone" ], function(Backbone) {
     var ApiManager = {};
 
     onLoadGapi = function() {
-        Backbone.Events.trigger("app:load");
+        Backbone.Events.trigger("gapi:loaded");
     };
 
     init = function() {
@@ -21,8 +21,6 @@ define([ "backbone" ], function(Backbone) {
     };
 
     ApiManager.loadGapi = function() {
-        var self = this;
-
         if (typeof gapi !== "undefined") {
             return init();
         }

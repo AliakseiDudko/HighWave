@@ -7,8 +7,7 @@ define([ "backbone" ], function(Backbone) {
         initialize: function() {
             var self = this;
 
-            _.bindAll(this, "load");
-            Backbone.Events.on("news:load", function() {
+            Backbone.Events.on("gapi:loaded", function() {
                 self.load();
             });
 

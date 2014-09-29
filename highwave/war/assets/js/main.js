@@ -35,10 +35,12 @@ require.config({
     deps: [ "jquery", "underscore" ]
 });
 
-require([ "app/gapi", "app/app", "app/globalize" ], function(ApiManager, App, Globalize) {
-    ApiManager.loadGapi();
-
+require([ "app/app", "app/globalize" ], function(App, Globalize) {
     this.Globalize = Globalize;
 
     App.start();
+
+    require([ "app/gapi" ], function(ApiManager) {
+        ApiManager.loadGapi();
+    });
 });
