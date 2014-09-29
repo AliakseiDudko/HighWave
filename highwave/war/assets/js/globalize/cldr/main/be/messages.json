@@ -1,54 +1,54 @@
 {
   "be": {
     "recordMessages": {
-      "MSG_000_Open_Depost": "Открытие вклада.",
-      "MSG_001_Capitalization": "Капитализация.",
-      "MSG_002_Accrual_Of_Interest": "Начисление процентов.",
-      "MSG_003_Close_Deposit": "Закрытие вклада.",
-      "MSG_004_Bonus_05_Percent": "Бонус 0,5%.",
-      "MSG_005_Early_Withdrawal_Of_Deposit": "Досрочное закрытие вклада.",
-      "MSG_006_Partial_Withdrawal_Of_Deposit": "Частичное снятие вклада."
+      "MSG_000_Open_Depost": "Адкрыццё дэпазіту.",
+      "MSG_001_Capitalization": "Капіталізацыя.",
+      "MSG_002_Accrual_Of_Interest": "Налічэнне працэнтаў.",
+      "MSG_003_Close_Deposit": "Закрыццё дэпазіту.",
+      "MSG_004_Bonus_05_Percent": "Бонус-прэмія 0,5%.",
+      "MSG_005_Early_Withdrawal_Of_Deposit": "Датэрміновае вяртанне дэпазіту.",
+      "MSG_006_Partial_Withdrawal_Of_Deposit": "Частковае вывядзенне сумы дэпазіту."
     },
     "panelHeaders": {
-      "search": "Поиск",
-      "ads": "Реклама",
-      "deposits": "Депозиты",
+      "search": "Пошук",
+      "ads": "Рэклама",
+      "deposits": "Дэпазіты",
       "twitter": "Twitter"
     },
     "searchPanel": {
-      "amountTextLabel": "Сумма",
-      "amountTextEmpty": "Сумма вклада...",
-      "periodTextLabel": "Срок",
-      "periodTextEmpty": "Срок вклада...",
-      "searchButton": "Показать"
+      "amountTextLabel": "Сума",
+      "amountTextEmpty": "Сума дэпазіту...",
+      "periodTextLabel": "Тэрмін",
+      "periodTextEmpty": "Тэрмін дзеяння дэпазіту...",
+      "searchButton": "Знайсці"
     },
     "depositPanel": {
       "tableHeaders": {
-        "depositName": "Депозит",
-        "endAmount": "Итого",
-        "profit": "Доход",
-        "progressBar": "Сумма вклада | Доход"
+        "depositName": "Дэпазіт",
+        "endAmount": "Вынік",
+        "profit": "Прыбытак",
+        "progressBar": "Сума дэпазіту | Прыбытак"
       }
     },
     "depositDetails": {
       "statementTableHeaders": {
         "date": "Дата",
-        "amount": "Сумма",
-        "interest": "Cтавка, %",
-        "operation": "Операция"
+        "amount": "Сума",
+        "interest": "Працэнт, %",
+        "operation": "Аперацыя"
       },
       "comparationTableHeaders": {
-        "startAmount": "Начальная сумма",
-        "endAmount": "Итоговая сумма",
-        "profit": "Доход",
-        "profitRate": "Доход, %"
+        "startAmount": "Пачаткова сума",
+        "endAmount": "Выніковая сума",
+        "profit": "Прыбытак",
+        "profitRate": "Прыбытак, %"
       },
       "warningMessage": {
-        "part0": "Расчет произведен с предположением, что",
-        "part1": "курс доллара составит",
+        "part0": "Разлік зроблены з меркаваннем, што",
+        "part1": "курс доллара будзе складаць",
         "part2": "BYR/USD."
       },
-      "closeButton": "Закрыть"
+      "closeButton": "Закрыць"
     }
   }
 }
