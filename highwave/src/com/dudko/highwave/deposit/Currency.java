@@ -1,5 +1,5 @@
 package com.dudko.highwave.deposit;
 
 public enum Currency {
-	BYR, USD, EUR, RUB
+	BYR, CUR, USD, EUR, RUB
 }
