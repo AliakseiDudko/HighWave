@@ -17,11 +17,13 @@ define([ "marionette", "app/globalize", "text!templates/search-template.html" ],
         ui: {
             searchButton: "[name=search]",
             amountText: "[name=amount]",
-            periodText: "[name=period]"
+            periodText: "[name=period]",
+            currenciesList: "#currencies"
         },
 
         events: {
-            "click @ui.searchButton": "search"
+            "click @ui.searchButton": "search",
+            "click @ui.currenciesList>li": "clickCurrency"
         },
 
         bindings: {
@@ -55,6 +57,23 @@ define([ "marionette", "app/globalize", "text!templates/search-template.html" ],
                 valid: this.valid,
                 invalid: this.invalid
             });
+
+            this.setCurrency(this.model.get("currency"));
+        },
+
+        setCurrency: function(currency) {
+            _.each(this.ui.currenciesList.children("li"), function(item) {
+                $(item).removeClass("selected");
+                if ($(item).attr("currency") == currency) {
+                    $(item).addClass("selected");
+                }
+            });
+        },
+
+        clickCurrency: function(event) {
+            var currency = $(event.currentTarget).attr("currency");
+            this.model.set("currency", currency);
+            this.setCurrency(currency);
         },
 
         valid: function(view, attr, selector) {

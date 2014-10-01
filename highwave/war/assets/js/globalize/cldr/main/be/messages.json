@@ -20,6 +20,7 @@
       "amountTextEmpty": "Сума дэпазіту...",
       "periodTextLabel": "Тэрмін",
       "periodTextEmpty": "Тэрмін дзеяння дэпазіту...",
+      "currencyLabel": "Валюта",
       "searchButton": "Знайсці"
     },
     "depositPanel": {

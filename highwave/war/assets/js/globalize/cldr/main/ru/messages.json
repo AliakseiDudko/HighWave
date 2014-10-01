@@ -20,6 +20,7 @@
       "amountTextEmpty": "Сумма вклада...",
       "periodTextLabel": "Срок",
       "periodTextEmpty": "Срок вклада...",
+      "currencyLabel": "Валюта",
       "searchButton": "Показать"
     },
     "depositPanel": {

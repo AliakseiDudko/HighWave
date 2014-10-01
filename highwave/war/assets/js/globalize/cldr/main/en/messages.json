@@ -20,6 +20,7 @@
       "amountTextEmpty": "Deposit amount...",
       "periodTextLabel": "Term",
       "periodTextEmpty": "Term amount...",
+      "currencyLabel": "Currency",
       "searchButton": "Show"
     },
     "depositPanel": {
