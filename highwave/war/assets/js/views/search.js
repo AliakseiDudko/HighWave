@@ -23,7 +23,7 @@ define([ "marionette", "app/globalize", "text!templates/search-template.html" ],
 
         events: {
             "click @ui.searchButton": "search",
-            "click @ui.currenciesList>li": "clickCurrency"
+            "click @ui.currenciesList>li": "changeCurrency"
         },
 
         bindings: {
@@ -47,6 +47,14 @@ define([ "marionette", "app/globalize", "text!templates/search-template.html" ],
                 setOptions: {
                     validate: true
                 }
+            },
+            "#currencies": {
+                observe: "currency",
+                updateMethod: "html",
+                onGet: "getCurrenciesHtml",
+                setOptions: {
+                    validate: true
+                }
             }
         },
 
@@ -57,23 +65,23 @@ define([ "marionette", "app/globalize", "text!templates/search-template.html" ],
                 valid: this.valid,
                 invalid: this.invalid
             });
-
-            this.setCurrency(this.model.get("currency"));
         },
 
-        setCurrency: function(currency) {
-            _.each(this.ui.currenciesList.children("li"), function(item) {
-                $(item).removeClass("selected");
-                if ($(item).attr("currency") == currency) {
-                    $(item).addClass("selected");
+        getCurrenciesHtml: function(currency) {
+            var list = $("<li currency='BYR'><img class='flag flag-by' /></li><li currency='CUR'><img class='flag flag-euus' /></li>");
+            _.each(list, function(li) {
+                if ($(li).attr("currency") == currency) {
+                    $(li).addClass("selected");
                 }
             });
+
+            return list;
         },
 
-        clickCurrency: function(event) {
+        changeCurrency: function(event) {
             var currency = $(event.currentTarget).attr("currency");
             this.model.set("currency", currency);
-            this.setCurrency(currency);
+            this.model.validate();
         },
 
         valid: function(view, attr, selector) {

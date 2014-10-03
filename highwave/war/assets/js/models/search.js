@@ -10,7 +10,26 @@ define([ "backbone" ], function(Backbone) {
             amount: {
                 required: true,
                 pattern: "number",
-                range: [ 100000, 1000000000 ]
+                fn: function(value, attr, computedState) {
+                    var range;
+                    switch (computedState.currency) {
+                    case "BYR":
+                        range = [ 100000, 1000000000 ];
+                        break;
+                    case "CUR":
+                    case "EUR":
+                    case "USD":
+                        range = [ 100, 100000 ];
+                        break;
+                    case "RUB":
+                        range = [ 1000, 1000000 ];
+                        break;
+                    }
+
+                    if (value < range[0] || value > range[1]) {
+                        return true;
+                    }
+                }
             },
             period: {
                 required: true,
