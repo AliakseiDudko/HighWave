@@ -2,19 +2,23 @@
 	<div class="form-group">
 		<label for="amountText" class="col-md-2 control-label text-info"><%- Globalize.translate("searchPanel/amountTextLabel") %></label>
 		<div class="col-md-4">
-			<input name="amount" class="form-control" placeholder="<%- Globalize.translate('searchPanel/amountTextEmpty') %>">
+			<input name="amount" class="form-control" placeholder="<%- Globalize.translate('searchPanel/amountTextEmpty') %>" />
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="periodText" class="col-md-2 control-label text-info"><%- Globalize.translate("searchPanel/periodTextLabel") %></label>
 		<div class="col-md-4">
-			<input name="period" class="form-control" placeholder="<%- Globalize.translate('searchPanel/periodTextEmpty') %>">
+			<input name="period" class="form-control" placeholder="<%- Globalize.translate('searchPanel/periodTextEmpty') %>" />
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-md-2 control-label text-info"><%- Globalize.translate("searchPanel/currencyLabel") %></label>
 		<div class="col-md-4">
-			<ul id="currencies" class="list-inline"></ul>
+			<ul id="currencies" class="list-inline">
+				<li currency="BYR"><img class="flag flag-by" /></li>
+				<li currency="CUR"><img class="flag flag-euus" /></li>
+			</ul>
+			<input type="hidden" name="currency" class="form-control" />
 		</div>
 	</div>
 	<div class="form-group">

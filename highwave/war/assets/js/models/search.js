@@ -25,10 +25,7 @@ define([ "backbone" ], function(Backbone) {
                         range = [ 1000, 1000000 ];
                         break;
                     }
-
-                    if (value < range[0] || value > range[1]) {
-                        return true;
-                    }
+                    return Backbone.Validation.validators.range(value, attr, range, this);
                 }
             },
             period: {

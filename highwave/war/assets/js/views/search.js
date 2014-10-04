@@ -18,6 +18,7 @@ define([ "marionette", "app/globalize", "text!templates/search-template.html" ],
             searchButton: "[name=search]",
             amountText: "[name=amount]",
             periodText: "[name=period]",
+            currency: "[name=currency]",
             currenciesList: "#currencies"
         },
 
@@ -48,10 +49,18 @@ define([ "marionette", "app/globalize", "text!templates/search-template.html" ],
                     validate: true
                 }
             },
-            "#currencies": {
+            "[name=currency]": {
                 observe: "currency",
-                updateMethod: "html",
-                onGet: "getCurrenciesHtml",
+                onGet: function(value) {
+                    var currency = value;
+                    _.each(this.ui.currenciesList.children("li"), function(li) {
+                        $(li).removeClass("selected");
+                        if ($(li).attr("currency") == currency) {
+                            $(li).addClass("selected");
+                        }
+                    });
+                    return currency;
+                },
                 setOptions: {
                     validate: true
                 }
@@ -65,17 +74,6 @@ define([ "marionette", "app/globalize", "text!templates/search-template.html" ],
                 valid: this.valid,
                 invalid: this.invalid
             });
-        },
-
-        getCurrenciesHtml: function(currency) {
-            var list = $("<li currency='BYR'><img class='flag flag-by' /></li><li currency='CUR'><img class='flag flag-euus' /></li>");
-            _.each(list, function(li) {
-                if ($(li).attr("currency") == currency) {
-                    $(li).addClass("selected");
-                }
-            });
-
-            return list;
         },
 
         changeCurrency: function(event) {
