@@ -96,11 +96,12 @@ define([ "marionette", "app/globalize", "text!templates/search-template.html" ],
             if (this.model.isValid(true)) {
                 var searchQuery = {
                     amount: this.model.get("amount"),
-                    period: this.model.get("period")
+                    period: this.model.get("period"),
+                    currency: this.model.get("currency")
                 };
                 Backbone.Events.trigger("search:searchQuery", searchQuery);
             } else {
-                Backbone.Events.trigger("search:noSearchQuery");
+                Backbone.Events.trigger("app:logMessage", "Please enter amount and period.");
             }
         }
     });

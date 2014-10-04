@@ -13,32 +13,8 @@ define([ "marionette", "regions/modal", "models/deposits", "models/search", "mod
     App.addInitializer(function() {
         var self = this;
 
-        Backbone.Events.on("search:searchQuery", function() {
-            self.showMessage("Search started.");
-        });
-        Backbone.Events.on("search:stop", function() {
-            self.showMessage("Search finished.");
-        });
-        Backbone.Events.on("search:noSearchTerm", function() {
-            self.showMessage("Please enter amount and period.");
-        });
-        Backbone.Events.on("search:noResults", function() {
-            self.showMessage("No results were found.");
-        });
-        Backbone.Events.on("search:error", function() {
-            self.showMessage("Error, please retry later.");
-        });
-        Backbone.Events.on("news:error", function() {
-            self.showMessage("Error, please retry later :s");
-        });
-        Backbone.Events.on("news:noResults", function() {
-            self.showMessage("No news found");
-        });
-        Backbone.Events.on("news:fetch:start", function() {
-            self.showMessage("Loading news started.");
-        });
-        Backbone.Events.on("news:fetch:stop", function() {
-            self.showMessage("Loading news finished.");
+        Backbone.Events.on("app:logMessage", function(message) {
+            self.showMessage(message);
         });
         Backbone.Events.on("app:showDepositDetails", function(details) {
             self.showDepositDetails(details);

@@ -23,7 +23,7 @@ define([ "backbone" ], function(Backbone) {
                 if (news.length > 0) {
                     self.reset(news);
                 } else {
-                    Backbone.Events.trigger("news:noResults");
+                    Backbone.Events.trigger("app:logMessage", "No news were found.");
                 }
             });
         },
@@ -36,23 +36,23 @@ define([ "backbone" ], function(Backbone) {
             this.loading = true;
 
             var self = this;
-            Backbone.Events.trigger("news:fetch:start");
+            Backbone.Events.trigger("app:logMessage", "Loading news started.");
 
             gapi.client.deposits.get.news.feed().execute(function(res) {
-                Backbone.Events.trigger("news:fetch:stop");
+                Backbone.Events.trigger("app:logMessage", "Loading news finished.");
+
+                self.loading = false;
+                var newsResults = [];
+
                 if (res.error) {
-                    Backbone.Events.trigger("news:error");
-                    callback([]);
-                    self.loading = false;
+                    Backbone.Events.trigger("app:logMessage", "Error, please retry later.");
                 }
                 if (res.items) {
-                    var newsResults = [];
                     _.each(res.items, function(item) {
                         newsResults[newsResults.length] = new News(item);
                     });
-                    callback(newsResults);
-                    self.loading = false;
                 }
+                callback(newsResults);
             });
         }
     });

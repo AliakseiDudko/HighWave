@@ -4,10 +4,6 @@ define([ "backbone" ], function(Backbone) {
     var Deposits = Backbone.Collection.extend({
         model: Deposit,
 
-        showMessage: function(message) {
-            console.log(message);
-        },
-
         initialize: function() {
             var self = this;
 
@@ -28,7 +24,7 @@ define([ "backbone" ], function(Backbone) {
                 if (deposits.length > 0) {
                     self.reset(deposits);
                 } else {
-                    App.vent.trigger("search:noResults");
+                    App.vent.trigger("app:logMessage", "No results were found.");
                 }
             });
         },
@@ -41,23 +37,22 @@ define([ "backbone" ], function(Backbone) {
             this.loading = true;
 
             var self = this;
-            Backbone.Events.trigger("search:start");
+            Backbone.Events.trigger("app:logMessage", "Search started.");
 
             gapi.client.deposits.get.deposits.list(searchQuery).execute(function(res) {
-                Backbone.Events.trigger("search:stop");
+                Backbone.Events.trigger("app:logMessage", "Search finished.");
+
+                self.loading = false;
+                var searchResults = [];
+
                 if (res.error) {
-                    Backbone.Events.trigger("search:error");
-                    callback([]);
-                    self.loading = false;
-                }
-                if (res.items) {
-                    var searchResults = [];
+                    Backbone.Events.trigger("app:logMessage", "Error, please retry later.");
+                } else if (res.items) {
                     _.each(res.items, function(item) {
                         searchResults[searchResults.length] = new Deposit(item);
                     });
-                    callback(searchResults);
-                    self.loading = false;
                 }
+                callback(searchResults);
             });
         }
     });
