@@ -78,8 +78,9 @@ define([ "marionette", "app/globalize", "text!templates/search-template.html" ],
 
         changeCurrency: function(event) {
             var currency = $(event.currentTarget).attr("currency");
-            this.model.set("currency", currency);
-            this.model.validate();
+            this.model.set("currency", currency, {
+                validate: true
+            });
         },
 
         valid: function(view, attr, selector) {

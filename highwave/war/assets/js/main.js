@@ -8,8 +8,7 @@ require.config({
         backbone: "backbone.marionette/backbone.min",
         stickit: "backbone.marionette/backbone.stickit.min",
         validation: "backbone.marionette/backbone.validation.min",
-        marionette: "backbone.marionette/backbone.marionette.min",
-        gae: "https://apis.google.com/js/client.js?onload=initGoogleApi"
+        marionette: "backbone.marionette/backbone.marionette.min"
     },
     shim: {
         underscore: {
