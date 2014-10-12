@@ -1,6 +1,9 @@
 package com.dudko.highwave;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.inject.Named;
 
@@ -14,24 +17,12 @@ import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 
 @Api(name = "deposits", version = "v0")
 public class DepositService {
-	public static final DepositFactory depositFactory;
+	private static final DepositFactory depositFactory;
+	private static final Comparator<DepositAccount> depositComparator;
 
 	static {
 		depositFactory = new DepositFactory();
-	}
-
-	@ApiMethod(name = "get.deposits.list", path = "deposits", httpMethod = HttpMethod.GET)
-	public DepositAccount[] getAllDeposites(@Named("amount") float amount, @Named("period") int period) {
-		List<DepositAccount> list = new ArrayList<DepositAccount>();
-
-		for (Deposit deposit : depositFactory.GetAllDeposits()) {
-			DepositAccount depositAccount = deposit.calculateDeposit(amount, period);
-			if (depositAccount != null) {
-				list.add(depositAccount);
-			}
-		}
-
-		Comparator<DepositAccount> comparator = new Comparator<DepositAccount>() {
+		depositComparator = new Comparator<DepositAccount>() {
 			public int compare(DepositAccount o1, DepositAccount o2) {
 				if (o1.profitPerDay < o2.profitPerDay) {
 					return -1;
@@ -42,7 +33,20 @@ public class DepositService {
 				}
 			}
 		};
-		Collections.sort(list, Collections.reverseOrder(comparator));
+	}
+
+	@ApiMethod(name = "get.deposits.list", path = "deposits", httpMethod = HttpMethod.GET)
+	public DepositAccount[] getAllDeposites(@Named("amount") float amount, @Named("period") int period, @Named("currency") Currency currency) {
+		List<DepositAccount> list = new ArrayList<DepositAccount>();
+
+		for (Deposit deposit : depositFactory.GetAllDeposits(currency)) {
+			DepositAccount depositAccount = deposit.calculateDeposit(amount, period);
+			if (depositAccount != null) {
+				list.add(depositAccount);
+			}
+		}
+
+		Collections.sort(list, Collections.reverseOrder(depositComparator));
 
 		return list.toArray(new DepositAccount[list.size()]);
 	}

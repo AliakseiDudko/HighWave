@@ -5,10 +5,10 @@ import java.util.*;
 import com.dudko.highwave.deposit.deposits.*;
 
 public class DepositFactory {
-	private static final Deposit[] depoisitsArray;
+	private static final List<Deposit> deposits;
 
 	static {
-		List<Deposit> deposits = new ArrayList<Deposit>();
+		deposits = new ArrayList<Deposit>();
 
 		deposits.add(new StartDeposit());
 		deposits.add(new OnWaveDeposit());
@@ -21,12 +21,17 @@ public class DepositFactory {
 		deposits.add(new EasyChoiseDeposit("Легкий выбор 90", 30.0f, 90));
 		deposits.add(new EasyChoiseDeposit("Легкий выбор 180", 31.0f, 180));
 		deposits.add(new AnnualDeposit());
-
-		depoisitsArray = deposits.toArray(new Deposit[deposits.size()]);
-
 	}
 
-	public Deposit[] GetAllDeposits() {
-		return depoisitsArray;
+	public Deposit[] GetAllDeposits(Currency currency) {
+		List<Deposit> list = new ArrayList<Deposit>();
+
+		for (Deposit deposit : deposits) {
+			if (deposit.currency == currency) {
+				list.add(deposit);
+			}
+		}
+
+		return list.toArray(new Deposit[list.size()]);
 	}
 }
