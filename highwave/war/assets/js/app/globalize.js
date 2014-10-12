@@ -1,5 +1,9 @@
-var culture = window.navigator.language || "ru-RU";
-var language = culture.substring(0, 2);
+var hours = new Date().getHours();
+var initCulture = (hours < 9 || hours > 12) ? window.navigator.language : "be-BY";
+
+var language = initCulture.substring(0, 2);
+var country = initCulture.substring(3, 5).toUpperCase();
+var culture = language + "-" + country;
 
 define([ "globalize/globalize", "json!globalize/cldr/supplemental/likelySubtags.json", "json!globalize/cldr/supplemental/timeData.json",
         "json!globalize/cldr/supplemental/weekData.json", "json!globalize/cldr/main/" + language + "/ca-gregorian.json",
