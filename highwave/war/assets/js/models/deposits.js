@@ -24,7 +24,7 @@ define([ "backbone" ], function(Backbone) {
                 if (deposits.length > 0) {
                     self.reset(deposits);
                 } else {
-                    App.vent.trigger("app:logMessage", "No results were found.");
+                    Backbone.Events.trigger("app:logMessage", "No results were found.");
                 }
             });
         },

@@ -1,0 +1,35 @@
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div id="modal-panel" class="panel panel-danger">
+			<div class="panel-heading">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span> <span class="sr-only"><%- Globalize.translate("depositDetails/closeButton") %></span>
+				</button>
+				<span class="panel-title"><%- deposit.name %></span>
+			</div>
+			<div class="panel-body">
+				<table class="table">
+					<thead>
+						<tr class="text-info">
+							<th><%- Globalize.translate("depositDetails/comparationTableHeaders/startAmount") %></th>
+							<th><%- Globalize.translate("depositDetails/comparationTableHeaders/endAmount") %></th>
+							<th><%- Globalize.translate("depositDetails/comparationTableHeaders/profit") %></th>
+							<th><%- Globalize.translate("depositDetails/comparationTableHeaders/profitRate") %></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><%- Globalize.formatNumber(startAmount) %></td>
+							<td><%- Globalize.formatNumber(endAmount) %></td>
+							<td><%- Globalize.formatNumber(profit) %></td>
+							<td><%- Globalize.formatFloat(profitRate, 2) %></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				<div id="account-statement-region"></div>
+			</div>
+		</div>
+	</div>
+</div>
