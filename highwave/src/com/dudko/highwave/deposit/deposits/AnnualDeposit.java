@@ -15,7 +15,6 @@ public class AnnualDeposit extends Deposit {
 	private float lowInterestRate = 1.0f;
 
 	public AnnualDeposit() {
-		id = 12;
 		bank = BankFactory.GetBank(BankCode.BelGazPromBank);
 		name = "Годовой";
 		url = "http://belgazprombank.by/personal_banking/vkladi_depoziti/v_nacional_noj_valjute/vklad_godovoj/";

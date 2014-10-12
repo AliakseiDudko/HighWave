@@ -11,7 +11,6 @@ import com.dudko.highwave.globalize.RecordDescriptions;
 
 public class TwoByTwoDeposit extends Deposit {
 	public TwoByTwoDeposit() {
-		id = 5;
 		bank = BankFactory.GetBank(BankCode.BelGazPromBank);
 		name = "2х2";
 		url = "http://belgazprombank.by/personal_banking/vkladi_depoziti/v_nacional_noj_valjute/vklad_2h2/";

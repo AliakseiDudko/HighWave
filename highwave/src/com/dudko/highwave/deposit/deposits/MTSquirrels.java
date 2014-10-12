@@ -15,7 +15,6 @@ public class MTSquirrels extends Deposit {
 	private int fixPeriodMonths = 2;
 
 	public MTSquirrels() {
-		id = 6;
 		bank = BankFactory.GetBank(BankCode.MTBank);
 		name = "МТБелки 18-2";
 		url = "http://www.mtbank.by/private/deposits/br/mtbelki/";

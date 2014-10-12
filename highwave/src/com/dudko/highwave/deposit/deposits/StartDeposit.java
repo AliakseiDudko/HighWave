@@ -16,7 +16,6 @@ public class StartDeposit extends Deposit {
 	private float minDepositAmount = 3000000f;
 
 	public StartDeposit() {
-		id = 1;
 		bank = BankFactory.GetBank(BankCode.BelAgroPromBank);
 		name = "Старт!";
 		url = "http://www.belapb.by/natural/deposit/start_/";

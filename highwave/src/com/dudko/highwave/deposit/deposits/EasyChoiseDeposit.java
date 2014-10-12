@@ -14,12 +14,11 @@ public class EasyChoiseDeposit extends Deposit {
 	private float minOpenAmount = 1000000f;
 	private float lowInterestRate = 0.1f;
 
-	public EasyChoiseDeposit(int id, String name, float interestRate, int depositTerm) {
+	public EasyChoiseDeposit(String name, float interestRate, int depositTerm) {
 		bank = BankFactory.GetBank(BankCode.HomeCreditBank);
 		url = "http://www.homecredit.by/loans_and_services/legkiy_vybor/index.htm";
 		currency = Currency.BYR;
 
-		this.id = id;
 		this.name = name;
 		this.interestRate = interestRate;
 		this.depositTerm = depositTerm;

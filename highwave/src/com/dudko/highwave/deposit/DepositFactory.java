@@ -5,29 +5,25 @@ import java.util.*;
 import com.dudko.highwave.deposit.deposits.*;
 
 public class DepositFactory {
-	private static final Map<Integer, Deposit> deposits;
 	private static final Deposit[] depoisitsArray;
 
 	static {
-		deposits = new HashMap<Integer, Deposit>();
+		List<Deposit> deposits = new ArrayList<Deposit>();
 
-		AddDeposit(new StartDeposit());
-		AddDeposit(new OnWaveDeposit());
-		AddDeposit(new SkarbonkaDeposit());
-		AddDeposit(new RapidProfitDeposit());
-		AddDeposit(new TwoByTwoDeposit());
-		AddDeposit(new MTSquirrels());
-		AddDeposit(new EarlierMore2Deposit());
-		AddDeposit(new EasyChoiseDeposit(9, "Легкий выбор 30", 29.0f, 30));
-		AddDeposit(new EasyChoiseDeposit(10, "Легкий выбор 90", 30.0f, 90));
-		AddDeposit(new EasyChoiseDeposit(11, "Легкий выбор 180", 31.0f, 180));
-		AddDeposit(new AnnualDeposit());
+		deposits.add(new StartDeposit());
+		deposits.add(new OnWaveDeposit());
+		deposits.add(new SkarbonkaDeposit());
+		deposits.add(new RapidProfitDeposit());
+		deposits.add(new TwoByTwoDeposit());
+		deposits.add(new MTSquirrels());
+		deposits.add(new EarlierMore2Deposit());
+		deposits.add(new EasyChoiseDeposit("Легкий выбор 30", 29.0f, 30));
+		deposits.add(new EasyChoiseDeposit("Легкий выбор 90", 30.0f, 90));
+		deposits.add(new EasyChoiseDeposit("Легкий выбор 180", 31.0f, 180));
+		deposits.add(new AnnualDeposit());
 
-		depoisitsArray = deposits.values().toArray(new Deposit[deposits.size()]);
-	}
+		depoisitsArray = deposits.toArray(new Deposit[deposits.size()]);
 
-	private static void AddDeposit(Deposit deposit) {
-		deposits.put(deposit.id, deposit);
 	}
 
 	public Deposit[] GetAllDeposits() {

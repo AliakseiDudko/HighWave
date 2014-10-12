@@ -15,7 +15,6 @@ public class SkarbonkaDeposit extends Deposit {
 	private float lowInterestRate = 0.1f;
 
 	public SkarbonkaDeposit() {
-		id = 3;
 		bank = BankFactory.GetBank(BankCode.VTBBank);
 		name = "Скарбонка";
 		url = "http://vtb-bank.by/personal/deposit/skarbonka/";

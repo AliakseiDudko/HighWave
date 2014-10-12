@@ -14,7 +14,6 @@ public class OnWaveDeposit extends Deposit {
 	private float minOpenAmount = 1000000f;
 
 	public OnWaveDeposit() {
-		id = 2;
 		bank = BankFactory.GetBank(BankCode.HomeCreditBank);
 		name = "На волне";
 		url = "http://www.homecredit.by/loans_and_services/na_volne/";

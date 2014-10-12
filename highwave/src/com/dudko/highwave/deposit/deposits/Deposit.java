@@ -9,7 +9,6 @@ import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.RecordDescriptions;
 
 public abstract class Deposit {
-	public int id;
 	public Bank bank;
 	public String name;
 	public String url;

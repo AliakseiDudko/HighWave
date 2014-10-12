@@ -16,7 +16,6 @@ public class EarlierMore2Deposit extends Deposit {
 	private float lowInterestRate = 0.1f;
 
 	public EarlierMore2Deposit() {
-		id = 8;
 		bank = BankFactory.GetBank(BankCode.HomeCreditBank);
 		name = "Раньше-Больше 2";
 		url = "http://homecredit.by/loans_and_services/Ranshe_Bolshe_2/";

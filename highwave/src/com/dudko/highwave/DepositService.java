@@ -6,7 +6,6 @@ import javax.inject.Named;
 
 import twitter4j.OEmbed;
 
-import com.dudko.highwave.bank.BankFactory;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.deposit.deposits.Deposit;
 import com.dudko.highwave.news.NewsFactory;
@@ -16,11 +15,9 @@ import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 @Api(name = "deposits", version = "v0")
 public class DepositService {
 	public static final DepositFactory depositFactory;
-	public static final BankFactory bankFactory;
 
 	static {
 		depositFactory = new DepositFactory();
-		bankFactory = new BankFactory();
 	}
 
 	@ApiMethod(name = "get.deposits.list", path = "deposits", httpMethod = HttpMethod.GET)

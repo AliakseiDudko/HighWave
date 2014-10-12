@@ -15,7 +15,6 @@ public class RapidProfitDeposit extends Deposit {
 	private float lowInterestRate = 0.01f;
 
 	public RapidProfitDeposit() {
-		id = 4;
 		bank = BankFactory.GetBank(BankCode.BTABank);
 		name = "Стремительный доход";
 		url = "http://www.btabank.by/ru/block/1257/";
