@@ -7,7 +7,7 @@ import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
-import com.dudko.highwave.globalize.RecordDescriptions;
+import com.dudko.highwave.globalize.*;
 
 public class RapidProfitDeposit extends Deposit {
 	private int depositTerm = 10;
@@ -16,8 +16,8 @@ public class RapidProfitDeposit extends Deposit {
 
 	public RapidProfitDeposit() {
 		bank = BankFactory.GetBank(BankCode.BTABank);
-		name = "Стремительный доход";
-		url = "http://www.btabank.by/ru/block/1257/";
+		name = DepositNames.MSG_005_RapidProfit;
+		url = "http://www.btabank.by/ru/block/1257";
 		currency = Currency.BYR;
 		interestRate = 23.0f;
 	}

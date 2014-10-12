@@ -7,7 +7,7 @@ import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
-import com.dudko.highwave.globalize.RecordDescriptions;
+import com.dudko.highwave.globalize.*;
 
 public class MTSquirrels extends Deposit {
 	private float minOpenAmount = 500000f;
@@ -16,8 +16,8 @@ public class MTSquirrels extends Deposit {
 
 	public MTSquirrels() {
 		bank = BankFactory.GetBank(BankCode.MTBank);
-		name = "МТБелки 18-2";
-		url = "http://www.mtbank.by/private/deposits/br/mtbelki/";
+		name = DepositNames.MSG_003_MTSquirrels;
+		url = "http://www.mtbank.by/private/deposits/br/mtbelki";
 		currency = Currency.BYR;
 		interestRate = 30.0f;
 	}

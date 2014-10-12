@@ -6,11 +6,12 @@ import org.joda.time.DateTime;
 
 import com.dudko.highwave.bank.banks.Bank;
 import com.dudko.highwave.deposit.*;
+import com.dudko.highwave.globalize.DepositNames;
 import com.dudko.highwave.globalize.RecordDescriptions;
 
 public abstract class Deposit {
 	public Bank bank;
-	public String name;
+	public DepositNames name;
 	public String url;
 	public Currency currency;
 	public float interestRate;

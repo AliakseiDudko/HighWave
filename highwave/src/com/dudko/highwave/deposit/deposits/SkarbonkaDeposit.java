@@ -7,7 +7,7 @@ import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
-import com.dudko.highwave.globalize.RecordDescriptions;
+import com.dudko.highwave.globalize.*;
 
 public class SkarbonkaDeposit extends Deposit {
 	private int depositTerm = 395;
@@ -16,7 +16,7 @@ public class SkarbonkaDeposit extends Deposit {
 
 	public SkarbonkaDeposit() {
 		bank = BankFactory.GetBank(BankCode.VTBBank);
-		name = "Скарбонка";
+		name = DepositNames.MSG_006_Skarbonka;
 		url = "http://vtb-bank.by/personal/deposit/skarbonka/";
 		currency = Currency.BYR;
 		interestRate = 30.0f;

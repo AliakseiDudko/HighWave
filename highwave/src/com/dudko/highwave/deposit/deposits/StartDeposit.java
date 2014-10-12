@@ -6,25 +6,23 @@ import org.joda.time.DateTime;
 
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
-import com.dudko.highwave.deposit.Currency;
-import com.dudko.highwave.globalize.RecordDescriptions;
+import com.dudko.highwave.globalize.*;
 
-public class StartDeposit extends Deposit {
-	private int depositTerm = 95;
-	private int capitalizationPeriod = 30;
-	private float minOpenAmount = 1000000f;
-	private float minDepositAmount = 3000000f;
+public abstract class StartDeposit extends Deposit {
+	protected float minOpenAmount;
+	protected float minDepositAmount;
 
 	public StartDeposit() {
 		bank = BankFactory.GetBank(BankCode.BelAgroPromBank);
-		name = "Старт!";
+		name = DepositNames.MSG_007_Start;
 		url = "http://www.belapb.by/natural/deposit/start_/";
-		currency = Currency.BYR;
-		interestRate = 29.0f;
 	}
 
 	@Override
 	public DepositAccount calculateDeposit(float amount, int period) {
+		int depositTerm = 95;
+		int capitalizationPeriod = 30;
+
 		if (amount < minOpenAmount || period < capitalizationPeriod) {
 			return null;
 		} else if (amount < minDepositAmount && period < depositTerm) {

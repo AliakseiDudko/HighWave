@@ -7,7 +7,7 @@ import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
-import com.dudko.highwave.globalize.RecordDescriptions;
+import com.dudko.highwave.globalize.*;
 
 public class EarlierMore2Deposit extends Deposit {
 	private int depositTerm = 270;
@@ -17,7 +17,7 @@ public class EarlierMore2Deposit extends Deposit {
 
 	public EarlierMore2Deposit() {
 		bank = BankFactory.GetBank(BankCode.HomeCreditBank);
-		name = "Раньше-Больше 2";
+		name = DepositNames.MSG_001_EarlierMore2;
 		url = "http://homecredit.by/loans_and_services/Ranshe_Bolshe_2/";
 		currency = Currency.BYR;
 		interestRate = 28.0f;

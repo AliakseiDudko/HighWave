@@ -7,14 +7,14 @@ import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
-import com.dudko.highwave.globalize.RecordDescriptions;
+import com.dudko.highwave.globalize.*;
 
 public class EasyChoiseDeposit extends Deposit {
 	private int depositTerm;
 	private float minOpenAmount = 1000000f;
 	private float lowInterestRate = 0.1f;
 
-	public EasyChoiseDeposit(String name, float interestRate, int depositTerm) {
+	public EasyChoiseDeposit(DepositNames name, float interestRate, int depositTerm) {
 		bank = BankFactory.GetBank(BankCode.HomeCreditBank);
 		url = "http://www.homecredit.by/loans_and_services/legkiy_vybor/index.htm";
 		currency = Currency.BYR;

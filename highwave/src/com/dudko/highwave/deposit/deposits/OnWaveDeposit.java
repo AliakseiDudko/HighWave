@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.deposit.Currency;
-import com.dudko.highwave.globalize.RecordDescriptions;
+import com.dudko.highwave.globalize.*;
 
 public class OnWaveDeposit extends Deposit {
 	private int depositTerm = 10;
@@ -15,7 +15,7 @@ public class OnWaveDeposit extends Deposit {
 
 	public OnWaveDeposit() {
 		bank = BankFactory.GetBank(BankCode.HomeCreditBank);
-		name = "На волне";
+		name = DepositNames.MSG_004_OnWave;
 		url = "http://www.homecredit.by/loans_and_services/na_volne/";
 		currency = Currency.BYR;
 		interestRate = 20.0f;

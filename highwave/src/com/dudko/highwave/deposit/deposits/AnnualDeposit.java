@@ -7,7 +7,7 @@ import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
-import com.dudko.highwave.globalize.RecordDescriptions;
+import com.dudko.highwave.globalize.*;
 
 public class AnnualDeposit extends Deposit {
 	private int depositTerm = 365;
@@ -16,7 +16,7 @@ public class AnnualDeposit extends Deposit {
 
 	public AnnualDeposit() {
 		bank = BankFactory.GetBank(BankCode.BelGazPromBank);
-		name = "Годовой";
+		name = DepositNames.MSG_000_Annual;
 		url = "http://belgazprombank.by/personal_banking/vkladi_depoziti/v_nacional_noj_valjute/vklad_godovoj/";
 		currency = Currency.BYR;
 		interestRate = 31.0f;
