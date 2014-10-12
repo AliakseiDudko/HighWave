@@ -11,7 +11,8 @@ public class DepositFactory {
 	static {
 		deposits = new ArrayList<Deposit>();
 
-		deposits.add(new StartDeposit());
+		deposits.add(new StartDepositBYR());
+		deposits.add(new StartDepositCUR());
 		deposits.add(new OnWaveDeposit());
 		deposits.add(new SkarbonkaDeposit());
 		deposits.add(new RapidProfitDeposit());
