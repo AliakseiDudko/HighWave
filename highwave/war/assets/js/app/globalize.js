@@ -25,7 +25,9 @@ define([ "globalize/globalize", "json!globalize/cldr/supplemental/likelySubtags.
     var globalize = Globalize(culture);
 
     globalize.formatInt = function(value) {
-        return value ? this.formatNumber(value) : "";
+        return value ? this.formatNumber(value, {
+            maximumFractionDigits: 0
+        }) : "";
     };
 
     globalize.formatFloat = function(value, fractionDigits) {
