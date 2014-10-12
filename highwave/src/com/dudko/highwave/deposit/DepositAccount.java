@@ -39,8 +39,8 @@ public class DepositAccount {
 			endDate = lastRecord.date;
 			period = Days.daysBetween(firstRecord.GetOriginalDate(), lastRecord.GetOriginalDate()).getDays();
 
-			startAmount = roundUpTo(firstRecord.amount, 50);
-			endAmount = roundUpTo(lastRecord.amount, 50);
+			startAmount = roundUpTo(firstRecord.amount, deposit.currency);
+			endAmount = roundUpTo(lastRecord.amount, deposit.currency);
 			profit = endAmount - startAmount;
 			profitRate = 100.0f * profit / startAmount;
 			profitPerDay = profit / period;
@@ -66,6 +66,11 @@ public class DepositAccount {
 		}
 
 		return lastRecord;
+	}
+
+	private float roundUpTo(float amount, Currency currency) {
+		float base = currency == Currency.BYR ? 50 : 1;
+		return roundUpTo(amount, base);
 	}
 
 	private float roundUpTo(float amount, float base) {
