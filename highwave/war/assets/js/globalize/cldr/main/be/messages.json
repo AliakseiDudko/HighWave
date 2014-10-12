@@ -9,6 +9,19 @@
       "MSG_005_Early_Withdrawal_Of_Deposit": "Датэрміновае вяртанне дэпазіту.",
       "MSG_006_Partial_Withdrawal_Of_Deposit": "Частковае вывядзенне сумы дэпазіту."
     },
+    "depositNames": {
+      "MSG_000_Annual": "Годовой",
+	  "MSG_001_EarlierMore2": "Раньше-Больше 2",
+	  "MSG_002_EasyChoise30": "Легкий выбор 30",
+	  "MSG_002_EasyChoise90": "Легкий выбор 90",
+	  "MSG_002_EasyChoise180": "Легкий выбор 180",
+	  "MSG_003_MTSquirrels": "МТБелки 18-2",
+	  "MSG_004_OnWave": "На волне",
+	  "MSG_005_RapidProfit": "Стремительный доход",
+	  "MSG_006_Skarbonka": "Скарбонка",
+	  "MSG_007_Start": "Старт!",
+	  "MSG_008_TwoByTwo": "2х2"
+    },
     "panelHeaders": {
       "search": "Пошук",
       "ads": "Рэклама",
