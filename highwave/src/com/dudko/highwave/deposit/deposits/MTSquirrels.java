@@ -19,7 +19,7 @@ public class MTSquirrels extends Deposit {
 		name = DepositNames.MSG_003_MTSquirrels;
 		url = "http://www.mtbank.by/private/deposits/br/mtbelki";
 		currency = Currency.BYR;
-		interestRate = 30.0f;
+		interestRate = 28.0f;
 	}
 
 	@Override

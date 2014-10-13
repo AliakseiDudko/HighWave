@@ -19,7 +19,7 @@ public class AnnualDeposit extends Deposit {
 		name = DepositNames.MSG_000_Annual;
 		url = "http://belgazprombank.by/personal_banking/vkladi_depoziti/v_nacional_noj_valjute/vklad_godovoj/";
 		currency = Currency.BYR;
-		interestRate = 31.0f;
+		interestRate = 28.0f;
 	}
 
 	@Override

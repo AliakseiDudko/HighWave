@@ -18,7 +18,7 @@ public class OnWaveDeposit extends Deposit {
 		name = DepositNames.MSG_004_OnWave;
 		url = "http://www.homecredit.by/loans_and_services/na_volne/";
 		currency = Currency.BYR;
-		interestRate = 20.0f;
+		interestRate = 16.0f;
 	}
 
 	@Override

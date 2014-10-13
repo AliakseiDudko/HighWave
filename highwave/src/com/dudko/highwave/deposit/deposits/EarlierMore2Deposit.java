@@ -20,7 +20,7 @@ public class EarlierMore2Deposit extends Deposit {
 		name = DepositNames.MSG_001_EarlierMore2;
 		url = "http://homecredit.by/loans_and_services/Ranshe_Bolshe_2/";
 		currency = Currency.BYR;
-		interestRate = 28.0f;
+		interestRate = 27.0f;
 	}
 
 	@Override
@@ -72,19 +72,19 @@ public class EarlierMore2Deposit extends Deposit {
 		if (_period <= 90) {
 			return 0.1f;
 		} else if (_period <= 105) {
-			return 30.0f;
+			return 29.0f;
 		} else if (_period <= 120) {
-			return 28.0f;
+			return 27.0f;
 		} else if (_period <= 135) {
-			return 26.0f;
+			return 25.0f;
 		} else if (_period <= 150) {
-			return 24.0f;
+			return 23.0f;
 		} else if (_period <= 165) {
-			return 22.0f;
+			return 21.0f;
 		} else if (_period <= 180) {
-			return 20.0f;
+			return 19.0f;
 		} else if (_period <= depositTerm) {
-			return 18.0f;
+			return 17.0f;
 		}
 
 		return lowInterestRate;

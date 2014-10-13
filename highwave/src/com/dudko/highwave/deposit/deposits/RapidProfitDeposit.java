@@ -19,7 +19,7 @@ public class RapidProfitDeposit extends Deposit {
 		name = DepositNames.MSG_005_RapidProfit;
 		url = "http://www.btabank.by/ru/block/1257";
 		currency = Currency.BYR;
-		interestRate = 23.0f;
+		interestRate = 21.0f;
 	}
 
 	@Override

@@ -20,9 +20,9 @@ public class DepositFactory {
 		deposits.add(new TwoByTwoDeposit());
 		deposits.add(new MTSquirrels());
 		deposits.add(new EarlierMore2Deposit());
-		deposits.add(new EasyChoiseDeposit(DepositNames.MSG_002_EasyChoise30, 29.0f, 30));
-		deposits.add(new EasyChoiseDeposit(DepositNames.MSG_002_EasyChoise90, 30.0f, 90));
-		deposits.add(new EasyChoiseDeposit(DepositNames.MSG_002_EasyChoise180, 31.0f, 180));
+		deposits.add(new EasyChoiseDeposit(DepositNames.MSG_002_EasyChoise30, 30));
+		deposits.add(new EasyChoiseDeposit(DepositNames.MSG_002_EasyChoise90, 90));
+		deposits.add(new EasyChoiseDeposit(DepositNames.MSG_002_EasyChoise180, 180));
 		deposits.add(new AnnualDeposit());
 	}
 

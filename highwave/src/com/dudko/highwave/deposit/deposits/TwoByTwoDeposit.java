@@ -15,7 +15,7 @@ public class TwoByTwoDeposit extends Deposit {
 		name = DepositNames.MSG_008_TwoByTwo;
 		url = "http://belgazprombank.by/personal_banking/vkladi_depoziti/v_nacional_noj_valjute/vklad_2h2/";
 		currency = Currency.BYR;
-		interestRate = 30.0f;
+		interestRate = 27.0f;
 	}
 
 	@Override

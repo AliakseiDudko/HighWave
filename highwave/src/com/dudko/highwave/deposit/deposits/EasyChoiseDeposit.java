@@ -14,14 +14,14 @@ public class EasyChoiseDeposit extends Deposit {
 	private float minOpenAmount = 1000000f;
 	private float lowInterestRate = 0.1f;
 
-	public EasyChoiseDeposit(DepositNames name, float interestRate, int depositTerm) {
+	public EasyChoiseDeposit(DepositNames name, int depositTerm) {
 		bank = BankFactory.GetBank(BankCode.HomeCreditBank);
 		url = "http://www.homecredit.by/loans_and_services/legkiy_vybor/index.htm";
 		currency = Currency.BYR;
 
 		this.name = name;
-		this.interestRate = interestRate;
 		this.depositTerm = depositTerm;
+		this.interestRate = this.interestRate(this.depositTerm);
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class EasyChoiseDeposit extends Deposit {
 		if (_period < 30) {
 			return 0.1f;
 		} else if (_period == 30) {
-			return interestRate;
+			return 26.0f;
 		}
 
 		return lowInterestRate;
@@ -92,7 +92,7 @@ public class EasyChoiseDeposit extends Deposit {
 		} else if (_period < 90) {
 			return 5.0f;
 		} else if (_period == 90) {
-			return interestRate;
+			return 27.0f;
 		}
 
 		return lowInterestRate;
@@ -108,7 +108,7 @@ public class EasyChoiseDeposit extends Deposit {
 		} else if (_period < 180) {
 			return 10.0f;
 		} else if (_period == 180) {
-			return interestRate;
+			return 28.0f;
 		}
 
 		return lowInterestRate;
