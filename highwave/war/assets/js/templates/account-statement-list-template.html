@@ -1,7 +1,7 @@
 <thead>
 	<tr class="text-info">
 		<th><%- Globalize.translate("depositDetails/statementTableHeaders/date") %></th>
-		<th><%- Globalize.translate("depositDetails/statementTableHeaders/amount") %>, <%- deposit.currency %></th>
+		<th><%- Globalize.translate("depositDetails/statementTableHeaders/amount") %>, <%- Globalize.translate([ "currencies", deposit.currency ]) %></th>
 		<th><%- Globalize.translate("depositDetails/statementTableHeaders/interest") %></th>
 		<th><%- Globalize.translate("depositDetails/statementTableHeaders/operation") %></th>
 	</tr>
