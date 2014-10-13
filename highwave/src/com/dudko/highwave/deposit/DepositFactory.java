@@ -14,7 +14,8 @@ public class DepositFactory {
 		deposits.add(new StartDepositBYR());
 		deposits.add(new StartDepositCUR());
 		deposits.add(new OnWaveDeposit());
-		deposits.add(new SkarbonkaDeposit());
+		deposits.add(new SkarbonkaDepositBYR());
+		deposits.add(new SkarbonkaDepositCUR());
 		deposits.add(new RapidProfitDeposit());
 		deposits.add(new TwoByTwoDeposit());
 		deposits.add(new MTSquirrels());

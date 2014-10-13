@@ -9,17 +9,14 @@ import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
 
-public class SkarbonkaDeposit extends Deposit {
-	private int depositTerm = 395;
-	private float minOpenAmount = 200000f;
-	private float lowInterestRate = 0.1f;
+public abstract class SkarbonkaDeposit extends Deposit {
+	protected float minOpenAmount;
+	protected float lowInterestRate;
 
 	public SkarbonkaDeposit() {
 		bank = BankFactory.GetBank(BankCode.VTBBank);
 		name = DepositNames.MSG_006_Skarbonka;
 		url = "http://vtb-bank.by/personal/deposit/skarbonka/";
-		currency = Currency.BYR;
-		interestRate = 30.0f;
 	}
 
 	@Override
@@ -30,6 +27,7 @@ public class SkarbonkaDeposit extends Deposit {
 
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 
+		int depositTerm = 395;
 		int term = Math.min(period, depositTerm);
 		DateTime currentDate = DateTime.now();
 		DateTime endDate = currentDate.plusDays(term);
