@@ -7,6 +7,6 @@ public class HomeCreditBank extends Bank {
 		code = BankCode.HomeCreditBank;
 		css = "hcb";
 		displayName = "ХоумКредитБанк";
-		url = "http://www.homecredit.by/";
+		url = "http://www.homecredit.by";
 	}
 }

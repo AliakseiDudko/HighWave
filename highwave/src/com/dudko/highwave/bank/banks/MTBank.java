@@ -7,6 +7,6 @@ public class MTBank extends Bank {
 		code = BankCode.MTBank;
 		css = "mtb";
 		displayName = "МТБанк";
-		url = "http://www.mtbank.by/";
+		url = "http://www.mtbank.by";
 	}
 }

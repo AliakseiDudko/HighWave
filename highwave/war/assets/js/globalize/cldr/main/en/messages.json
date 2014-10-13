@@ -1,7 +1,7 @@
 {
   "en": {
     "recordMessages": {
-      "MSG_000_Open_Depost": "Deposit opening.",
+      "MSG_000_Open_Deposit": "Deposit opening.",
       "MSG_001_Capitalization": "Сapitalization.",
       "MSG_002_Accrual_Of_Interest": "Accrual of interest.",
       "MSG_003_Close_Deposit": "Deposit closing.",
@@ -20,7 +20,8 @@
 	  "MSG_005_RapidProfit": "Стремительный доход",
 	  "MSG_006_Skarbonka": "Скарбонка",
 	  "MSG_007_Start": "Start! / Старт",
-	  "MSG_008_TwoByTwo": "2х2"
+	  "MSG_008_TwoByTwo": "2х2",
+	  "MSG_009_FourSeasons": "4 Сезона"
     },
     "currencies": {
       "BYR": "BYR",

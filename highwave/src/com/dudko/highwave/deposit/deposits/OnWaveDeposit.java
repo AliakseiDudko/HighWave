@@ -34,7 +34,7 @@ public class OnWaveDeposit extends Deposit {
 		DateTime endDate = currentDate.plusDays(term);
 		float _amount = amount;
 
-		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Depost);
+		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		DateTime previousDate = currentDate;
 		currentDate = currentDate.plusDays(depositTerm);

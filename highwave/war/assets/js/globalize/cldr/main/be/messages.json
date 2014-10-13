@@ -1,7 +1,7 @@
 {
   "be": {
     "recordMessages": {
-      "MSG_000_Open_Depost": "Адкрыццё дэпазіту.",
+      "MSG_000_Open_Deposit": "Адкрыццё дэпазіту.",
       "MSG_001_Capitalization": "Капіталізацыя.",
       "MSG_002_Accrual_Of_Interest": "Налічэнне працэнтаў.",
       "MSG_003_Close_Deposit": "Закрыццё дэпазіту.",
@@ -20,7 +20,8 @@
 	  "MSG_005_RapidProfit": "Стремительный доход",
 	  "MSG_006_Skarbonka": "Скарбонка",
 	  "MSG_007_Start": "Старт!",
-	  "MSG_008_TwoByTwo": "2х2"
+	  "MSG_008_TwoByTwo": "2х2",
+	  "MSG_009_FourSeasons": "4 Сезоны"
     },
     "currencies": {
       "BYR": "BYR",

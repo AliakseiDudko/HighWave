@@ -7,6 +7,6 @@ public class VTBBank extends Bank {
 		code = BankCode.VTBBank;
 		css = "vtb";
 		displayName = "Банк ВТБ";
-		url = "http://vtb-bank.by/";
+		url = "http://vtb-bank.by";
 	}
 }

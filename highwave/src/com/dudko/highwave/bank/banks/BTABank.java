@@ -7,6 +7,6 @@ public class BTABank extends Bank {
 		code = BankCode.BTABank;
 		css = "bta";
 		displayName = "БТА Банк";
-		url = "http://www.btabank.by/";
+		url = "http://www.btabank.by";
 	}
 }

@@ -7,6 +7,6 @@ public class BelGazPromBank extends Bank {
 		code = BankCode.BelGazPromBank;
 		css = "bgpb";
 		displayName = "Белгазпромбанк";
-		url = "http://belgazprombank.by/";
+		url = "http://belgazprombank.by";
 	}
 }

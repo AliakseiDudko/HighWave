@@ -30,7 +30,7 @@ public class TwoByTwoDeposit extends Deposit {
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 
 		float _amount = amount;
-		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Depost);
+		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		for (int i = 0; i < 2; i++) {
 			DateTime previousDate = currentDate;

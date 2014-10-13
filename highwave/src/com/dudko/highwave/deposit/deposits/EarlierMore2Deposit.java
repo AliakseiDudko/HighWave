@@ -37,7 +37,7 @@ public class EarlierMore2Deposit extends Deposit {
 		float _interestRate = interestRate(term);
 		float depositAmount = amount;
 
-		addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_000_Open_Depost);
+		addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		DateTime previousDate = currentDate;
 		currentDate = currentDate.plusDays(capitalizationPeriod);

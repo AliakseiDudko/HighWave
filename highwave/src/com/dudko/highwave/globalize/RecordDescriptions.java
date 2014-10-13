@@ -1,7 +1,7 @@
 package com.dudko.highwave.globalize;
 
 public enum RecordDescriptions {
-	MSG_000_Open_Depost,
+	MSG_000_Open_Deposit,
 	MSG_001_Capitalization,
 	MSG_002_Accrual_Of_Interest,
 	MSG_003_Close_Deposit,

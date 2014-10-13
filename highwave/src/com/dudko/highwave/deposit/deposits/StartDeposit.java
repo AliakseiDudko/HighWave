@@ -34,7 +34,7 @@ public abstract class StartDeposit extends Deposit {
 		DateTime currentDate = DateTime.now();
 		float _amount = amount;
 
-		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Depost);
+		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		Set<Integer> setOfDays = new TreeSet<Integer>(Arrays.asList(0, 30, 60, 90, 95, period));
 		Integer[] days = setOfDays.toArray(new Integer[0]);
