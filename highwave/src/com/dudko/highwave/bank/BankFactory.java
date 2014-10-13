@@ -11,6 +11,7 @@ public class BankFactory {
 		banks = new HashMap<BankCode, Bank>();
 
 		AddBank(new BelAgroPromBank());
+		AddBank(new BelarusBank());
 		AddBank(new HomeCreditBank());
 		AddBank(new VTBBank());
 		AddBank(new BTABank());
