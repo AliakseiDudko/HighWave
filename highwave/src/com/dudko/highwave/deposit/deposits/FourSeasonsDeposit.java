@@ -67,7 +67,7 @@ public class FourSeasonsDeposit extends Deposit {
 			currentDate = previousDate.plusMonths(1);
 
 			boolean withdrawal = (previousDate.isBefore(partialEndDate) || previousDate.isEqual(partialEndDate))
-					&& (currentDate.isAfter(partialEndDate) || currentDate.isEqual(partialEndDate)) && !partialEndDate.isEqual(endDate);
+					&& currentDate.isAfter(partialEndDate);
 			if (withdrawal) {
 				addRecord(list, previousDate, depositAmount, interestRate, RecordDescriptions.MSG_006_Partial_Withdrawal_Of_Deposit, true);
 				depositAmount = minDepositAmount;
