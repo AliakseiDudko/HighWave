@@ -7,7 +7,8 @@
       "MSG_003_Close_Deposit": "Закрыццё дэпазіту.",
       "MSG_004_Bonus_05_Percent": "Бонус-прэмія 0,5%.",
       "MSG_005_Early_Withdrawal_Of_Deposit": "Датэрміновае вяртанне дэпазіту.",
-      "MSG_006_Partial_Withdrawal_Of_Deposit": "Частковае вывядзенне сумы дэпазіту."
+      "MSG_006_Partial_Withdrawal_Of_Deposit": "Частковае вывядзенне сумы дэпазіту.",
+      "MSG_007_Bonus": "Прэміяльныя працэнты."
     },
     "depositNames": {
       "MSG_000_Annual": "Годовой",

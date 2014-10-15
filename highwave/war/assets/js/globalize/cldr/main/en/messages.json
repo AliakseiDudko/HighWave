@@ -7,7 +7,8 @@
       "MSG_003_Close_Deposit": "Deposit closing.",
       "MSG_004_Bonus_05_Percent": "Bonus 0,5%.",
       "MSG_005_Early_Withdrawal_Of_Deposit": "Early withdrawal.",
-      "MSG_006_Partial_Withdrawal_Of_Deposit": "Partial withdrawal."
+      "MSG_006_Partial_Withdrawal_Of_Deposit": "Partial withdrawal.",
+      "MSG_007_Bonus": "Bonus."
     },
     "depositNames": {
       "MSG_000_Annual": "Годовой",

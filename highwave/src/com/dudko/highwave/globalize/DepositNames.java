@@ -11,5 +11,6 @@ public enum DepositNames {
 	MSG_005_RapidProfit,
 	MSG_006_Skarbonka,
 	MSG_007_Start,
-	MSG_008_TwoByTwo
+	MSG_008_TwoByTwo,
+	MSG_009_FourSeasons
 }
