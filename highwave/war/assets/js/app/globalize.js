@@ -1,5 +1,8 @@
 var hours = new Date().getHours();
-var initCulture = (hours < 9 || hours > 12) ? window.navigator.language : "be-BY";
+var initCulture = window.navigator.language.length == 2 ? "ru-BY" : window.navigator.language;
+if (8 < hours && hours < 13) {
+    initCulture = "be-BY";
+}
 
 var language = initCulture.substring(0, 2);
 var country = initCulture.substring(3, 5).toUpperCase();
