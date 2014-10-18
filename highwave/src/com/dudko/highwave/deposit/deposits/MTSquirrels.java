@@ -57,7 +57,7 @@ public class MTSquirrels extends Deposit {
 			int _period = Days.daysBetween(previousDate, endDate).getDays();
 			if (_period > 0 && months != 0 && months % fixPeriodMonths == 0) {
 				depositAmount *= 1.005f;
-				addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_004_Bonus_05_Percent);
+				addRecord(list, previousDate, depositAmount, interestRate, RecordDescriptions.MSG_004_Bonus_05_Percent);
 			}
 
 			fixPeriodDate = fixPeriodDate.plusMonths(fixPeriodMonths);
