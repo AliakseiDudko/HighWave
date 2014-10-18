@@ -5,11 +5,7 @@ import java.net.*;
 import java.util.*;
 
 import javax.xml.parsers.*;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.MimeHeaders;
-import javax.xml.soap.SOAPConnection;
-import javax.xml.soap.SOAPConnectionFactory;
-import javax.xml.soap.SOAPMessage;
+import javax.xml.soap.*;
 
 import org.joda.time.DateTime;
 import org.w3c.dom.*;
@@ -50,7 +46,7 @@ public class NationalBankServiceClient {
 
 		URL xmlUrl;
 		try {
-			String xmlUrlPattern = "http://www.nbrb.by/Services/XmlExRates.aspx?onDate=" + date.toString("MM/dd/yyyy");
+			String xmlUrlPattern = String.format("http://www.nbrb.by/Services/XmlExRates.aspx?onDate=%s", date.toString("MM/dd/yyyy"));
 			xmlUrl = new URL(xmlUrlPattern);
 		} catch (MalformedURLException exception) {
 			exception.printStackTrace();
@@ -76,9 +72,9 @@ public class NationalBankServiceClient {
 
 		NodeList nodeList = document.getDocumentElement().getChildNodes();
 		for (int i = 0; i < nodeList.getLength(); i++) {
-			Node node = nodeList.item(i);
+			org.w3c.dom.Node node = nodeList.item(i);
 
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
+			if (node.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
 				Element element = (Element) node;
 
 				String currencyCharCode = element.getElementsByTagName("CharCode").item(0).getChildNodes().item(0).getNodeValue();

@@ -2,12 +2,13 @@ package com.dudko.highwave.news;
 
 import java.io.File;
 import java.util.*;
+import java.util.Map.Entry;
 
 import org.joda.time.*;
 import org.joda.time.format.*;
 
 import com.dudko.highwave.deposit.Currency;
-import com.dudko.highwave.utils.NationalBankServiceClient;
+import com.dudko.highwave.utils.*;
 
 import twitter4j.*;
 
@@ -121,6 +122,64 @@ public class NewsFactory {
 			twitter.updateStatus(tweet);
 		} catch (TwitterException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public static void addRussianRubleStatsTweet() {
+		List<Entry<DateTime, Double>> usdHistory = BankOfRussiaServiceClient.getExchangeRateHistory(Currency.USD);
+		Entry<DateTime, Double> firstUsdEntry = usdHistory.get(usdHistory.size() - 1);
+		Entry<DateTime, Double> maxUsdEntry = firstUsdEntry;
+		for (Entry<DateTime, Double> entry : usdHistory) {
+			if (maxUsdEntry.getValue() < entry.getValue()) {
+				maxUsdEntry = entry;
+			}
+		}
+		boolean isUsdRecord = maxUsdEntry.getKey() == firstUsdEntry.getKey();
+
+		List<Entry<DateTime, Double>> eurHistory = BankOfRussiaServiceClient.getExchangeRateHistory(Currency.EUR);
+		Entry<DateTime, Double> firstEurEntry = eurHistory.get(eurHistory.size() - 1);
+		Entry<DateTime, Double> maxEurEntry = firstEurEntry;
+		for (Entry<DateTime, Double> entry : eurHistory) {
+			if (maxEurEntry.getValue() < entry.getValue()) {
+				maxEurEntry = entry;
+			}
+		}
+		boolean isEurRecord = maxEurEntry.getKey() == firstEurEntry.getKey();
+
+		String message = "";
+		String filePath = "";
+		GeoLocation location = new GeoLocation(53.900066d, 27.558531d);
+
+		if (isUsdRecord && isEurRecord) {
+			message = "Курс росс. рубля достиг исторического максимума:\r\n";
+			message += String.format("%,.4f %s/%s\r\n", maxUsdEntry.getValue(), Currency.RUB.toString(), Currency.USD.toString());
+			message += String.format("%,.4f %s/%s\r\n", maxEurEntry.getValue(), Currency.RUB.toString(), Currency.EUR.toString());
+			message += "Сегодня рублю было очень больно.";
+			filePath = "./assets/tweet/media/rur/usdeur.jpg";
+		} else if (isUsdRecord) {
+			message = "Курс росс. рубля достиг исторического максимума:\r\n";
+			message += String.format("%,.4f %s/%s\r\n", maxUsdEntry.getValue(), Currency.RUB.toString(), Currency.USD.toString());
+			message += "Сегодня рублю было больно.";
+			filePath = "./assets/tweet/media/rur/usd.jpg";
+		} else if (isEurRecord) {
+			message = "Курс росс. рубля достиг исторического максимума:\r\n";
+			message += String.format("%,.4f %s/%s\r\n", maxEurEntry.getValue(), Currency.RUB.toString(), Currency.EUR.toString());
+			message += "Сегодня рублю было больно.";
+			filePath = "./assets/tweet/media/rur/eur.jpg";
+		}
+
+		if (isUsdRecord || isEurRecord) {
+			File image = new File(filePath);
+
+			StatusUpdate tweet = new StatusUpdate(message);
+			tweet.setMedia(image);
+			tweet.setLocation(location);
+
+			try {
+				twitter.updateStatus(tweet);
+			} catch (TwitterException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

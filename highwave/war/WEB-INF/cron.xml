@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cronentries>
 	<cron>
+		<url>/cron/resetExchangeRateStats</url>
+		<description>Reset current USD exchange rate and its daily delta.
+		</description>
+		<schedule>every day 09:00</schedule>
+		<timezone>Europe/Minsk</timezone>
+	</cron>
+	<cron>
 		<url>/cron/addExchangeRateTweet</url>
 		<description>Add a new tweet with exchange rates information.
 		</description>
-		<schedule>every day 09:00</schedule>
+		<schedule>every day 09:05</schedule>
 		<timezone>Europe/Minsk</timezone>
 	</cron>
 	<cron>
@@ -15,10 +22,11 @@
 		<timezone>Europe/Minsk</timezone>
 	</cron>
 	<cron>
-		<url>/cron/resetExchangeRateStats</url>
-		<description>Reset current USD exchange rate ant its daily delta.
+		<url>/cron/addRussianRubleStatsTweet</url>
+		<description>Add a new tweet with the records of the exchange rate of
+			Russian ruble.
 		</description>
-		<schedule>every day 09:00</schedule>
+		<schedule>every day 09:15</schedule>
 		<timezone>Europe/Minsk</timezone>
 	</cron>
 </cronentries>
