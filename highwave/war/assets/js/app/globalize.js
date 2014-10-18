@@ -10,8 +10,8 @@ define([ "globalize/globalize", "json!globalize/cldr/supplemental/likelySubtags.
         "json!globalize/cldr/main/" + language + "/numbers.json", "json!globalize/cldr/main/" + language + "/messages.json",
         "json!globalize/cldr/main/" + culture + "/ca-gregorian.json", "json!globalize/cldr/main/" + culture + "/numbers.json",
         "json!globalize/cldr/main/" + culture + "/messages.json", "globalize/globalize/number", "globalize/globalize/date",
-        "globalize/globalize/message" ], function(Globalize, likelySubtags, timeData, weekData, langCaGregorian, langNubers, langMessages,
-        cultureCaGregorian, cultureNumbers, cultureMessages) {
+        "globalize/globalize/message", "cldr/unresolved" ], function(Globalize, likelySubtags, timeData, weekData, langCaGregorian,
+        langNubers, langMessages, cultureCaGregorian, cultureNumbers, cultureMessages) {
     Globalize.load(likelySubtags);
     Globalize.load(timeData);
     Globalize.load(weekData);
