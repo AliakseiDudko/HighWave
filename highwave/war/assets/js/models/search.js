@@ -2,7 +2,7 @@ define([ "backbone" ], function(Backbone) {
     var Search = Backbone.Model.extend({
         defaults: {
             amount: 10000000,
-            period: 35,
+            period: 65,
             currency: "BYR"
         },
 
