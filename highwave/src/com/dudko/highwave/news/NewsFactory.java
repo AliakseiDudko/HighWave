@@ -33,7 +33,7 @@ public class NewsFactory {
 				newsFeed.clear();
 
 				Paging paging = new Paging(1, 3);
-				for (Status tweet : twitter.getHomeTimeline(paging)) {
+				for (Status tweet : twitter.getUserTimeline(paging)) {
 					OEmbedRequest req = new OEmbedRequest(tweet.getId(), "").HideMedia(false).MaxWidth(550);
 					OEmbed oEmbed = twitter.getOEmbed(req);
 					newsFeed.add(oEmbed);
