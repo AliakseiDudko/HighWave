@@ -72,6 +72,11 @@
         "part1": "dollar exchange rate will be",
         "part2": "BYR/USD."
       },
+      "depositLinkText": {
+        "part0": "Please visit the website of ",
+        "part1": " to learn more about the deposit ",
+        "part2": "."
+      },
       "closeButton": "Close"
     }
   }

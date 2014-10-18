@@ -8,6 +8,11 @@
 				<span class="panel-title"><%- Globalize.translate([ "depositNames", deposit.name ]) %></span>
 			</div>
 			<div class="panel-body">
+				<p>
+					<%- Globalize.translate("depositDetails/depositLinkText/part0") %><%- deposit.bank.displayName %><%-
+					Globalize.translate("depositDetails/depositLinkText/part1") %><a href="<%- deposit.url %>" target="_blank"><%-
+						Globalize.translate([ "depositNames", deposit.name ]) %></a><%- Globalize.translate("depositDetails/depositLinkText/part2") %>
+				</p>
 				<table class="table">
 					<thead>
 						<tr class="text-info">
