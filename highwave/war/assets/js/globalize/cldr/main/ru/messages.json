@@ -22,7 +22,8 @@
 	  "MSG_006_Skarbonka": "Скарбонка",
 	  "MSG_007_Start": "Старт!",
 	  "MSG_008_TwoByTwo": "2х2",
-	  "MSG_009_FourSeasons": "4 Сезона"
+	  "MSG_009_FourSeasons": "4 Сезона",
+	  "MSG_010_CatchMoment": "Лови момент"
     },
     "currencies": {
       "BYR": "BYR",

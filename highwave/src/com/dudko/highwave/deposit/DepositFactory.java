@@ -25,6 +25,7 @@ public class DepositFactory {
 		deposits.add(new EasyChoiseDeposit(DepositNames.MSG_002_EasyChoise180, 180));
 		deposits.add(new AnnualDeposit());
 		deposits.add(new FourSeasonsDeposit());
+		deposits.add(new CatchMomentDeposit());
 	}
 
 	public Deposit[] GetAllDeposits(Currency currency) {
