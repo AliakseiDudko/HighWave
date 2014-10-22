@@ -1,4 +1,4 @@
-define([ "marionette", "app/globalize", "text!templates/search-template.html" ], function(Marionette, Globalize, templateHtml) {
+define([ "marionette", "text!templates/search-template.html" ], function(Marionette, templateHtml) {
     var SearchView = Marionette.ItemView.extend({
         template: _.template(templateHtml),
 

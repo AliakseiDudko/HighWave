@@ -1,11 +1,12 @@
 var hours = new Date().getHours();
-var initCulture = window.navigator.language.length == 2 ? "ru-BY" : window.navigator.language;
-if (8 < hours && hours < 13) {
-    initCulture = "be-BY";
+var browserLang = window.navigator.language.toUpperCase();
+var initCulture = _.contains([ "BE-BY", "EN-US", "RU-BY", "RU-RU", "RU-US" ], browserLang) ? browserLang : "RU-BY";
+if (8 < hours && hours < 12) {
+    initCulture = "BE-BY";
 }
 
-var language = initCulture.substring(0, 2);
-var country = initCulture.substring(3, 5).toUpperCase();
+var language = initCulture.substring(0, 2).toLowerCase();
+var country = initCulture.substring(3, 5);
 var culture = language + "-" + country;
 
 define([ "globalize/globalize", "json!globalize/cldr/supplemental/likelySubtags.json", "json!globalize/cldr/supplemental/timeData.json",

@@ -5,6 +5,7 @@ require.config({
         underscore: "common/underscore.min",
         bootstrap: "../bootstrap/js/bootstrap.min",
         cldr: "globalize/cldr/cldr",
+        i18n: "app/globalize",
         backbone: "backbone.marionette/backbone.min",
         stickit: "backbone.marionette/backbone.stickit.min",
         validation: "backbone.marionette/backbone.validation.min",
@@ -13,6 +14,9 @@ require.config({
     shim: {
         underscore: {
             exports: "_"
+        },
+        i18n: {
+            deps: [ "underscore" ]
         },
         backbone: {
             exports: "Backbone",
@@ -34,7 +38,7 @@ require.config({
     deps: [ "jquery", "underscore" ]
 });
 
-require([ "app/app", "app/globalize" ], function(App, Globalize) {
+require([ "app/app", "i18n" ], function(App, Globalize) {
     this.Globalize = Globalize;
 
     App.start();
