@@ -10,8 +10,6 @@ import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
 
 public class CatchMomentDeposit extends Deposit {
-	private float lowInterestRate;
-
 	public CatchMomentDeposit() {
 		bank = BankFactory.GetBank(BankCode.VTBBank);
 		name = DepositNames.MSG_010_CatchMoment;
@@ -61,6 +59,8 @@ public class CatchMomentDeposit extends Deposit {
 	}
 
 	private float interestRate(int _period) {
+		float lowInterestRate = 0.1f;
+		
 		DateTime currentDate = DateTime.now();
 		DateTime endDate = currentDate.plusDays(_period);
 		int months = Months.monthsBetween(currentDate, endDate).getMonths();
