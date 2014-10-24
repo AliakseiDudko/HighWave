@@ -143,29 +143,31 @@ public class NewsFactory {
 		GeoLocation location = new GeoLocation(53.900066d, 27.558531d);
 
 		if (isUsdRecord && isEurRecord) {
-			message = "Курс рос. рубля достиг исторического максимума:\r\n";
+			message = "Курс рос. рубля достиг исторического максимума\r\n";
 			message += String.format("%,.4f %s/%s\r\n", maxUsdEntry.getValue(), Currency.RUB.toString(), Currency.USD.toString());
 			message += String.format("%,.4f %s/%s\r\n", maxEurEntry.getValue(), Currency.RUB.toString(), Currency.EUR.toString());
-			message += "Сегодня рос. рублю было очень больно.";
-			filePath = "./assets/tweet/media/rur/usdeur.jpg";
+			message += "Сегодня рос. рублю было очень больно.\r\n";
+			message += "https://www.youtube.com/watch?v=ZfP9_ZAofrY";
 		} else if (isUsdRecord) {
-			message = "Курс рос. рубля достиг исторического максимума:\r\n";
+			message = "Курс рос. рубля достиг исторического максимума\r\n";
 			message += String.format("%,.4f %s/%s\r\n", maxUsdEntry.getValue(), Currency.RUB.toString(), Currency.USD.toString());
 			message += "Сегодня рос. рублю было больно.";
 			filePath = "./assets/tweet/media/rur/usd.jpg";
 		} else if (isEurRecord) {
-			message = "Курс рос. рубля достиг исторического максимума:\r\n";
+			message = "Курс рос. рубля достиг исторического максимума\r\n";
 			message += String.format("%,.4f %s/%s\r\n", maxEurEntry.getValue(), Currency.RUB.toString(), Currency.EUR.toString());
 			message += "Сегодня рос. рублю было больно.";
 			filePath = "./assets/tweet/media/rur/eur.jpg";
 		}
 
 		if (isUsdRecord || isEurRecord) {
-			File image = new File(filePath);
-
 			StatusUpdate tweet = new StatusUpdate(message);
-			tweet.setMedia(image);
 			tweet.setLocation(location);
+
+			if (filePath != null && !filePath.isEmpty()) {
+				File image = new File(filePath);
+				tweet.setMedia(image);
+			}
 
 			try {
 				twitter.updateStatus(tweet);
