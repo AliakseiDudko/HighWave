@@ -30,6 +30,10 @@
 		<servlet-name>AddRussianRubleStatsTweetServlet</servlet-name>
 		<servlet-class>com.dudko.highwave.cron.AddRussianRubleStatsTweetServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ReadNewsFeedServlet</servlet-name>
+		<servlet-class>com.dudko.highwave.cron.ReadNewsFeedServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>SystemServiceServlet</servlet-name>
 		<url-pattern>/_ah/spi/*</url-pattern>
@@ -49,6 +53,10 @@
 	<servlet-mapping>
 		<servlet-name>AddRussianRubleStatsTweetServlet</servlet-name>
 		<url-pattern>/cron/addRussianRubleStatsTweet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ReadNewsFeedServlet</servlet-name>
+		<url-pattern>/cron/readNewsFeed</url-pattern>
 	</servlet-mapping>
 	<security-constraint>
 		<web-resource-collection>

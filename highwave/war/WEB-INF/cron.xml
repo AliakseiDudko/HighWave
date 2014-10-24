@@ -29,4 +29,10 @@
 		<schedule>every day 09:15</schedule>
 		<timezone>Europe/Minsk</timezone>
 	</cron>
+	<cron>
+	    <url>/cron/readNewsFeed</url>
+	    <description>Read a twitter feed and reset a server copy of the feed.</description>
+	    <schedule>every 5 minutes</schedule>
+	    <timezone>Europe/Minsk</timezone>
+	</cron>
 </cronentries>

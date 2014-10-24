@@ -16,37 +16,29 @@ public class NewsFactory {
 	private static final Twitter twitter;
 	private static List<OEmbed> newsFeed;
 
-	private static DateTime lastTimeGeneration;
-
 	static {
 		twitter = new TwitterFactory().getInstance();
 		newsFeed = new ArrayList<OEmbed>();
-
-		lastTimeGeneration = DateTime.now().minusHours(1);
+		readNewsFeed();
 	}
 
 	public static OEmbed[] getNewsFeed() {
-		Seconds generationInterval = Seconds.seconds(60);
-
-		Seconds interval = Seconds.secondsBetween(lastTimeGeneration, DateTime.now());
-		if (interval.isGreaterThan(generationInterval)) {
-			try {
-				newsFeed.clear();
-
-				Paging paging = new Paging(1, 3);
-				for (Status tweet : twitter.getUserTimeline(paging)) {
-					OEmbedRequest req = new OEmbedRequest(tweet.getId(), "").HideMedia(false).MaxWidth(550);
-					OEmbed oEmbed = twitter.getOEmbed(req);
-					newsFeed.add(oEmbed);
-				}
-
-				lastTimeGeneration = DateTime.now();
-			} catch (TwitterException e) {
-				e.printStackTrace();
-			}
-		}
-
 		return newsFeed.toArray(new OEmbed[newsFeed.size()]);
+	}
+
+	public static void readNewsFeed() {
+		try {
+			newsFeed.clear();
+
+			Paging paging = new Paging(1, 3);
+			for (Status tweet : twitter.getUserTimeline(paging)) {
+				OEmbedRequest req = new OEmbedRequest(tweet.getId(), "").HideMedia(false).MaxWidth(550);
+				OEmbed oEmbed = twitter.getOEmbed(req);
+				newsFeed.add(oEmbed);
+			}
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void addExchangeRateTweet() {
