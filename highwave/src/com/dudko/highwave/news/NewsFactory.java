@@ -1,11 +1,16 @@
 package com.dudko.highwave.news;
 
-import java.io.File;
+import java.io.*;
+import java.net.*;
 import java.util.*;
 import java.util.Map.Entry;
 
+import javax.xml.parsers.*;
+
 import org.joda.time.*;
 import org.joda.time.format.*;
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
 import com.dudko.highwave.deposit.Currency;
 import com.dudko.highwave.utils.*;
@@ -54,15 +59,7 @@ public class NewsFactory {
 		message += String.format("%s: %,.0f\r\n", Currency.EUR.toString(), map.get(Currency.EUR.toString()));
 		message += String.format("%s: %,.1f\r\n", Currency.RUB.toString(), map.get(Currency.RUB.toString()));
 
-		String filePath = String.format("./assets/tweet/media/girls/%d.jpg", lastDate.getDayOfMonth());
-		File image = new File(filePath);
-
-		GeoLocation location = new GeoLocation(53.900066d, 27.558531d);
-
-		StatusUpdate tweet = new StatusUpdate(message);
-		tweet.setMedia(image);
-		tweet.setLocation(location);
-
+		StatusUpdate tweet = createTweet(message, TweetType.ExchangeRate);
 		try {
 			twitter.updateStatus(tweet);
 		} catch (TwitterException e) {
@@ -101,15 +98,7 @@ public class NewsFactory {
 		message += String.format("%s: %+,.0f/%+,.0f/%+,.0f\r\n", eur, yesterdayEur, monthAgoEur, yearAgoEur);
 		message += String.format("%s: %+,.1f/%+,.1f/%+,.1f\r\n", rub, yesterdayRub, monthAgoRub, yearAgoRub);
 
-		String filePath = String.format("./assets/tweet/media/cats/%d.jpg", lastDate.getDayOfMonth());
-		File image = new File(filePath);
-
-		GeoLocation location = new GeoLocation(53.900066d, 27.558531d);
-
-		StatusUpdate tweet = new StatusUpdate(message);
-		tweet.setMedia(image);
-		tweet.setLocation(location);
-
+		StatusUpdate tweet = createTweet(message, TweetType.ExchangeRateStats);
 		try {
 			twitter.updateStatus(tweet);
 		} catch (TwitterException e) {
@@ -138,42 +127,95 @@ public class NewsFactory {
 		}
 		boolean isEurRecord = maxEurEntry.getKey() == firstEurEntry.getKey();
 
+		TweetType tweetType = TweetType.Undefined;
 		String message = "";
-		String filePath = "";
-		GeoLocation location = new GeoLocation(53.900066d, 27.558531d);
-
 		if (isUsdRecord && isEurRecord) {
 			message = "Курс рос. рубля достиг исторического максимума\r\n";
 			message += String.format("%,.4f %s/%s\r\n", maxUsdEntry.getValue(), Currency.RUB.toString(), Currency.USD.toString());
 			message += String.format("%,.4f %s/%s\r\n", maxEurEntry.getValue(), Currency.RUB.toString(), Currency.EUR.toString());
-			message += "Сегодня рос. рублю было очень больно.\r\n";
-			message += "https://www.youtube.com/watch?v=ZfP9_ZAofrY";
+			message += "Сегодня рос. рублю было очень больно.";
+
+			tweetType = TweetType.RussianRubleStatsUsdEur;
 		} else if (isUsdRecord) {
 			message = "Курс рос. рубля достиг исторического максимума\r\n";
 			message += String.format("%,.4f %s/%s\r\n", maxUsdEntry.getValue(), Currency.RUB.toString(), Currency.USD.toString());
 			message += "Сегодня рос. рублю было больно.";
-			filePath = "./assets/tweet/media/rur/usd.jpg";
+
+			tweetType = TweetType.RussianRubleStatsUsd;
 		} else if (isEurRecord) {
 			message = "Курс рос. рубля достиг исторического максимума\r\n";
 			message += String.format("%,.4f %s/%s\r\n", maxEurEntry.getValue(), Currency.RUB.toString(), Currency.EUR.toString());
 			message += "Сегодня рос. рублю было больно.";
-			filePath = "./assets/tweet/media/rur/eur.jpg";
+
+			tweetType = TweetType.RussianRubleStatsEur;
 		}
 
 		if (isUsdRecord || isEurRecord) {
-			StatusUpdate tweet = new StatusUpdate(message);
-			tweet.setLocation(location);
-
-			if (filePath != null && !filePath.isEmpty()) {
-				File image = new File(filePath);
-				tweet.setMedia(image);
-			}
-
 			try {
+				StatusUpdate tweet = createTweet(message, tweetType);
 				twitter.updateStatus(tweet);
 			} catch (TwitterException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private static StatusUpdate createTweet(String message, TweetType tweetType) {
+		GeoLocation location = new GeoLocation(53.900066d, 27.558531d);
+		StatusUpdate tweet = new StatusUpdate(message).location(location);
+
+		URL xmlUrl;
+		try {
+			xmlUrl = new URL("http://high-wave-595.appspot.com/assets/tweet/tweetMedia.xml");
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			return tweet;
+		}
+
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder;
+		try {
+			builder = factory.newDocumentBuilder();
+		} catch (ParserConfigurationException exception) {
+			exception.printStackTrace();
+			return tweet;
+		}
+
+		Document document;
+		try {
+			document = builder.parse(xmlUrl.openStream());
+		} catch (SAXException | IOException exception) {
+			exception.printStackTrace();
+			return tweet;
+		}
+
+		NodeList nodeList = document.getDocumentElement().getChildNodes();
+		for (int i = 0; i < nodeList.getLength(); i++) {
+			org.w3c.dom.Node node = nodeList.item(i);
+
+			if (node.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
+				Element element = (Element) node;
+
+				String dayString = element.getAttribute("Day");
+				int day = Integer.parseInt(dayString);
+				if (day == DateTime.now().getDayOfMonth()) {
+					org.w3c.dom.Node mediaNode = element.getElementsByTagName(tweetType.toString()).item(0);
+					Element mediaElement = (Element) mediaNode;
+
+					String value = mediaElement.getChildNodes().item(0).getNodeValue();
+					String mediaType = mediaElement.getAttribute("Type");
+					if (mediaType.equalsIgnoreCase("image")) {
+						String filePath = String.format(value);
+						File image = new File(filePath);
+						tweet.setMedia(image);
+					} else if (mediaType.equalsIgnoreCase("link")) {
+						String status = String.format("%s\r\n%s", message, value);
+						tweet = new StatusUpdate(status).location(location);
+					}
+				}
+			}
+		}
+
+		return tweet;
 	}
 }
