@@ -204,11 +204,11 @@ public class NewsFactory {
 
 					String value = mediaElement.getChildNodes().item(0).getNodeValue();
 					String mediaType = mediaElement.getAttribute("Type");
-					if (mediaType.equalsIgnoreCase("image")) {
+					if ("image".equalsIgnoreCase(mediaType)) {
 						String filePath = String.format(value);
 						File image = new File(filePath);
 						tweet.setMedia(image);
-					} else if (mediaType.equalsIgnoreCase("link")) {
+					} else if ("link".equalsIgnoreCase(mediaType)) {
 						String status = String.format("%s\r\n%s", message, value);
 						tweet = new StatusUpdate(status).location(location);
 					}
