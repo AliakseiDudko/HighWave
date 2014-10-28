@@ -31,7 +31,7 @@ define([ "backbone" ], function(Backbone) {
             period: {
                 required: true,
                 pattern: "number",
-                range: [ 1, 1000 ]
+                range: [ 1, 1100 ]
             },
             currency: {
                 oneOf: [ "BYR", "CUR", "USD", "EUR", "RUB" ]

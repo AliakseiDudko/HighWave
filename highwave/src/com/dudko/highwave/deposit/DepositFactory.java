@@ -26,6 +26,7 @@ public class DepositFactory {
 		deposits.add(new AnnualDeposit());
 		deposits.add(new FourSeasonsDeposit());
 		deposits.add(new CatchMomentDeposit());
+		deposits.add(new SavingDeposit());
 	}
 
 	public Deposit[] GetAllDeposits(Currency currency) {

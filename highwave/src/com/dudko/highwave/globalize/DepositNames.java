@@ -13,5 +13,6 @@ public enum DepositNames {
 	MSG_007_Start,
 	MSG_008_TwoByTwo,
 	MSG_009_FourSeasons,
-	MSG_010_CatchMoment
+	MSG_010_CatchMoment,
+	MSG_011_Saving
 }
