@@ -161,15 +161,41 @@ public class NewsFactory {
 	}
 
 	private static StatusUpdate createTweet(String message, TweetType tweetType) {
-		GeoLocation location = new GeoLocation(53.900066d, 27.558531d);
-		StatusUpdate tweet = new StatusUpdate(message).location(location);
+		StatusUpdate tweet = new StatusUpdate(message);
 
+		Element mediaElement = getMediaElement();
+		if (mediaElement != null) {
+			org.w3c.dom.Node mediaNode = mediaElement.getElementsByTagName(tweetType.toString()).item(0);
+			Element element = (Element) mediaNode;
+
+			String value = element.getChildNodes().item(0).getNodeValue();
+			String mediaType = element.getAttribute("Type");
+			if (MediaType.Image.equalsIgnoreCase(mediaType)) {
+				try {
+					InputStream input = new URL(value).openStream();
+					tweet.setMedia("BBX.jpg", input);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else if (MediaType.Link.equalsIgnoreCase(mediaType)) {
+				String status = String.format("%s\r\n%s", message, value);
+				tweet = new StatusUpdate(status);
+			}
+		}
+
+		GeoLocation location = new GeoLocation(53.900066d, 27.558531d);
+		tweet.setLocation(location);
+
+		return tweet;
+	}
+
+	private static Element getMediaElement() {
 		URL xmlUrl;
 		try {
 			xmlUrl = new URL("http://high-wave-595.appspot.com/assets/tweet/tweetMedia.xml");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-			return tweet;
+			return null;
 		}
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -178,7 +204,7 @@ public class NewsFactory {
 			builder = factory.newDocumentBuilder();
 		} catch (ParserConfigurationException exception) {
 			exception.printStackTrace();
-			return tweet;
+			return null;
 		}
 
 		Document document;
@@ -186,7 +212,7 @@ public class NewsFactory {
 			document = builder.parse(xmlUrl.openStream());
 		} catch (SAXException | IOException exception) {
 			exception.printStackTrace();
-			return tweet;
+			return null;
 		}
 
 		NodeList nodeList = document.getDocumentElement().getChildNodes();
@@ -199,23 +225,11 @@ public class NewsFactory {
 				String dayString = element.getAttribute("Day");
 				int day = Integer.parseInt(dayString);
 				if (day == DateTime.now().getDayOfMonth()) {
-					org.w3c.dom.Node mediaNode = element.getElementsByTagName(tweetType.toString()).item(0);
-					Element mediaElement = (Element) mediaNode;
-
-					String value = mediaElement.getChildNodes().item(0).getNodeValue();
-					String mediaType = mediaElement.getAttribute("Type");
-					if ("image".equalsIgnoreCase(mediaType)) {
-						String filePath = String.format(value);
-						File image = new File(filePath);
-						tweet.setMedia(image);
-					} else if ("link".equalsIgnoreCase(mediaType)) {
-						String status = String.format("%s\r\n%s", message, value);
-						tweet = new StatusUpdate(status).location(location);
-					}
+					return element;
 				}
 			}
 		}
 
-		return tweet;
+		return null;
 	}
 }
