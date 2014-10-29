@@ -10,10 +10,6 @@ import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
 
 public class AnnualDeposit extends Deposit {
-	private int depositTerm = 365;
-	private float minOpenAmount = 1000000f;
-	private float lowInterestRate = 1.0f;
-
 	public AnnualDeposit() {
 		bank = BankFactory.GetBank(BankCode.BelGazPromBank);
 		name = DepositNames.MSG_000_Annual;
@@ -24,18 +20,21 @@ public class AnnualDeposit extends Deposit {
 
 	@Override
 	public DepositAccount calculateDeposit(float amount, int period) {
+		float minOpenAmount = 1000000f;
 		if (amount < minOpenAmount) {
 			return null;
 		}
 
-		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
+		int maxPeriod = 365;
+		period = Math.min(period, maxPeriod);
 
-		period = Math.min(period, depositTerm);
 		DateTime currentDate = DateTime.now();
 		DateTime endDate = currentDate.plusDays(period);
+
 		float _interestRate = interestRate(period);
 		float _amount = amount;
 
+		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		DateTime previousDate = currentDate;
@@ -55,12 +54,18 @@ public class AnnualDeposit extends Deposit {
 			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 		}
 
-		addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
+		if (period < maxPeriod) {
+			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
+		} else {
+			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
+		}
 
 		return new DepositAccount(this, list);
 	}
 
 	private float interestRate(int _period) {
+		float lowInterestRate = 1.0f;
+
 		if (_period <= 30) {
 			return lowInterestRate;
 		} else if (_period <= 90) {
