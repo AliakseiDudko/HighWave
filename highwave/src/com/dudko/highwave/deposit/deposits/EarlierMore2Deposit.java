@@ -12,7 +12,6 @@ import com.dudko.highwave.globalize.*;
 public class EarlierMore2Deposit extends Deposit {
 	private int depositTerm = 270;
 	private int capitalizationPeriod = 30;
-	private float minOpenAmount = 1000000f;
 	private float lowInterestRate = 0.1f;
 
 	public EarlierMore2Deposit() {
@@ -25,18 +24,19 @@ public class EarlierMore2Deposit extends Deposit {
 
 	@Override
 	public DepositAccount calculateDeposit(float amount, int period) {
+		float minOpenAmount = 1000000.0f;
 		if (amount < minOpenAmount) {
 			return null;
 		}
 
-		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
-
 		int term = Math.min(period, depositTerm);
 		DateTime currentDate = DateTime.now();
 		DateTime endDate = currentDate.plusDays(term);
+
 		float _interestRate = interestRate(term);
 		float depositAmount = amount;
 
+		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 		addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		DateTime previousDate = currentDate;
