@@ -130,20 +130,20 @@ public class NewsFactory {
 		TweetType tweetType = TweetType.Undefined;
 		String message = "";
 		if (isUsdRecord && isEurRecord) {
-			message = "Курс рос. рубля достиг исторического максимума\r\n";
+			message = "Курс рос. рубля продолжает искать дно:\r\n";
 			message += String.format("%,.4f %s/%s\r\n", maxUsdEntry.getValue(), Currency.RUB.toString(), Currency.USD.toString());
 			message += String.format("%,.4f %s/%s\r\n", maxEurEntry.getValue(), Currency.RUB.toString(), Currency.EUR.toString());
 			message += "Сегодня рос. рублю было очень больно.";
 
 			tweetType = TweetType.RussianRubleStatsUsdEur;
 		} else if (isUsdRecord) {
-			message = "Курс рос. рубля достиг исторического максимума\r\n";
+			message = "Курс доллара достиг исторического максимума:\r\n";
 			message += String.format("%,.4f %s/%s\r\n", maxUsdEntry.getValue(), Currency.RUB.toString(), Currency.USD.toString());
 			message += "Сегодня рос. рублю было больно.";
 
 			tweetType = TweetType.RussianRubleStatsUsd;
 		} else if (isEurRecord) {
-			message = "Курс рос. рубля достиг исторического максимума\r\n";
+			message = "Курс евро достиг исторического максимума:\r\n";
 			message += String.format("%,.4f %s/%s\r\n", maxEurEntry.getValue(), Currency.RUB.toString(), Currency.EUR.toString());
 			message += "Сегодня рос. рублю было больно.";
 
