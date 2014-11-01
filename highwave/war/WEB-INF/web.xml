@@ -15,16 +15,16 @@
 		</init-param>
 	</servlet>
 	<servlet>
-		<servlet-name>AddExchangeRateTweetServlet</servlet-name>
-		<servlet-class>com.dudko.highwave.cron.AddExchangeRateTweetServlet</servlet-class>
+		<servlet-name>AddDevaluationStatsTweetServlet</servlet-name>
+		<servlet-class>com.dudko.highwave.cron.AddDevaluationStatsTweetServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>AddExchangeRateStatsTweetServlet</servlet-name>
 		<servlet-class>com.dudko.highwave.cron.AddExchangeRateStatsTweetServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>ResetExchangeRateStatsServlet</servlet-name>
-		<servlet-class>com.dudko.highwave.cron.ResetExchangeRateStatsServlet</servlet-class>
+		<servlet-name>AddExchangeRateTweetServlet</servlet-name>
+		<servlet-class>com.dudko.highwave.cron.AddExchangeRateTweetServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>AddRussianRubleStatsTweetServlet</servlet-name>
@@ -34,21 +34,25 @@
 		<servlet-name>ReadNewsFeedServlet</servlet-name>
 		<servlet-class>com.dudko.highwave.cron.ReadNewsFeedServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ResetExchangeRateStatsServlet</servlet-name>
+		<servlet-class>com.dudko.highwave.cron.ResetExchangeRateStatsServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>SystemServiceServlet</servlet-name>
 		<url-pattern>/_ah/spi/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>AddExchangeRateTweetServlet</servlet-name>
-		<url-pattern>/cron/addExchangeRateTweet</url-pattern>
+		<servlet-name>AddDevaluationStatsTweetServlet</servlet-name>
+		<url-pattern>/cron/addDevaluationStatsTweet</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AddExchangeRateStatsTweetServlet</servlet-name>
 		<url-pattern>/cron/addExchangeRateStatsTweet</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ResetExchangeRateStatsServlet</servlet-name>
-		<url-pattern>/cron/resetExchangeRateStats</url-pattern>
+		<servlet-name>AddExchangeRateTweetServlet</servlet-name>
+		<url-pattern>/cron/addExchangeRateTweet</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AddRussianRubleStatsTweetServlet</servlet-name>
@@ -57,6 +61,10 @@
 	<servlet-mapping>
 		<servlet-name>ReadNewsFeedServlet</servlet-name>
 		<url-pattern>/cron/readNewsFeed</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ResetExchangeRateStatsServlet</servlet-name>
+		<url-pattern>/cron/resetExchangeRateStats</url-pattern>
 	</servlet-mapping>
 	<security-constraint>
 		<web-resource-collection>
