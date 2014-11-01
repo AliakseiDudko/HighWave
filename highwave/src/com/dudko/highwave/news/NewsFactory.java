@@ -160,6 +160,42 @@ public class NewsFactory {
 		}
 	}
 
+	public static void addDevaluationStatsTweet() {
+		DateTime today = DateTime.now();
+		DateTime yearAgo = today.minusYears(1);
+
+		String usd = Currency.USD.toString();
+
+		Map<String, Double> byrTodayExRates = NationalBankServiceClient.getExchangeRatesOnDate(today);
+		Map<String, Double> byrYearAgoExRates = NationalBankServiceClient.getExchangeRatesOnDate(yearAgo);
+		double byrToday = byrTodayExRates.get(usd);
+		double byrYearAgo = byrYearAgoExRates.get(usd);
+		double byrDevaluation = 100.0f * (byrToday - byrYearAgo) / byrYearAgo;
+
+		List<Entry<DateTime, Double>> rurHistory = BankOfRussiaServiceClient.getExchangeRateHistory(Currency.USD);
+		double rurToday = rurHistory.get(rurHistory.size() - 1).getValue();
+		double rurYearAgo = rurHistory.get(0).getValue();
+		double rurDevaluation = 100.0f * (rurToday - rurYearAgo) / rurYearAgo;
+
+		Map<String, Double> uahTodayExRates = NationalBankOfUkraineServiceClient.getExchangeRatesOnDate(today);
+		Map<String, Double> uahYearAgoExRates = NationalBankOfUkraineServiceClient.getExchangeRatesOnDate(yearAgo);
+		double uahToday = uahTodayExRates.get(usd);
+		double uahYearAgo = uahYearAgoExRates.get(usd);
+		double uahDevaluation = 100.0f * (uahToday - uahYearAgo) / uahYearAgo;
+
+		String message = "Рост курса доллара за год:\r\n";
+		message += String.format("Стабильная Беларусь: %+,.1f%%\r\n", byrDevaluation);
+		message += String.format("Встающая с колен РФ: %+,.1f%%\r\n", rurDevaluation);
+		message += String.format("Революционная Украина: %+,.1f%%\r\n", uahDevaluation);
+
+		try {
+			StatusUpdate tweet = createTweet(message, TweetType.DevaluationStats);
+			twitter.updateStatus(tweet);
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private static StatusUpdate createTweet(String message, TweetType tweetType) {
 		StatusUpdate tweet = new StatusUpdate(message);
 
