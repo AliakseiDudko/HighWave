@@ -10,9 +10,8 @@ import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
 
 public class MTSquirrels extends Deposit {
-	private float minOpenAmount = 500000f;
 	private float lowInterestRate = 1.0f;
-	private int fixPeriodMonths = 2;
+	private int fixPeriodMonths = 3;
 
 	public MTSquirrels() {
 		bank = BankFactory.GetBank(BankCode.MTBank);
@@ -24,26 +23,26 @@ public class MTSquirrels extends Deposit {
 
 	@Override
 	public DepositAccount calculateDeposit(float amount, int period) {
+		float minOpenAmount = 500000.0f;
 		if (amount < minOpenAmount) {
 			return null;
 		}
 
-		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
-
 		DateTime currentDate = DateTime.now();
 		int term = Math.min(Days.daysBetween(currentDate, currentDate.plusMonths(18)).getDays(), period);
 		DateTime endDate = currentDate.plusDays(term);
+		DateTime endFixPeriodDate = currentDate.plusMonths(fixPeriodMonths);
+		DateTime previousDate = currentDate;
+		currentDate = currentDate.plusMonths(1);
+
 		float depositAmount = amount;
 
+		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 		addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
-
-		DateTime previousDate = currentDate;
-		DateTime fixPeriodDate = currentDate.plusMonths(fixPeriodMonths);
-		currentDate = currentDate.plusMonths(1);
 
 		int months = 0;
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
-			float _interestRate = fixPeriodDate.isBefore(endDate) || fixPeriodDate.isEqual(endDate) ? interestRate : lowInterestRate;
+			float _interestRate = endFixPeriodDate.isBefore(endDate) || endFixPeriodDate.isEqual(endDate) ? interestRate : lowInterestRate;
 			for (int i = 0; i < fixPeriodMonths && currentDate.isBefore(endDate) || currentDate.isEqual(endDate); i++) {
 				int _period = Days.daysBetween(previousDate, currentDate).getDays();
 				depositAmount = calculatePeriod(depositAmount, _interestRate, _period);
@@ -60,7 +59,7 @@ public class MTSquirrels extends Deposit {
 				addRecord(list, previousDate, depositAmount, interestRate, RecordDescriptions.MSG_004_Bonus_05_Percent);
 			}
 
-			fixPeriodDate = fixPeriodDate.plusMonths(fixPeriodMonths);
+			endFixPeriodDate = endFixPeriodDate.plusMonths(fixPeriodMonths);
 		}
 
 		int _period = Days.daysBetween(previousDate, endDate).getDays();
