@@ -31,6 +31,7 @@ public class CatchMomentDeposit extends Deposit {
 		int term = Math.min(period, depositTerm);
 		DateTime currentDate = DateTime.now();
 		DateTime endDate = currentDate.plusDays(term);
+
 		float _interestRate = interestRate(term);
 		float _amount = amount;
 
@@ -60,7 +61,7 @@ public class CatchMomentDeposit extends Deposit {
 
 	private float interestRate(int _period) {
 		float lowInterestRate = 0.1f;
-		
+
 		DateTime currentDate = DateTime.now();
 		DateTime endDate = currentDate.plusDays(_period);
 		int months = Months.monthsBetween(currentDate, endDate).getMonths();
