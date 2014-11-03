@@ -48,12 +48,12 @@ public class OnWaveDeposit extends Deposit {
 		}
 
 		int _period = Days.daysBetween(previousDate, endDate).getDays();
-		if (_period > 0) {
+		if (_period == 0) {
+			addRecord(list, endDate, _amount, interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
+		} else {
 			_amount = calculatePeriod(_amount, lowInterestRate, _period);
 			addRecord(list, endDate, _amount, lowInterestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 			addRecord(list, endDate, _amount, lowInterestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
-		} else {
-			addRecord(list, endDate, _amount, interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
 		}
 
 		return new DepositAccount(this, list);
