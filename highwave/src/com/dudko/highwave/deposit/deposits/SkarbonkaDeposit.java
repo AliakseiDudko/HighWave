@@ -11,7 +11,6 @@ import com.dudko.highwave.globalize.*;
 
 public abstract class SkarbonkaDeposit extends Deposit {
 	protected float minOpenAmount;
-	protected float lowInterestRate;
 
 	public SkarbonkaDeposit() {
 		bank = BankFactory.GetBank(BankCode.VTBBank);
@@ -25,15 +24,15 @@ public abstract class SkarbonkaDeposit extends Deposit {
 			return null;
 		}
 
-		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
-
 		int depositTerm = 395;
 		int term = Math.min(period, depositTerm);
 		DateTime currentDate = DateTime.now();
 		DateTime endDate = currentDate.plusDays(term);
+
 		float _interestRate = interestRate(term);
 		float _amount = amount;
 
+		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		DateTime previousDate = currentDate;
@@ -48,12 +47,16 @@ public abstract class SkarbonkaDeposit extends Deposit {
 		}
 
 		int _period = Days.daysBetween(previousDate, endDate).getDays();
-		if (_period != 0) {
+		if (_period > 0) {
 			_amount = calculatePeriod(_amount, _interestRate, _period);
 			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 		}
 
-		addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
+		if (term == depositTerm) {
+			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
+		} else {
+			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
+		}
 
 		return new DepositAccount(this, list);
 	}
@@ -63,6 +66,7 @@ public abstract class SkarbonkaDeposit extends Deposit {
 		DateTime endDate = currentDate.plusDays(_period);
 		int months = Months.monthsBetween(currentDate, endDate).getMonths();
 
+		float lowInterestRate = 0.1f;
 		return months < 3 ? lowInterestRate : interestRate;
 	}
 }
