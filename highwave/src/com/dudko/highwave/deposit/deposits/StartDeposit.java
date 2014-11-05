@@ -29,11 +29,10 @@ public abstract class StartDeposit extends Deposit {
 			return null;
 		}
 
-		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
-
 		DateTime currentDate = DateTime.now();
 		float _amount = amount;
 
+		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		Set<Integer> setOfDays = new TreeSet<Integer>(Arrays.asList(0, 30, 60, 90, 95, period));
