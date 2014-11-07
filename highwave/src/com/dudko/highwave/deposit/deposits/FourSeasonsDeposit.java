@@ -23,7 +23,6 @@ public class FourSeasonsDeposit extends Deposit {
 	public DepositAccount calculateDeposit(float amount, int period) {
 		float minOpenAmount = 500.0f;
 		float minDepositAmount = 500.0f;
-
 		if (amount < minOpenAmount) {
 			return null;
 		}
@@ -33,8 +32,6 @@ public class FourSeasonsDeposit extends Deposit {
 			return null;
 		}
 
-		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
-
 		DateTime endDate = currentDate.plusMonths(12);
 		int fullTerm = Days.daysBetween(currentDate, endDate).getDays();
 		int partialTerm = Math.min(fullTerm, period);
@@ -42,6 +39,7 @@ public class FourSeasonsDeposit extends Deposit {
 
 		float depositAmount = amount;
 
+		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 		addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		DateTime previousDate = currentDate;
