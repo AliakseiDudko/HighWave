@@ -18,6 +18,7 @@ public class BankFactory {
 		AddBank(new BelGazPromBank());
 		AddBank(new MTBank());
 		AddBank(new ParitetBank());
+		AddBank(new TechnoBank());
 
 		banks.values().toArray(new Bank[banks.size()]);
 	}
