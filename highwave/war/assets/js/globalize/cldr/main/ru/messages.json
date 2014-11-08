@@ -24,7 +24,8 @@
 	  "MSG_008_TwoByTwo": "2х2",
 	  "MSG_009_FourSeasons": "4 Сезона",
 	  "MSG_010_CatchMoment": "Лови момент",
-	  "MSG_011_Saving": "Сберегательный"
+	  "MSG_011_Saving": "Сберегательный",
+	  "MSG_012_Successful": "Успешный"
     },
     "currencies": {
       "BYR": "BYR",
