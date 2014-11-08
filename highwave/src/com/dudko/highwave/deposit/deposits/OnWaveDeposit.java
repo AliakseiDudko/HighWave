@@ -1,12 +1,12 @@
 package com.dudko.highwave.deposit.deposits;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
-import com.dudko.highwave.deposit.Currency;
 import com.dudko.highwave.globalize.*;
 
 public class OnWaveDeposit extends Deposit {
