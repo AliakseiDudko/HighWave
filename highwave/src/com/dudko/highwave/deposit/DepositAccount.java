@@ -45,7 +45,7 @@ public class DepositAccount {
 			profitRate = 100.0f * profit / startAmount;
 			profitPerDay = profit / period;
 
-			float endUsdDelta = period * ExchangeRateStats.dailyUsdExchangeRateDelta;
+			float endUsdDelta = period * ExchangeRateStats.dailyUsdExchangeRateDelta + 30;
 			endUsdExchangeRate = roundUpTo(ExchangeRateStats.currentUsdExchangeRate + endUsdDelta, 10);
 			endAmountUsd = roundUpTo(endAmount / endUsdExchangeRate, 0.1f);
 			startAmountUsd = roundUpTo(startAmount / ExchangeRateStats.currentUsdExchangeRate, 0.1f);
