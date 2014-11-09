@@ -7,8 +7,7 @@ import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
-import com.dudko.highwave.globalize.DepositNames;
-import com.dudko.highwave.globalize.RecordDescriptions;
+import com.dudko.highwave.globalize.*;
 
 public class SavingDeposit extends Deposit {
 	public SavingDeposit() {
@@ -34,7 +33,6 @@ public class SavingDeposit extends Deposit {
 		float _amount = amount;
 
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
-
 		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		DateTime previousDate = currentDate;
