@@ -32,8 +32,6 @@ public class MTSquirrels extends Deposit {
 		int term = Math.min(Days.daysBetween(currentDate, currentDate.plusMonths(18)).getDays(), period);
 		DateTime endDate = currentDate.plusDays(term);
 		DateTime endFixPeriodDate = currentDate.plusMonths(fixPeriodMonths);
-		DateTime previousDate = currentDate;
-		currentDate = currentDate.plusMonths(1);
 
 		float depositAmount = amount;
 
@@ -41,6 +39,8 @@ public class MTSquirrels extends Deposit {
 		addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		int months = 0;
+		DateTime previousDate = currentDate;
+		currentDate = currentDate.plusMonths(1);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
 			float _interestRate = endFixPeriodDate.isBefore(endDate) || endFixPeriodDate.isEqual(endDate) ? interestRate : lowInterestRate;
 			for (int i = 0; i < fixPeriodMonths && currentDate.isBefore(endDate) || currentDate.isEqual(endDate); i++) {
