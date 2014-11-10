@@ -25,7 +25,8 @@
 	  "MSG_009_FourSeasons": "4 Сезона",
 	  "MSG_010_CatchMoment": "Лови момент",
 	  "MSG_011_Saving": "Сберегательный",
-	  "MSG_012_Successful": "Успешный"
+	  "MSG_012_Successful": "Успешный",
+	  "MSG_013_Prudent": "Расчетливый"
     },
     "currencies": {
       "BYR": "BYR",

@@ -15,5 +15,6 @@ public enum DepositNames {
 	MSG_009_FourSeasons,
 	MSG_010_CatchMoment,
 	MSG_011_Saving,
-	MSG_012_Successful
+	MSG_012_Successful,
+	MSG_013_Prudent
 }
