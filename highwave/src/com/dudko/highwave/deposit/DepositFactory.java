@@ -31,6 +31,7 @@ public class DepositFactory {
 		deposits.add(new SavingDeposit());
 		deposits.add(new SuccessfulDeposit());
 		deposits.add(new PrudentDeposit());
+		deposits.add(new Carat15());
 	}
 
 	public Deposit[] GetAllDeposits(Currency currency) {

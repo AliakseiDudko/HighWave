@@ -9,13 +9,13 @@ import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
 
-public class OnWaveDeposit extends Deposit {
-	public OnWaveDeposit() {
+public class Carat15 extends Deposit {
+	public Carat15() {
 		bank = BankFactory.GetBank(BankCode.HomeCreditBank);
-		name = DepositNames.MSG_004_OnWave;
-		url = "http://www.homecredit.by/loans_and_services/na_volne/";
+		name = DepositNames.MSG_014_Carat15;
+		url = "http://homecredit.by/loans_and_services/15_karat/";
 		currency = Currency.BYR;
-		interestRate = 29.0f;
+		interestRate = 29.5f;
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class OnWaveDeposit extends Deposit {
 			return null;
 		}
 
-		int depositTerm = 10;
+		int depositTerm = 15;
 		int term = Math.min(period, 30);
 		DateTime currentDate = DateTime.now();
 		DateTime endDate = currentDate.plusDays(term);
