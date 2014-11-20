@@ -29,7 +29,8 @@
 	  "MSG_011_Saving": "Сберегательный",
 	  "MSG_012_Successful": "Паспяховы",
 	  "MSG_013_Prudent": "Разважлівы",
-	  "MSG_014_Carat15" : "15 Карат"
+	  "MSG_014_Carat15" : "15 Карат",
+	  "MSG_015_GoldenFleece": "Золотое руно"
     },
     "currencies": {
       "BYR": "BYR",

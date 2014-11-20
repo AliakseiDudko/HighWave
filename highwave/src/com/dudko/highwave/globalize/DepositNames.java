@@ -19,5 +19,6 @@ public enum DepositNames {
 	MSG_011_Saving,
 	MSG_012_Successful,
 	MSG_013_Prudent,
-	MSG_014_Carat15
+	MSG_014_Carat15,
+	MSG_015_GoldenFleece
 }

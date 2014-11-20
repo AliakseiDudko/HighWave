@@ -32,6 +32,7 @@ public class DepositFactory {
 		deposits.add(new SuccessfulDeposit());
 		deposits.add(new PrudentDeposit());
 		deposits.add(new Carat15());
+		deposits.add(new GoldenFleece());
 	}
 
 	public Deposit[] GetAllDeposits(Currency currency) {
