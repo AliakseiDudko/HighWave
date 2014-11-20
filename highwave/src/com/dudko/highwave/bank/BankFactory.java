@@ -19,6 +19,7 @@ public class BankFactory {
 		AddBank(new MTBank());
 		AddBank(new ParitetBank());
 		AddBank(new TechnoBank());
+		AddBank(new IdeaBank());
 
 		banks.values().toArray(new Bank[banks.size()]);
 	}
