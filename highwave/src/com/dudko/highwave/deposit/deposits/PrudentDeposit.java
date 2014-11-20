@@ -14,7 +14,7 @@ public class PrudentDeposit extends Deposit {
 		name = DepositNames.MSG_013_Prudent;
 		url = "http://tb.by/private/deposits/#valuta";
 		currency = com.dudko.highwave.deposit.Currency.CUR;
-		interestRate = 5.2f;
+		interestRate = 5.5f;
 	}
 
 	@Override
@@ -80,13 +80,13 @@ public class PrudentDeposit extends Deposit {
 		}
 
 		if (day <= 180) {
-			return 4.0f;
+			return 3.5f;
 		} else if (day <= 370) {
 			return 4.5f;
 		} else if (day <= 550) {
 			return 5.0f;
 		} else if (day <= 720) {
-			return 6.0f;
+			return 5.5f;
 		} else {
 			return lowInterestRate;
 		}

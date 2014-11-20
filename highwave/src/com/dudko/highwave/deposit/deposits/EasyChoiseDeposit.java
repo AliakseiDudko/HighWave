@@ -80,7 +80,7 @@ public class EasyChoiseDeposit extends Deposit {
 		if (_period < 30) {
 			return 0.1f;
 		} else if (_period == 30) {
-			return 26.0f;
+			return 27.0f;
 		}
 
 		return lowInterestRate;
