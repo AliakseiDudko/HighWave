@@ -11,14 +11,15 @@ import com.dudko.highwave.globalize.*;
 
 public class MTSquirrels extends Deposit {
 	private float lowInterestRate = 1.0f;
-	private int fixPeriodMonths = 3;
+	private int fixPeriodMonths;
 
-	public MTSquirrels() {
+	public MTSquirrels(DepositNames name, int fixPeriodMonths) {
 		bank = BankFactory.GetBank(BankCode.MTBank);
-		name = DepositNames.MSG_003_MTSquirrels;
+		this.name = name;
 		url = "http://www.mtbank.by/private/deposits/br/mtbelki";
 		currency = Currency.BYR;
-		interestRate = 28.0f;
+		interestRate = interestRate(fixPeriodMonths);
+		this.fixPeriodMonths = fixPeriodMonths;
 	}
 
 	@Override
@@ -75,5 +76,18 @@ public class MTSquirrels extends Deposit {
 		}
 
 		return new DepositAccount(this, list);
+	}
+
+	private float interestRate(int _fixPeriodMonths) {
+		switch (_fixPeriodMonths) {
+		case 1:
+			return 26.0f;
+		case 2:
+			return 27.0f;
+		case 3:
+			return 28.0f;
+		}
+
+		return lowInterestRate;
 	}
 }
