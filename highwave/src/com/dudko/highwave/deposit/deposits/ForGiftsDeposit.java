@@ -21,8 +21,7 @@ public class ForGiftsDeposit extends Deposit {
 		interestRate = 29.5f;
 
 		today = DateTime.now();
-		DateTime monthDate = today.plusMonths(1);
-		monthTerm = Days.daysBetween(today, monthDate).getDays();
+		monthTerm = Days.daysBetween(today, today.plusMonths(1)).getDays();
 	}
 
 	@Override
@@ -45,9 +44,8 @@ public class ForGiftsDeposit extends Deposit {
 		DateTime previousDate = currentDate;
 		currentDate = currentDate.plusMonths(1);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
-			int _period = Days.daysBetween(previousDate, currentDate).getDays();
 			float _interestRate = interestRate(currentDate, term);
-			_amount += calculatePeriod(amount, _interestRate, _period) - amount;
+			_amount += calculatePeriod(amount, _interestRate, previousDate, currentDate) - amount;
 			addRecord(list, currentDate, _amount, _interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 
 			previousDate = currentDate;
@@ -56,7 +54,7 @@ public class ForGiftsDeposit extends Deposit {
 
 		float _interestRate = interestRate(endDate, term);
 		int _period = Days.daysBetween(previousDate, endDate).getDays();
-		if (_period != 0) {
+		if (_period > 0) {
 			_amount += calculatePeriod(amount, _interestRate, _period) - amount;
 			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 		}

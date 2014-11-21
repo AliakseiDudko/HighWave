@@ -45,8 +45,7 @@ public class MTSquirrelsDeposit extends Deposit {
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
 			float _interestRate = endFixPeriodDate.isBefore(endDate) || endFixPeriodDate.isEqual(endDate) ? interestRate : lowInterestRate;
 			for (int i = 0; i < fixPeriodMonths && currentDate.isBefore(endDate) || currentDate.isEqual(endDate); i++) {
-				int _period = Days.daysBetween(previousDate, currentDate).getDays();
-				depositAmount = calculatePeriod(depositAmount, _interestRate, _period);
+				depositAmount = calculatePeriod(depositAmount, _interestRate, previousDate, currentDate);
 				addRecord(list, currentDate, depositAmount, _interestRate, RecordDescriptions.MSG_001_Capitalization);
 
 				months++;
@@ -64,7 +63,7 @@ public class MTSquirrelsDeposit extends Deposit {
 		}
 
 		int _period = Days.daysBetween(previousDate, endDate).getDays();
-		if (_period != 0) {
+		if (_period > 0) {
 			depositAmount = calculatePeriod(depositAmount, lowInterestRate, _period);
 			addRecord(list, endDate, depositAmount, lowInterestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 		}

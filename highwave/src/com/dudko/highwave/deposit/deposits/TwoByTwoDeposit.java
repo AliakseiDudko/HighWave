@@ -36,8 +36,7 @@ public class TwoByTwoDeposit extends Deposit {
 			DateTime previousDate = currentDate;
 			currentDate = currentDate.plusMonths(1);
 
-			int _period = Days.daysBetween(previousDate, currentDate).getDays();
-			_amount = calculatePeriod(_amount, interestRate, _period);
+			_amount = calculatePeriod(_amount, interestRate, previousDate, currentDate);
 			addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_001_Capitalization);
 		}
 

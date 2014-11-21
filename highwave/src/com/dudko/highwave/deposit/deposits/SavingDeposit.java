@@ -38,8 +38,7 @@ public class SavingDeposit extends Deposit {
 		DateTime previousDate = currentDate;
 		currentDate = currentDate.plusMonths(1);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
-			int _period = Days.daysBetween(previousDate, currentDate).getDays();
-			_amount = calculatePeriod(_amount, _interestRate, _period);
+			_amount = calculatePeriod(_amount, _interestRate, previousDate, currentDate);
 			addRecord(list, currentDate, _amount, _interestRate, RecordDescriptions.MSG_001_Capitalization);
 
 			previousDate = currentDate;
@@ -47,7 +46,7 @@ public class SavingDeposit extends Deposit {
 		}
 
 		int _period = Days.daysBetween(previousDate, endDate).getDays();
-		if (_period != 0) {
+		if (_period > 0) {
 			_amount = calculatePeriod(_amount, _interestRate, _period);
 			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 		}

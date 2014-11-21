@@ -25,8 +25,8 @@ public class CatchMomentDeposit extends Deposit {
 			return null;
 		}
 
-		int maxTerm = 732;
-		int term = Math.min(period, maxTerm);
+		int depositTerm = 732;
+		int term = Math.min(period, depositTerm);
 		DateTime currentDate = DateTime.now();
 		DateTime endDate = currentDate.plusDays(term);
 
@@ -39,8 +39,7 @@ public class CatchMomentDeposit extends Deposit {
 		DateTime previousDate = currentDate;
 		currentDate = currentDate.plusMonths(1);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
-			int _period = Days.daysBetween(previousDate, currentDate).getDays();
-			_amount = calculatePeriod(_amount, _interestRate, _period);
+			_amount = calculatePeriod(_amount, _interestRate, previousDate, currentDate);
 			addRecord(list, currentDate, _amount, _interestRate, RecordDescriptions.MSG_001_Capitalization);
 
 			previousDate = currentDate;
@@ -48,12 +47,12 @@ public class CatchMomentDeposit extends Deposit {
 		}
 
 		int _period = Days.daysBetween(previousDate, endDate).getDays();
-		if (_period != 0) {
+		if (_period > 0) {
 			_amount = calculatePeriod(_amount, _interestRate, _period);
 			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 		}
 
-		if (term == maxTerm) {
+		if (term == depositTerm) {
 			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
 		} else {
 			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
@@ -62,11 +61,11 @@ public class CatchMomentDeposit extends Deposit {
 		return new DepositAccount(this, list);
 	}
 
-	private float interestRate(int _period) {
+	private float interestRate(int term) {
 		float lowInterestRate = 0.1f;
 
 		DateTime currentDate = DateTime.now();
-		DateTime endDate = currentDate.plusDays(_period);
+		DateTime endDate = currentDate.plusDays(term);
 		int months = Months.monthsBetween(currentDate, endDate).getMonths();
 
 		return months < 6 ? lowInterestRate : interestRate;

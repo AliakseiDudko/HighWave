@@ -38,8 +38,7 @@ public abstract class SkarbonkaDeposit extends Deposit {
 		DateTime previousDate = currentDate;
 		currentDate = currentDate.plusMonths(1);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
-			int _period = Days.daysBetween(previousDate, currentDate).getDays();
-			_amount = calculatePeriod(_amount, _interestRate, _period);
+			_amount = calculatePeriod(_amount, _interestRate, previousDate, currentDate);
 			addRecord(list, currentDate, _amount, _interestRate, RecordDescriptions.MSG_001_Capitalization);
 
 			previousDate = currentDate;
@@ -61,9 +60,9 @@ public abstract class SkarbonkaDeposit extends Deposit {
 		return new DepositAccount(this, list);
 	}
 
-	private float interestRate(int _period) {
+	private float interestRate(int term) {
 		DateTime currentDate = DateTime.now();
-		DateTime endDate = currentDate.plusDays(_period);
+		DateTime endDate = currentDate.plusDays(term);
 		int months = Months.monthsBetween(currentDate, endDate).getMonths();
 
 		float lowInterestRate = 0.1f;

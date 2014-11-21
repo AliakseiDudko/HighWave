@@ -45,16 +45,14 @@ public class FourSeasonsDeposit extends Deposit {
 		DateTime seasonStartDate = currentDate;
 		currentDate = previousDate.plusMonths(1);
 		for (int month = 1; month <= 12; month++) {
-			int _period = Days.daysBetween(previousDate, currentDate).getDays();
-			depositAmount = calculatePeriod(depositAmount, interestRate, _period);
+			depositAmount = calculatePeriod(depositAmount, interestRate, previousDate, currentDate);
 			addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_001_Capitalization);
 
 			if (month % 3 == 0) {
 				float[] bonusInterests = { 0.5f, 1.0f, 1.5f, 2.0f };
 				float _bonusInterest = bonusInterests[month / 3 - 1];
 
-				int _bonusPeriod = Days.daysBetween(seasonStartDate, currentDate).getDays();
-				depositAmount = calculatePeriod(depositAmount, _bonusInterest, _bonusPeriod);
+				depositAmount = calculatePeriod(depositAmount, _bonusInterest, seasonStartDate, currentDate);
 				addRecord(list, currentDate, depositAmount, _bonusInterest, RecordDescriptions.MSG_007_Bonus);
 
 				seasonStartDate = currentDate;

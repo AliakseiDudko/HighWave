@@ -39,8 +39,7 @@ public class SuccessfulDeposit extends Deposit {
 		DateTime previousDate = currentDate;
 		currentDate = currentDate.plusMonths(1);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
-			int _period = Days.daysBetween(previousDate, currentDate).getDays();
-			_amount = calculatePeriod(_amount, _interestRate, _period);
+			_amount = calculatePeriod(_amount, _interestRate, previousDate, currentDate);
 			addRecord(list, currentDate, _amount, _interestRate, RecordDescriptions.MSG_001_Capitalization);
 
 			previousDate = currentDate;
@@ -62,14 +61,14 @@ public class SuccessfulDeposit extends Deposit {
 		return new DepositAccount(this, list);
 	}
 
-	private float interestRate(int _period) {
-		if (_period < 32) {
+	private float interestRate(int term) {
+		if (term < 32) {
 			return 0.01f;
-		} else if (_period < 100) {
+		} else if (term < 100) {
 			return 2.0f;
-		} else if (_period < 180) {
+		} else if (term < 180) {
 			return 3.0f;
-		} else if (_period < 365) {
+		} else if (term < 365) {
 			return 4.0f;
 		}
 

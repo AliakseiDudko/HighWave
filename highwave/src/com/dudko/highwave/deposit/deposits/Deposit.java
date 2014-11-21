@@ -2,12 +2,11 @@ package com.dudko.highwave.deposit.deposits;
 
 import java.util.List;
 
-import org.joda.time.DateTime;
+import org.joda.time.*;
 
 import com.dudko.highwave.bank.banks.Bank;
 import com.dudko.highwave.deposit.*;
-import com.dudko.highwave.globalize.DepositNames;
-import com.dudko.highwave.globalize.RecordDescriptions;
+import com.dudko.highwave.globalize.*;
 
 public abstract class Deposit {
 	public Bank bank;
@@ -18,8 +17,18 @@ public abstract class Deposit {
 
 	public abstract DepositAccount calculateDeposit(float amount, int period);
 
+	public float calculatePeriod(float amount, float interestRate, DateTime startDate, DateTime endDate) {
+		int period = Days.daysBetween(startDate, endDate).getDays();
+		return calculatePeriod(amount, interestRate, period);
+	}
+
 	public float calculatePeriod(float amount, float interestRate, int period) {
 		return amount * (1 + interestRate * period / (100.0f * 365));
+	}
+
+	public float calculatePeriod360(float amount, float interestRate, DateTime startDate, DateTime endDate) {
+		int period = Days.daysBetween(startDate, endDate).getDays();
+		return calculatePeriod360(amount, interestRate, period);
 	}
 
 	public float calculatePeriod360(float amount, float interestRate, int period) {

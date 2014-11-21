@@ -25,13 +25,13 @@ public class AnnualDeposit extends Deposit {
 			return null;
 		}
 
-		int maxPeriod = 365;
-		period = Math.min(period, maxPeriod);
+		int depositTerm = 365;
+		int term = Math.min(period, depositTerm);
 
 		DateTime currentDate = DateTime.now();
-		DateTime endDate = currentDate.plusDays(period);
+		DateTime endDate = currentDate.plusDays(term);
 
-		float _interestRate = interestRate(period);
+		float _interestRate = interestRate(term);
 		float _amount = amount;
 
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
@@ -40,8 +40,7 @@ public class AnnualDeposit extends Deposit {
 		DateTime previousDate = currentDate;
 		currentDate = currentDate.plusMonths(1);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
-			int _period = Days.daysBetween(previousDate, currentDate).getDays();
-			_amount = calculatePeriod(_amount, _interestRate, _period);
+			_amount = calculatePeriod(_amount, _interestRate, previousDate, currentDate);
 			addRecord(list, currentDate, _amount, _interestRate, RecordDescriptions.MSG_001_Capitalization);
 
 			previousDate = currentDate;
@@ -54,7 +53,7 @@ public class AnnualDeposit extends Deposit {
 			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 		}
 
-		if (period < maxPeriod) {
+		if (term < depositTerm) {
 			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
 		} else {
 			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
@@ -63,12 +62,12 @@ public class AnnualDeposit extends Deposit {
 		return new DepositAccount(this, list);
 	}
 
-	private float interestRate(int _period) {
+	private float interestRate(int term) {
 		float lowInterestRate = 1.0f;
 
-		if (_period <= 30) {
+		if (term <= 30) {
 			return lowInterestRate;
-		} else if (_period <= 90) {
+		} else if (term <= 90) {
 			return interestRate - 2.0f;
 		} else {
 			return interestRate;

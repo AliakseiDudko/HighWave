@@ -73,9 +73,9 @@ public class PrudentDeposit extends Deposit {
 		return new DepositAccount(this, list);
 	}
 
-	private float interestRate(int day, int period) {
+	private float interestRate(int day, int term) {
 		float lowInterestRate = 2.5f;
-		if (period <= 180) {
+		if (term <= 180) {
 			return lowInterestRate;
 		}
 
