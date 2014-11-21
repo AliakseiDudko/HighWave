@@ -20,6 +20,7 @@ public class BankFactory {
 		AddBank(new ParitetBank());
 		AddBank(new TechnoBank());
 		AddBank(new IdeaBank());
+		AddBank(new MoskowMinskBank());
 
 		banks.values().toArray(new Bank[banks.size()]);
 	}

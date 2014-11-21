@@ -23,7 +23,7 @@ public enum BankCode {
 	HomeCreditBank,
 	IdeaBank,
 	InterPayBank,
-	MinskMoskowBank,
+	MoskowMinskBank,
 	MTBank,
 	NorthEuropeanBank,
 	ParitetBank,
