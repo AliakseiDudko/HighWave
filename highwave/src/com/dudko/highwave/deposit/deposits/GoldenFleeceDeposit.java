@@ -9,8 +9,8 @@ import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
 
-public class GoldenFleece extends Deposit {
-	public GoldenFleece() {
+public class GoldenFleeceDeposit extends Deposit {
+	public GoldenFleeceDeposit() {
 		bank = BankFactory.GetBank(BankCode.IdeaBank);
 		name = DepositNames.MSG_015_GoldenFleece;
 		url = "http://ideabank.by/vklad-zolotoe-runo";

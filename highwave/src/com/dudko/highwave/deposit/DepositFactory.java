@@ -18,9 +18,9 @@ public class DepositFactory {
 		deposits.add(new SkarbonkaDepositCUR());
 		deposits.add(new RapidProfitDeposit());
 		deposits.add(new TwoByTwoDeposit());
-		deposits.add(new MTSquirrels(DepositNames.MSG_003_MTSquirrels1, 1));
-		deposits.add(new MTSquirrels(DepositNames.MSG_003_MTSquirrels2, 2));
-		deposits.add(new MTSquirrels(DepositNames.MSG_003_MTSquirrels3, 3));
+		deposits.add(new MTSquirrelsDeposit(DepositNames.MSG_003_MTSquirrels1, 1));
+		deposits.add(new MTSquirrelsDeposit(DepositNames.MSG_003_MTSquirrels2, 2));
+		deposits.add(new MTSquirrelsDeposit(DepositNames.MSG_003_MTSquirrels3, 3));
 		deposits.add(new EarlierMore2Deposit());
 		deposits.add(new EasyChoiseDeposit(DepositNames.MSG_002_EasyChoise30, 30));
 		deposits.add(new EasyChoiseDeposit(DepositNames.MSG_002_EasyChoise90, 90));
@@ -31,8 +31,8 @@ public class DepositFactory {
 		deposits.add(new SavingDeposit());
 		deposits.add(new SuccessfulDeposit());
 		deposits.add(new PrudentDeposit());
-		deposits.add(new Carat15());
-		deposits.add(new GoldenFleece());
+		deposits.add(new Carat15Deposit());
+		deposits.add(new GoldenFleeceDeposit());
 	}
 
 	public Deposit[] GetAllDeposits(Currency currency) {

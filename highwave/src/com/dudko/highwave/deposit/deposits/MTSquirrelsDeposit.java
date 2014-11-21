@@ -9,11 +9,11 @@ import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
 
-public class MTSquirrels extends Deposit {
+public class MTSquirrelsDeposit extends Deposit {
 	private float lowInterestRate = 1.0f;
 	private int fixPeriodMonths;
 
-	public MTSquirrels(DepositNames name, int fixPeriodMonths) {
+	public MTSquirrelsDeposit(DepositNames name, int fixPeriodMonths) {
 		bank = BankFactory.GetBank(BankCode.MTBank);
 		this.name = name;
 		url = "http://www.mtbank.by/private/deposits/br/mtbelki";

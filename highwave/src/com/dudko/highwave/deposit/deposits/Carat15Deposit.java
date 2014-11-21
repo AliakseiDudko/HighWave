@@ -9,8 +9,8 @@ import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
 
-public class Carat15 extends Deposit {
-	public Carat15() {
+public class Carat15Deposit extends Deposit {
+	public Carat15Deposit() {
 		bank = BankFactory.GetBank(BankCode.HomeCreditBank);
 		name = DepositNames.MSG_014_Carat15;
 		url = "http://homecredit.by/loans_and_services/15_karat/";
