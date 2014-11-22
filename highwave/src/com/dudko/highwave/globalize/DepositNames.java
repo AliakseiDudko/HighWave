@@ -21,5 +21,7 @@ public enum DepositNames {
 	MSG_013_Prudent,
 	MSG_014_Carat15,
 	MSG_015_GoldenFleece,
-	MSG_016_ForGifts
+	MSG_016_ForGifts,
+	MSG_017_MagicianPlus9,
+	MSG_017_MagicianPlus12
 }

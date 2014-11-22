@@ -31,7 +31,9 @@
 	  "MSG_013_Prudent": "Разважлівы",
 	  "MSG_014_Carat15" : "15 Карат",
 	  "MSG_015_GoldenFleece": "Золотое руно",
-	  "MSG_016_ForGifts": "На подарки"
+	  "MSG_016_ForGifts": "На подарки",
+	  "MSG_017_MagicianPlus9": "Чародей+ (9 месяцаў)",
+	  "MSG_017_MagicianPlus12": "Чародей+ (12 месяцаў)"
     },
     "currencies": {
       "BYR": "BYR",
@@ -42,7 +44,6 @@
     },
     "panelHeaders": {
       "search": "Пошук",
-      "ads": "Рэклама",
       "deposits": "Дэпазіты",
       "twitter": "Twitter"
     },
