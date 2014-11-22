@@ -21,7 +21,6 @@ define([ "marionette", "regions/modal", "models/deposits", "models/search", "mod
         });
 
         $("#search-panel").find(".panel-heading").find(".panel-title").text(Globalize.translate("panelHeaders/search"));
-        $("#ads-panel").find(".panel-heading").find(".panel-title").text(Globalize.translate("panelHeaders/ads"));
         $("#results-panel").find(".panel-heading").find(".panel-title").text(Globalize.translate("panelHeaders/deposits"));
         $("#news-panel").find(".panel-heading").find(".panel-title").text(Globalize.translate("panelHeaders/twitter"));
 
