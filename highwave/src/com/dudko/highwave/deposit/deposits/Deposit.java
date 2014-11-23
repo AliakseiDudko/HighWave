@@ -17,29 +17,30 @@ public abstract class Deposit {
 
 	public abstract DepositAccount calculateDeposit(float amount, int period);
 
-	public float calculatePeriod(float amount, float interestRate, DateTime startDate, DateTime endDate) {
+	protected float calculatePeriod(float amount, float interestRate, DateTime startDate, DateTime endDate) {
 		int period = Days.daysBetween(startDate, endDate).getDays();
 		return calculatePeriod(amount, interestRate, period);
 	}
 
-	public float calculatePeriod(float amount, float interestRate, int period) {
+	protected float calculatePeriod(float amount, float interestRate, int period) {
 		return amount * (1 + interestRate * period / (100.0f * 365));
 	}
 
-	public float calculatePeriod360(float amount, float interestRate, DateTime startDate, DateTime endDate) {
+	protected float calculatePeriod360(float amount, float interestRate, DateTime startDate, DateTime endDate) {
 		int period = Days.daysBetween(startDate, endDate).getDays();
 		return calculatePeriod360(amount, interestRate, period);
 	}
 
-	public float calculatePeriod360(float amount, float interestRate, int period) {
+	protected float calculatePeriod360(float amount, float interestRate, int period) {
 		return amount * (1 + interestRate * period / (100.0f * 360));
 	}
 
-	public void addRecord(List<AccountStatementRecord> list, DateTime date, float amount, float interestRate, RecordDescriptions description) {
+	protected void addRecord(List<AccountStatementRecord> list, DateTime date, float amount, float interestRate,
+			RecordDescriptions description) {
 		addRecord(list, date, amount, interestRate, description, false);
 	}
 
-	public void addRecord(List<AccountStatementRecord> list, DateTime date, float amount, float interestRate,
+	protected void addRecord(List<AccountStatementRecord> list, DateTime date, float amount, float interestRate,
 			RecordDescriptions description, Boolean isLast) {
 		AccountStatementRecord record = new AccountStatementRecord(date, amount, interestRate, description).setIsLast(isLast);
 		list.add(record);
