@@ -68,6 +68,7 @@ public class FourSeasonsDeposit extends Deposit {
 
 		account.addRecord(endDate, depositAmount, interestRate, RecordDescriptions.MSG_003_Close_Deposit, partialEndDate.isEqual(endDate));
 
+		account.fillData();
 		return account;
 	}
 }

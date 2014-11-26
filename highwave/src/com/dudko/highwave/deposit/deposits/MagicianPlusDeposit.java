@@ -88,6 +88,7 @@ public abstract class MagicianPlusDeposit extends Deposit {
 			account.addRecord(endDate, _amount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit);
 		}
 
+		account.fillData();
 		return account;
 	}
 }

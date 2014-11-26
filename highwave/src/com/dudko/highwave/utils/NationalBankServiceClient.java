@@ -33,7 +33,7 @@ public class NationalBankServiceClient {
 			Element result = (Element) response.getElementsByTagName("LastDailyExRatesDateResult").item(0);
 			String lastDailyExRatesDateString = result.getChildNodes().item(0).getNodeValue();
 
-			lastDailyExRatesDate = LocalDate.parse(lastDailyExRatesDateString);
+			lastDailyExRatesDate = DateTime.parse(lastDailyExRatesDateString).toLocalDate();
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}

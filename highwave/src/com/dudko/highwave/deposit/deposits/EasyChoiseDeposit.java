@@ -58,6 +58,7 @@ public class EasyChoiseDeposit extends Deposit {
 			account.addRecord(endDate, depositAmount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
 		}
 
+		account.fillData();
 		return account;
 	}
 

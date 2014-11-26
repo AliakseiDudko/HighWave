@@ -55,6 +55,7 @@ public class SavingDeposit extends Deposit {
 			account.addRecord(endDate, _amount, _interestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
 		}
 
+		account.fillData();
 		return account;
 	}
 

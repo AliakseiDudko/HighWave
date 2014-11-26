@@ -63,6 +63,7 @@ public class EarlierMore2Deposit extends Deposit {
 			account.addRecord(currentDate, depositAmount, lowInterestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
 		}
 
+		account.fillData();
 		return account;
 	}
 

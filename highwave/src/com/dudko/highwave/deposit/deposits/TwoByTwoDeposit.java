@@ -40,6 +40,7 @@ public class TwoByTwoDeposit extends Deposit {
 
 		account.addRecord(endDate, _amount, interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
 
+		account.fillData();
 		return account;
 	}
 }

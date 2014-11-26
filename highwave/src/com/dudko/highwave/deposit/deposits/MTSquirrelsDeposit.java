@@ -75,6 +75,7 @@ public class MTSquirrelsDeposit extends Deposit {
 			account.addRecord(endDate, depositAmount, lowInterestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
 		}
 
+		account.fillData();
 		return account;
 	}
 

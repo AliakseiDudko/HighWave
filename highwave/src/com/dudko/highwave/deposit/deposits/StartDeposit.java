@@ -60,6 +60,7 @@ public abstract class StartDeposit extends Deposit {
 			}
 		}
 
+		account.fillData();
 		return account;
 	}
 }
