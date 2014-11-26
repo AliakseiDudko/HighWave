@@ -7,6 +7,7 @@ import org.joda.time.*;
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
+import com.dudko.highwave.utils.*;
 
 public class PrudentDeposit extends Deposit {
 	public PrudentDeposit() {
@@ -26,8 +27,8 @@ public class PrudentDeposit extends Deposit {
 
 		int depositTerm = 720;
 		int term = Math.min(period, depositTerm);
-		DateTime currentDate = DateTime.now();
-		DateTime endDate = currentDate.plusDays(term);
+		LocalDate currentDate = MinskLocalDate.now();
+		LocalDate endDate = currentDate.plusDays(term);
 
 		float _amount = amount;
 
@@ -35,7 +36,7 @@ public class PrudentDeposit extends Deposit {
 		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		Set<Integer> setOfCapitalization = new TreeSet<Integer>();
-		DateTime futureDate = currentDate.plusMonths(1);
+		LocalDate futureDate = currentDate.plusMonths(1);
 		while (futureDate.isBefore(endDate) || futureDate.isEqual(endDate)) {
 			int _period = Days.daysBetween(currentDate, futureDate).getDays();
 			setOfCapitalization.add(_period);

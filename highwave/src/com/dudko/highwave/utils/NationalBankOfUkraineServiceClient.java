@@ -6,12 +6,12 @@ import java.util.*;
 
 import javax.xml.parsers.*;
 
-import org.joda.time.DateTime;
+import org.joda.time.*;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 public class NationalBankOfUkraineServiceClient {
-	public static Map<String, Double> getExchangeRatesOnDate(DateTime date) {
+	public static Map<String, Double> getExchangeRatesOnDate(LocalDate date) {
 		Map<String, Double> map = new HashMap<String, Double>();
 
 		URL xmlUrl;

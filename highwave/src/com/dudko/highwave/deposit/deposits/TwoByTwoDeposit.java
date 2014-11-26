@@ -8,6 +8,7 @@ import org.joda.time.*;
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
+import com.dudko.highwave.utils.*;
 
 public class TwoByTwoDeposit extends Deposit {
 	public TwoByTwoDeposit() {
@@ -20,8 +21,8 @@ public class TwoByTwoDeposit extends Deposit {
 
 	@Override
 	public DepositAccount calculateDeposit(float amount, int period) {
-		DateTime currentDate = DateTime.now();
-		DateTime endDate = currentDate.plusMonths(2);
+		LocalDate currentDate = MinskLocalDate.now();
+		LocalDate endDate = currentDate.plusMonths(2);
 
 		if (endDate.isAfter(currentDate.plusDays(period))) {
 			return null;
@@ -33,7 +34,7 @@ public class TwoByTwoDeposit extends Deposit {
 		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		for (int i = 0; i < 2; i++) {
-			DateTime previousDate = currentDate;
+			LocalDate previousDate = currentDate;
 			currentDate = currentDate.plusMonths(1);
 
 			_amount = calculatePeriod(_amount, interestRate, previousDate, currentDate);

@@ -8,20 +8,15 @@ import org.joda.time.*;
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
+import com.dudko.highwave.utils.*;
 
 public class ForGiftsDeposit extends Deposit {
-	private DateTime today;
-	private int monthTerm;
-
 	public ForGiftsDeposit() {
 		bank = BankFactory.GetBank(BankCode.IdeaBank);
 		name = DepositNames.MSG_016_ForGifts;
 		url = "http://ideabank.by/vklad-na-podarki";
 		currency = Currency.BYR;
 		interestRate = 29.5f;
-
-		today = DateTime.now();
-		monthTerm = Days.daysBetween(today, today.plusMonths(1)).getDays();
 	}
 
 	@Override
@@ -31,17 +26,17 @@ public class ForGiftsDeposit extends Deposit {
 			return null;
 		}
 
-		DateTime currentDate = today;
+		LocalDate currentDate = MinskLocalDate.now();
 		int depositTerm = Days.daysBetween(currentDate, currentDate.plusMonths(18)).getDays();
 		int term = Math.min(depositTerm, period);
-		DateTime endDate = currentDate.plusDays(term);
+		LocalDate endDate = currentDate.plusDays(term);
 
 		float _amount = amount;
 
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
-		DateTime previousDate = currentDate;
+		LocalDate previousDate = currentDate;
 		currentDate = currentDate.plusMonths(1);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
 			float _interestRate = interestRate(currentDate, term);
@@ -68,7 +63,9 @@ public class ForGiftsDeposit extends Deposit {
 		return new DepositAccount(this, list);
 	}
 
-	private float interestRate(DateTime currentDate, int term) {
+	private float interestRate(LocalDate currentDate, int term) {
+		LocalDate today = MinskLocalDate.now();
+		int monthTerm = Days.daysBetween(today, today.plusMonths(1)).getDays();
 		int currentTerm = Days.daysBetween(today, currentDate).getDays();
 
 		float lowInterestRate1 = 1.5f;

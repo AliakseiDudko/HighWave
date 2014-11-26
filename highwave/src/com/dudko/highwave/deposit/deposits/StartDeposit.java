@@ -7,6 +7,7 @@ import org.joda.time.*;
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
+import com.dudko.highwave.utils.*;
 
 public abstract class StartDeposit extends Deposit {
 	protected float minOpenAmount;
@@ -29,7 +30,7 @@ public abstract class StartDeposit extends Deposit {
 			return null;
 		}
 
-		DateTime currentDate = DateTime.now();
+		LocalDate currentDate = MinskLocalDate.now();
 		float _amount = amount;
 
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();

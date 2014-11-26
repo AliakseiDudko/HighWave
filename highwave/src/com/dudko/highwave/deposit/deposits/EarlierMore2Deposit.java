@@ -8,6 +8,7 @@ import org.joda.time.*;
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
+import com.dudko.highwave.utils.*;
 
 public class EarlierMore2Deposit extends Deposit {
 	private int depositTerm = 270;
@@ -30,8 +31,8 @@ public class EarlierMore2Deposit extends Deposit {
 		}
 
 		int term = Math.min(period, depositTerm);
-		DateTime currentDate = DateTime.now();
-		DateTime endDate = currentDate.plusDays(term);
+		LocalDate currentDate = MinskLocalDate.now();
+		LocalDate endDate = currentDate.plusDays(term);
 
 		float _interestRate = interestRate(term);
 		float depositAmount = amount;
@@ -39,7 +40,7 @@ public class EarlierMore2Deposit extends Deposit {
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 		addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
-		DateTime previousDate = currentDate;
+		LocalDate previousDate = currentDate;
 		currentDate = currentDate.plusDays(capitalizationPeriod);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
 			depositAmount = calculatePeriod(depositAmount, _interestRate, capitalizationPeriod);

@@ -8,6 +8,7 @@ import org.joda.time.*;
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
+import com.dudko.highwave.utils.*;
 
 public class SavingDeposit extends Deposit {
 	public SavingDeposit() {
@@ -20,13 +21,13 @@ public class SavingDeposit extends Deposit {
 
 	@Override
 	public DepositAccount calculateDeposit(float amount, int period) {
-		DateTime currentDate = DateTime.now();
-		DateTime maxEndDate = currentDate.plusYears(3);
+		LocalDate currentDate = MinskLocalDate.now();
+		LocalDate maxEndDate = currentDate.plusYears(3);
 
 		int maxPeriod = Days.daysBetween(currentDate, maxEndDate).getDays();
 		int term = Math.min(period, maxPeriod);
 
-		DateTime endDate = currentDate.plusDays(term);
+		LocalDate endDate = currentDate.plusDays(term);
 		int months = Months.monthsBetween(currentDate, endDate).getMonths();
 
 		float _interestRate = interestRate(months);
@@ -35,7 +36,7 @@ public class SavingDeposit extends Deposit {
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
-		DateTime previousDate = currentDate;
+		LocalDate previousDate = currentDate;
 		currentDate = currentDate.plusMonths(1);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
 			_amount = calculatePeriod(_amount, _interestRate, previousDate, currentDate);

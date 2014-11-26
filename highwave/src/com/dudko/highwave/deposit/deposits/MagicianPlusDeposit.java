@@ -7,6 +7,7 @@ import org.joda.time.*;
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
+import com.dudko.highwave.utils.*;
 
 public abstract class MagicianPlusDeposit extends Deposit {
 	protected float minOpenAmount;
@@ -28,13 +29,13 @@ public abstract class MagicianPlusDeposit extends Deposit {
 			return null;
 		}
 
-		DateTime currentDate = DateTime.now();
-		DateTime treeMonthsDate = currentDate.plusMonths(3);
+		LocalDate currentDate = MinskLocalDate.now();
+		LocalDate treeMonthsDate = currentDate.plusMonths(3);
 		int threeMonthsTerm = Days.daysBetween(currentDate, treeMonthsDate).getDays();
-		DateTime maxEndDate = currentDate.plusMonths(depositTermMonths);
+		LocalDate maxEndDate = currentDate.plusMonths(depositTermMonths);
 		int depositTerm = Days.daysBetween(currentDate, maxEndDate).getDays();
 		int term = Math.min(period, depositTerm);
-		DateTime endDate = currentDate.plusDays(term);
+		LocalDate endDate = currentDate.plusDays(term);
 
 		float _amount = amount;
 		float _interestRate = term < threeMonthsTerm ? 1.0f : interestRate;
@@ -43,7 +44,7 @@ public abstract class MagicianPlusDeposit extends Deposit {
 		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		Set<Integer> setOfCapitalization = new TreeSet<Integer>();
-		DateTime futureDate = currentDate.plusMonths(1);
+		LocalDate futureDate = currentDate.plusMonths(1);
 		while (futureDate.isBefore(maxEndDate) || futureDate.isEqual(maxEndDate)) {
 			int _period = Days.daysBetween(currentDate, futureDate).getDays();
 			setOfCapitalization.add(_period);

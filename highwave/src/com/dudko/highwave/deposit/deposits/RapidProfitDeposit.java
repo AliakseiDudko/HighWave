@@ -8,6 +8,7 @@ import org.joda.time.*;
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
+import com.dudko.highwave.utils.*;
 
 public class RapidProfitDeposit extends Deposit {
 	public RapidProfitDeposit() {
@@ -28,15 +29,15 @@ public class RapidProfitDeposit extends Deposit {
 		}
 
 		int term = Math.min(period, 30);
-		DateTime currentDate = DateTime.now();
-		DateTime endDate = currentDate.plusDays(term);
+		LocalDate currentDate = MinskLocalDate.now();
+		LocalDate endDate = currentDate.plusDays(term);
 
 		float _amount = amount;
 
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
-		DateTime previousDate = currentDate;
+		LocalDate previousDate = currentDate;
 		currentDate = currentDate.plusDays(depositTerm);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
 			_amount = calculatePeriod(_amount, interestRate, depositTerm);

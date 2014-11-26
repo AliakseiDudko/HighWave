@@ -7,13 +7,13 @@ import java.util.*;
 import javax.xml.parsers.*;
 import javax.xml.soap.*;
 
-import org.joda.time.DateTime;
+import org.joda.time.*;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 public class NationalBankServiceClient {
-	public static DateTime getLastDailyExRatesDate() {
-		DateTime lastDailyExRatesDate = DateTime.now();
+	public static LocalDate getLastDailyExRatesDate() {
+		LocalDate lastDailyExRatesDate = MinskLocalDate.now();
 
 		try {
 			SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
@@ -33,7 +33,7 @@ public class NationalBankServiceClient {
 			Element result = (Element) response.getElementsByTagName("LastDailyExRatesDateResult").item(0);
 			String lastDailyExRatesDateString = result.getChildNodes().item(0).getNodeValue();
 
-			lastDailyExRatesDate = DateTime.parse(lastDailyExRatesDateString);
+			lastDailyExRatesDate = LocalDate.parse(lastDailyExRatesDateString);
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
@@ -41,7 +41,7 @@ public class NationalBankServiceClient {
 		return lastDailyExRatesDate;
 	}
 
-	public static Map<String, Double> getExchangeRatesOnDate(DateTime date) {
+	public static Map<String, Double> getExchangeRatesOnDate(LocalDate date) {
 		Map<String, Double> map = new HashMap<String, Double>();
 
 		URL xmlUrl;

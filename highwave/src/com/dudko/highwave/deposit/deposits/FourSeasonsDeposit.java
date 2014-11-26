@@ -8,6 +8,7 @@ import org.joda.time.*;
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
+import com.dudko.highwave.utils.*;
 
 public class FourSeasonsDeposit extends Deposit {
 	public FourSeasonsDeposit() {
@@ -26,23 +27,23 @@ public class FourSeasonsDeposit extends Deposit {
 			return null;
 		}
 
-		DateTime currentDate = DateTime.now();
+		LocalDate currentDate = MinskLocalDate.now();
 		if (period < Days.daysBetween(currentDate, currentDate.plusMonths(1)).getDays()) {
 			return null;
 		}
 
-		DateTime endDate = currentDate.plusMonths(12);
+		LocalDate endDate = currentDate.plusMonths(12);
 		int fullTerm = Days.daysBetween(currentDate, endDate).getDays();
 		int partialTerm = Math.min(fullTerm, period);
-		DateTime partialEndDate = currentDate.plusDays(partialTerm);
+		LocalDate partialEndDate = currentDate.plusDays(partialTerm);
 
 		float depositAmount = amount;
 
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 		addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
-		DateTime previousDate = currentDate;
-		DateTime seasonStartDate = currentDate;
+		LocalDate previousDate = currentDate;
+		LocalDate seasonStartDate = currentDate;
 		currentDate = previousDate.plusMonths(1);
 		for (int month = 1; month <= 12; month++) {
 			depositAmount = calculatePeriod(depositAmount, interestRate, previousDate, currentDate);

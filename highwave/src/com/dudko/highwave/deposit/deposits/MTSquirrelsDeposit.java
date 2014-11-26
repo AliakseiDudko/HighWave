@@ -8,6 +8,7 @@ import org.joda.time.*;
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
+import com.dudko.highwave.utils.*;
 
 public class MTSquirrelsDeposit extends Deposit {
 	private float lowInterestRate = 1.0f;
@@ -29,11 +30,11 @@ public class MTSquirrelsDeposit extends Deposit {
 			return null;
 		}
 
-		DateTime currentDate = DateTime.now();
+		LocalDate currentDate = MinskLocalDate.now();
 		int term = Math.min(Days.daysBetween(currentDate, currentDate.plusMonths(18)).getDays(), period);
-		DateTime endDate = currentDate.plusDays(term);
-		DateTime startFixPeriodDate = currentDate;
-		DateTime endFixPeriodDate = currentDate.plusMonths(fixPeriodMonths);
+		LocalDate endDate = currentDate.plusDays(term);
+		LocalDate startFixPeriodDate = currentDate;
+		LocalDate endFixPeriodDate = currentDate.plusMonths(fixPeriodMonths);
 
 		float bonusInterest = 0.5f;
 		float depositAmount = amount;
@@ -42,7 +43,7 @@ public class MTSquirrelsDeposit extends Deposit {
 		addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		int months = 0;
-		DateTime previousDate = currentDate;
+		LocalDate previousDate = currentDate;
 		currentDate = currentDate.plusMonths(1);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
 			float _interestRate = endFixPeriodDate.isBefore(endDate) || endFixPeriodDate.isEqual(endDate) ? interestRate : lowInterestRate;

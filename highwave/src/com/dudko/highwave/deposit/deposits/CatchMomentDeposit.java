@@ -8,6 +8,7 @@ import org.joda.time.*;
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
+import com.dudko.highwave.utils.*;
 
 public class CatchMomentDeposit extends Deposit {
 	public CatchMomentDeposit() {
@@ -27,8 +28,8 @@ public class CatchMomentDeposit extends Deposit {
 
 		int depositTerm = 732;
 		int term = Math.min(period, depositTerm);
-		DateTime currentDate = DateTime.now();
-		DateTime endDate = currentDate.plusDays(term);
+		LocalDate currentDate = MinskLocalDate.now();
+		LocalDate endDate = currentDate.plusDays(term);
 
 		float _interestRate = interestRate(term);
 		float _amount = amount;
@@ -36,7 +37,7 @@ public class CatchMomentDeposit extends Deposit {
 		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
 		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
-		DateTime previousDate = currentDate;
+		LocalDate previousDate = currentDate;
 		currentDate = currentDate.plusMonths(1);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
 			_amount = calculatePeriod(_amount, _interestRate, previousDate, currentDate);
@@ -64,8 +65,8 @@ public class CatchMomentDeposit extends Deposit {
 	private float interestRate(int term) {
 		float lowInterestRate = 0.1f;
 
-		DateTime currentDate = DateTime.now();
-		DateTime endDate = currentDate.plusDays(term);
+		LocalDate currentDate = MinskLocalDate.now();
+		LocalDate endDate = currentDate.plusDays(term);
 		int months = Months.monthsBetween(currentDate, endDate).getMonths();
 
 		return months < 6 ? lowInterestRate : interestRate;

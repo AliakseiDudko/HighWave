@@ -2,7 +2,7 @@ package com.dudko.highwave.utils;
 
 import java.util.Map;
 
-import org.joda.time.DateTime;
+import org.joda.time.*;
 
 import com.dudko.highwave.deposit.Currency;
 
@@ -15,7 +15,7 @@ public class ExchangeRateStats {
 	}
 
 	public static void resetExchangeRateStats() {
-		DateTime today = NationalBankServiceClient.getLastDailyExRatesDate();
+		LocalDate today = NationalBankServiceClient.getLastDailyExRatesDate();
 
 		Map<String, Double> todayStats = NationalBankServiceClient.getExchangeRatesOnDate(today);
 		Double todayUsdExchangeRate = todayStats.get(Currency.USD.toString());

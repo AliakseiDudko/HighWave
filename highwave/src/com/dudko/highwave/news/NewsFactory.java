@@ -47,9 +47,10 @@ public class NewsFactory {
 	}
 
 	public static void addExchangeRateTweet() {
-		DateTime lastDate = NationalBankServiceClient.getLastDailyExRatesDate();
-		if (lastDate.isAfterNow()) {
-			lastDate = DateTime.now();
+		LocalDate lastDate = NationalBankServiceClient.getLastDailyExRatesDate();
+		LocalDate minskLocalDate = MinskLocalDate.now();
+		if (lastDate.isAfter(minskLocalDate)) {
+			lastDate = minskLocalDate;
 		}
 
 		Map<String, Double> map = NationalBankServiceClient.getExchangeRatesOnDate(lastDate);
@@ -68,9 +69,10 @@ public class NewsFactory {
 	}
 
 	public static void addExchangeRateStatsTweet() {
-		DateTime lastDate = NationalBankServiceClient.getLastDailyExRatesDate();
-		if (lastDate.isAfterNow()) {
-			lastDate = DateTime.now();
+		LocalDate lastDate = NationalBankServiceClient.getLastDailyExRatesDate();
+		LocalDate minskLocalDate = MinskLocalDate.now();
+		if (lastDate.isAfter(minskLocalDate)) {
+			lastDate = minskLocalDate;
 		}
 
 		Map<String, Double> todayStats = NationalBankServiceClient.getExchangeRatesOnDate(lastDate);
@@ -107,20 +109,20 @@ public class NewsFactory {
 	}
 
 	public static void addRussianRubleStatsTweet() {
-		List<Entry<DateTime, Double>> usdHistory = BankOfRussiaServiceClient.getExchangeRateHistory(Currency.USD);
-		Entry<DateTime, Double> firstUsdEntry = usdHistory.get(usdHistory.size() - 1);
-		Entry<DateTime, Double> maxUsdEntry = firstUsdEntry;
-		for (Entry<DateTime, Double> entry : usdHistory) {
+		List<Entry<LocalDate, Double>> usdHistory = BankOfRussiaServiceClient.getExchangeRateHistory(Currency.USD);
+		Entry<LocalDate, Double> firstUsdEntry = usdHistory.get(usdHistory.size() - 1);
+		Entry<LocalDate, Double> maxUsdEntry = firstUsdEntry;
+		for (Entry<LocalDate, Double> entry : usdHistory) {
 			if (maxUsdEntry.getValue() < entry.getValue()) {
 				maxUsdEntry = entry;
 			}
 		}
 		boolean isUsdRecord = maxUsdEntry.getKey() == firstUsdEntry.getKey();
 
-		List<Entry<DateTime, Double>> eurHistory = BankOfRussiaServiceClient.getExchangeRateHistory(Currency.EUR);
-		Entry<DateTime, Double> firstEurEntry = eurHistory.get(eurHistory.size() - 1);
-		Entry<DateTime, Double> maxEurEntry = firstEurEntry;
-		for (Entry<DateTime, Double> entry : eurHistory) {
+		List<Entry<LocalDate, Double>> eurHistory = BankOfRussiaServiceClient.getExchangeRateHistory(Currency.EUR);
+		Entry<LocalDate, Double> firstEurEntry = eurHistory.get(eurHistory.size() - 1);
+		Entry<LocalDate, Double> maxEurEntry = firstEurEntry;
+		for (Entry<LocalDate, Double> entry : eurHistory) {
 			if (maxEurEntry.getValue() < entry.getValue()) {
 				maxEurEntry = entry;
 			}
@@ -161,8 +163,8 @@ public class NewsFactory {
 	}
 
 	public static void addDevaluationStatsTweet() {
-		DateTime today = DateTime.now();
-		DateTime yearAgo = today.minusYears(1);
+		LocalDate today = MinskLocalDate.now();
+		LocalDate yearAgo = today.minusYears(1);
 
 		String usd = Currency.USD.toString();
 
@@ -172,7 +174,7 @@ public class NewsFactory {
 		double byrYearAgo = byrYearAgoExRates.get(usd);
 		double byrDevaluation = 100.0f * (byrToday - byrYearAgo) / byrYearAgo;
 
-		List<Entry<DateTime, Double>> rurHistory = BankOfRussiaServiceClient.getExchangeRateHistory(Currency.USD);
+		List<Entry<LocalDate, Double>> rurHistory = BankOfRussiaServiceClient.getExchangeRateHistory(Currency.USD);
 		double rurToday = rurHistory.get(rurHistory.size() - 1).getValue();
 		double rurYearAgo = rurHistory.get(0).getValue();
 		double rurDevaluation = 100.0f * (rurToday - rurYearAgo) / rurYearAgo;
@@ -260,7 +262,7 @@ public class NewsFactory {
 
 				String dayString = element.getAttribute("Day");
 				int day = Integer.parseInt(dayString);
-				if (day == DateTime.now().getDayOfMonth()) {
+				if (day == MinskLocalDate.now().getDayOfMonth()) {
 					return element;
 				}
 			}

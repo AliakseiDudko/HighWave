@@ -8,6 +8,7 @@ import org.joda.time.*;
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
+import com.dudko.highwave.utils.*;
 
 public class EasyChoiseDeposit extends Deposit {
 	private int depositTerm;
@@ -31,8 +32,8 @@ public class EasyChoiseDeposit extends Deposit {
 		}
 
 		int term = Math.min(period, depositTerm);
-		DateTime currentDate = DateTime.now();
-		DateTime endDate = currentDate.plusDays(term);
+		LocalDate currentDate = MinskLocalDate.now();
+		LocalDate endDate = currentDate.plusDays(term);
 
 		float _interestRate = interestRate(term);
 		float depositAmount = amount;

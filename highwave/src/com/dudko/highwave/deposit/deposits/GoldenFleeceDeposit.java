@@ -8,6 +8,7 @@ import org.joda.time.*;
 import com.dudko.highwave.bank.*;
 import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
+import com.dudko.highwave.utils.*;
 
 public class GoldenFleeceDeposit extends Deposit {
 	public GoldenFleeceDeposit() {
@@ -25,12 +26,12 @@ public class GoldenFleeceDeposit extends Deposit {
 			return null;
 		}
 
-		DateTime currentDate = DateTime.now();
+		LocalDate currentDate = MinskLocalDate.now();
 		int depositTerm = Days.daysBetween(currentDate, currentDate.plusMonths(18)).getDays();
 		int term = Math.min(depositTerm, period);
-		DateTime twoMonthsDate = currentDate.plusMonths(2);
+		LocalDate twoMonthsDate = currentDate.plusMonths(2);
 		int twoMonthsTerm = Days.daysBetween(currentDate, twoMonthsDate).getDays();
-		DateTime endDate = currentDate.plusDays(term);
+		LocalDate endDate = currentDate.plusDays(term);
 
 		float _amount = amount;
 		float lowInterestRate1 = 1.5f;
