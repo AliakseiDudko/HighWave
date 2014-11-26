@@ -16,7 +16,7 @@ public class CatchMomentDeposit extends Deposit {
 		name = DepositNames.MSG_010_CatchMoment;
 		url = "http://vtb-bank.by/personal/deposit/lovi_moment/";
 		currency = Currency.CUR;
-		interestRate = 6.0f;
+		interestRate = 5.5f;
 	}
 
 	@Override
