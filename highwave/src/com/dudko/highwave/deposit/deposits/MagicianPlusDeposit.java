@@ -40,8 +40,8 @@ public abstract class MagicianPlusDeposit extends Deposit {
 		float _amount = amount;
 		float _interestRate = term < threeMonthsTerm ? 1.0f : interestRate;
 
-		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
-		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
+		DepositAccount account = new DepositAccount(this);
+		account.addRecord(currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		Set<Integer> setOfCapitalization = new TreeSet<Integer>();
 		LocalDate futureDate = currentDate.plusMonths(1);
@@ -65,29 +65,29 @@ public abstract class MagicianPlusDeposit extends Deposit {
 
 			currentDate = currentDate.plusDays(_period);
 			if (setOfCapitalization.contains(day)) {
-				addRecord(list, currentDate, _amount, _interestRate, RecordDescriptions.MSG_001_Capitalization);
+				account.addRecord(currentDate, _amount, _interestRate, RecordDescriptions.MSG_001_Capitalization);
 			} else {
-				addRecord(list, currentDate, _amount, _interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
+				account.addRecord(currentDate, _amount, _interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 			}
 
 			if (day == term && term < threeMonthsTerm) {
 				break;
 			} else if (day == term && term < depositTerm) {
-				addRecord(list, currentDate, _amount, _interestRate, RecordDescriptions.MSG_006_Partial_Withdrawal_Of_Deposit, true);
+				account.addRecord(currentDate, _amount, _interestRate, RecordDescriptions.MSG_006_Partial_Withdrawal_Of_Deposit, true);
 				_amount = minDepositAmount;
 			}
 		}
 
 		if (term == depositTerm) {
 			_amount = calculatePeriod(_amount, bonusInterest, depositTerm);
-			addRecord(list, endDate, _amount, bonusInterest, RecordDescriptions.MSG_007_Bonus);
-			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
+			account.addRecord(endDate, _amount, bonusInterest, RecordDescriptions.MSG_007_Bonus);
+			account.addRecord(endDate, _amount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
 		} else if (term < threeMonthsTerm) {
-			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
+			account.addRecord(endDate, _amount, _interestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
 		} else {
-			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit);
+			account.addRecord(endDate, _amount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit);
 		}
 
-		return new DepositAccount(this, list);
+		return account;
 	}
 }

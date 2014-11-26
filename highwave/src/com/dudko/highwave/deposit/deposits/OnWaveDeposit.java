@@ -1,8 +1,5 @@
 package com.dudko.highwave.deposit.deposits;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
@@ -34,14 +31,14 @@ public class OnWaveDeposit extends Deposit {
 
 		float _amount = amount;
 
-		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
-		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
+		DepositAccount account = new DepositAccount(this);
+		account.addRecord(currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		LocalDate previousDate = currentDate;
 		currentDate = currentDate.plusDays(depositTerm);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
 			_amount = calculatePeriod(_amount, interestRate, depositTerm);
-			addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_001_Capitalization);
+			account.addRecord(currentDate, _amount, interestRate, RecordDescriptions.MSG_001_Capitalization);
 
 			previousDate = currentDate;
 			currentDate = currentDate.plusDays(depositTerm);
@@ -49,13 +46,13 @@ public class OnWaveDeposit extends Deposit {
 
 		int _period = Days.daysBetween(previousDate, endDate).getDays();
 		if (_period == 0) {
-			addRecord(list, endDate, _amount, interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
+			account.addRecord(endDate, _amount, interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
 		} else {
 			_amount = calculatePeriod(_amount, lowInterestRate, _period);
-			addRecord(list, endDate, _amount, lowInterestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
-			addRecord(list, endDate, _amount, lowInterestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
+			account.addRecord(endDate, _amount, lowInterestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
+			account.addRecord(endDate, _amount, lowInterestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
 		}
 
-		return new DepositAccount(this, list);
+		return account;
 	}
 }

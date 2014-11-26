@@ -1,8 +1,5 @@
 package com.dudko.highwave.deposit.deposits;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
@@ -30,19 +27,19 @@ public class TwoByTwoDeposit extends Deposit {
 
 		float _amount = amount;
 
-		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
-		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
+		DepositAccount account = new DepositAccount(this);
+		account.addRecord(currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		for (int i = 0; i < 2; i++) {
 			LocalDate previousDate = currentDate;
 			currentDate = currentDate.plusMonths(1);
 
 			_amount = calculatePeriod(_amount, interestRate, previousDate, currentDate);
-			addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_001_Capitalization);
+			account.addRecord(currentDate, _amount, interestRate, RecordDescriptions.MSG_001_Capitalization);
 		}
 
-		addRecord(list, endDate, _amount, interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
+		account.addRecord(endDate, _amount, interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
 
-		return new DepositAccount(this, list);
+		return account;
 	}
 }

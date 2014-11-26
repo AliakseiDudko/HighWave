@@ -1,7 +1,5 @@
 package com.dudko.highwave.deposit.deposits;
 
-import java.util.List;
-
 import org.joda.time.*;
 
 import com.dudko.highwave.bank.banks.Bank;
@@ -33,16 +31,5 @@ public abstract class Deposit {
 
 	protected float calculatePeriod360(float amount, float interestRate, int period) {
 		return amount * (1 + interestRate * period / (100.0f * 360));
-	}
-
-	protected void addRecord(List<AccountStatementRecord> list, LocalDate date, float amount, float interestRate,
-			RecordDescriptions description) {
-		addRecord(list, date, amount, interestRate, description, false);
-	}
-
-	protected void addRecord(List<AccountStatementRecord> list, LocalDate date, float amount, float interestRate,
-			RecordDescriptions description, Boolean isLast) {
-		AccountStatementRecord record = new AccountStatementRecord(date, amount, interestRate, description).setIsLast(isLast);
-		list.add(record);
 	}
 }

@@ -1,15 +1,17 @@
 package com.dudko.highwave.deposit;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.joda.time.Days;
+import org.joda.time.*;
 
 import com.dudko.highwave.deposit.deposits.Deposit;
-import com.dudko.highwave.utils.ExchangeRateStats;
+import com.dudko.highwave.globalize.*;
+import com.dudko.highwave.utils.*;
 
 public class DepositAccount {
 	public Deposit deposit;
-	public AccountStatementRecord[] accountStatement;
+	public List<AccountStatementRecord> accountStatement;
 
 	public float startAmount;
 	public float endAmount;
@@ -28,35 +30,48 @@ public class DepositAccount {
 	public String endDate;
 	public int period;
 
-	public DepositAccount(Deposit deposit, List<AccountStatementRecord> accountStatement) {
+	public DepositAccount(Deposit deposit) {
 		this.deposit = deposit;
-		this.accountStatement = accountStatement.toArray(new AccountStatementRecord[accountStatement.size()]);
+		this.accountStatement = new ArrayList<AccountStatementRecord>();
+	}
 
-		if (!accountStatement.isEmpty()) {
-			AccountStatementRecord firstRecord = accountStatement.get(0);
-			AccountStatementRecord lastRecord = getLastRecord();
-			startDate = firstRecord.date;
-			endDate = lastRecord.date;
-			period = Days.daysBetween(firstRecord.GetOriginalDate(), lastRecord.GetOriginalDate()).getDays();
+	public void addRecord(LocalDate date, float amount, float interestRate, RecordDescriptions description) {
+		addRecord(date, amount, interestRate, description, false);
+	}
 
-			startAmount = roundUpTo(firstRecord.amount, deposit.currency);
-			endAmount = roundUpTo(lastRecord.amount, deposit.currency);
-			profit = endAmount - startAmount;
-			profitRate = 100.0f * profit / startAmount;
-			profitPerDay = profit / period;
+	public void addRecord(LocalDate date, float amount, float interestRate, RecordDescriptions description, Boolean isLast) {
+		AccountStatementRecord record = new AccountStatementRecord(date, amount, interestRate, description).setIsLast(isLast);
+		accountStatement.add(record);
+	}
 
-			float usdDelta = 120.0f;
-			endUsdExchangeRate = roundUpTo(ExchangeRateStats.currentUsdExchangeRate + period * ExchangeRateStats.dailyUsdExchangeRateDelta + usdDelta, 10);
-			endAmountUsd = roundUpTo(endAmount / endUsdExchangeRate, 0.1f);
-			startAmountUsd = roundUpTo(startAmount / (ExchangeRateStats.currentUsdExchangeRate + usdDelta), 0.1f);
-			profitUsd = endAmountUsd - startAmountUsd;
-			profitRateUsd = 100.0f * profitUsd / startAmountUsd;
-			profitPerDayUsd = profitUsd / period;
+	public void fillData() {
+		if (accountStatement.isEmpty()) {
+			return;
 		}
+
+		AccountStatementRecord firstRecord = accountStatement.get(0);
+		AccountStatementRecord lastRecord = getLastRecord();
+		startDate = firstRecord.date;
+		endDate = lastRecord.date;
+		period = Days.daysBetween(firstRecord.GetOriginalDate(), lastRecord.GetOriginalDate()).getDays();
+
+		startAmount = roundUpTo(firstRecord.amount, deposit.currency);
+		endAmount = roundUpTo(lastRecord.amount, deposit.currency);
+		profit = endAmount - startAmount;
+		profitRate = 100.0f * profit / startAmount;
+		profitPerDay = profit / period;
+
+		float usdDelta = 120.0f;
+		endUsdExchangeRate = roundUpTo(ExchangeRateStats.currentUsdExchangeRate + period * ExchangeRateStats.dailyUsdExchangeRateDelta + usdDelta, 10);
+		endAmountUsd = roundUpTo(endAmount / endUsdExchangeRate, 0.1f);
+		startAmountUsd = roundUpTo(startAmount / (ExchangeRateStats.currentUsdExchangeRate + usdDelta), 0.1f);
+		profitUsd = endAmountUsd - startAmountUsd;
+		profitRateUsd = 100.0f * profitUsd / startAmountUsd;
+		profitPerDayUsd = profitUsd / period;
 	}
 
 	private AccountStatementRecord getLastRecord() {
-		AccountStatementRecord lastRecord = accountStatement[accountStatement.length - 1];
+		AccountStatementRecord lastRecord = accountStatement.get(accountStatement.size() - 1);
 
 		for (AccountStatementRecord record : accountStatement) {
 			if (record.isLast) {

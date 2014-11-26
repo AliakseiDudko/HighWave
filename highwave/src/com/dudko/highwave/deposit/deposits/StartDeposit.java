@@ -33,8 +33,8 @@ public abstract class StartDeposit extends Deposit {
 		LocalDate currentDate = MinskLocalDate.now();
 		float _amount = amount;
 
-		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
-		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
+		DepositAccount account = new DepositAccount(this);
+		account.addRecord(currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		Set<Integer> setOfDays = new TreeSet<Integer>(Arrays.asList(0, 30, 60, 90, 95, period));
 		Integer[] days = setOfDays.toArray(new Integer[0]);
@@ -49,17 +49,17 @@ public abstract class StartDeposit extends Deposit {
 			boolean isLast = day == period || (day == depositTerm && depositTerm < period);
 
 			if (day % capitalizationPeriod == 0) {
-				addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_001_Capitalization);
+				account.addRecord(currentDate, _amount, interestRate, RecordDescriptions.MSG_001_Capitalization);
 			}
 
 			if (day == depositTerm) {
-				addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_003_Close_Deposit, isLast);
+				account.addRecord(currentDate, _amount, interestRate, RecordDescriptions.MSG_003_Close_Deposit, isLast);
 			} else if (day == period) {
-				addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_006_Partial_Withdrawal_Of_Deposit, isLast);
+				account.addRecord(currentDate, _amount, interestRate, RecordDescriptions.MSG_006_Partial_Withdrawal_Of_Deposit, isLast);
 				_amount = minDepositAmount;
 			}
 		}
 
-		return new DepositAccount(this, list);
+		return account;
 	}
 }

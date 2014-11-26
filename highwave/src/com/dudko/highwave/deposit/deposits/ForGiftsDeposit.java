@@ -1,8 +1,5 @@
 package com.dudko.highwave.deposit.deposits;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
@@ -33,15 +30,15 @@ public class ForGiftsDeposit extends Deposit {
 
 		float _amount = amount;
 
-		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
-		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
+		DepositAccount account = new DepositAccount(this);
+		account.addRecord(currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		LocalDate previousDate = currentDate;
 		currentDate = currentDate.plusMonths(1);
 		while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
 			float _interestRate = interestRate(currentDate, term);
 			_amount += calculatePeriod(amount, _interestRate, previousDate, currentDate) - amount;
-			addRecord(list, currentDate, _amount, _interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
+			account.addRecord(currentDate, _amount, _interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 
 			previousDate = currentDate;
 			currentDate = currentDate.plusMonths(1);
@@ -51,16 +48,16 @@ public class ForGiftsDeposit extends Deposit {
 		int _period = Days.daysBetween(previousDate, endDate).getDays();
 		if (_period > 0) {
 			_amount += calculatePeriod(amount, _interestRate, _period) - amount;
-			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
+			account.addRecord(endDate, _amount, _interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 		}
 
 		if (term == depositTerm) {
-			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
+			account.addRecord(endDate, _amount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
 		} else {
-			addRecord(list, endDate, _amount, _interestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
+			account.addRecord(endDate, _amount, _interestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
 		}
 
-		return new DepositAccount(this, list);
+		return account;
 	}
 
 	private float interestRate(LocalDate currentDate, int term) {

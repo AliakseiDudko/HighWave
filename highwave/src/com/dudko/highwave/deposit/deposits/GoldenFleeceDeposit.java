@@ -1,8 +1,5 @@
 package com.dudko.highwave.deposit.deposits;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
@@ -38,22 +35,22 @@ public class GoldenFleeceDeposit extends Deposit {
 		float lowInterestRate2 = 17.0f;
 		float endDateInterestRate;
 
-		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
-		addRecord(list, currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
+		DepositAccount account = new DepositAccount(this);
+		account.addRecord(currentDate, _amount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		if (term < twoMonthsTerm) {
 			_amount += calculatePeriod(amount, lowInterestRate1, term) - amount;
-			addRecord(list, endDate, _amount, lowInterestRate1, RecordDescriptions.MSG_002_Accrual_Of_Interest);
+			account.addRecord(endDate, _amount, lowInterestRate1, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 
 			endDateInterestRate = lowInterestRate1;
 		} else {
 			_amount += calculatePeriod(amount, interestRate, twoMonthsTerm) - amount;
-			addRecord(list, twoMonthsDate, _amount, interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
+			account.addRecord(twoMonthsDate, _amount, interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 
 			if (twoMonthsTerm < term) {
 				int _period = term - twoMonthsTerm;
 				_amount += calculatePeriod(amount, lowInterestRate2, _period) - amount;
-				addRecord(list, endDate, _amount, lowInterestRate2, RecordDescriptions.MSG_002_Accrual_Of_Interest);
+				account.addRecord(endDate, _amount, lowInterestRate2, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 
 				endDateInterestRate = lowInterestRate2;
 			} else {
@@ -62,11 +59,11 @@ public class GoldenFleeceDeposit extends Deposit {
 		}
 
 		if (term == depositTerm) {
-			addRecord(list, endDate, _amount, endDateInterestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
+			account.addRecord(endDate, _amount, endDateInterestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
 		} else {
-			addRecord(list, endDate, _amount, endDateInterestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
+			account.addRecord(endDate, _amount, endDateInterestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
 		}
 
-		return new DepositAccount(this, list);
+		return account;
 	}
 }

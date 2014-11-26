@@ -1,8 +1,5 @@
 package com.dudko.highwave.deposit.deposits;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.joda.time.*;
 
 import com.dudko.highwave.bank.*;
@@ -39,22 +36,22 @@ public class FourSeasonsDeposit extends Deposit {
 
 		float depositAmount = amount;
 
-		List<AccountStatementRecord> list = new ArrayList<AccountStatementRecord>();
-		addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
+		DepositAccount account = new DepositAccount(this);
+		account.addRecord(currentDate, depositAmount, interestRate, RecordDescriptions.MSG_000_Open_Deposit);
 
 		LocalDate previousDate = currentDate;
 		LocalDate seasonStartDate = currentDate;
 		currentDate = previousDate.plusMonths(1);
 		for (int month = 1; month <= 12; month++) {
 			depositAmount = calculatePeriod(depositAmount, interestRate, previousDate, currentDate);
-			addRecord(list, currentDate, depositAmount, interestRate, RecordDescriptions.MSG_001_Capitalization);
+			account.addRecord(currentDate, depositAmount, interestRate, RecordDescriptions.MSG_001_Capitalization);
 
 			if (month % 3 == 0) {
 				float[] bonusInterests = { 0.5f, 1.0f, 1.5f, 2.0f };
 				float _bonusInterest = bonusInterests[month / 3 - 1];
 
 				depositAmount = calculatePeriod(depositAmount, _bonusInterest, seasonStartDate, currentDate);
-				addRecord(list, currentDate, depositAmount, _bonusInterest, RecordDescriptions.MSG_007_Bonus);
+				account.addRecord(currentDate, depositAmount, _bonusInterest, RecordDescriptions.MSG_007_Bonus);
 
 				seasonStartDate = currentDate;
 			}
@@ -64,13 +61,13 @@ public class FourSeasonsDeposit extends Deposit {
 
 			boolean withdrawal = (previousDate.isBefore(partialEndDate) || previousDate.isEqual(partialEndDate)) && currentDate.isAfter(partialEndDate) && month != 12;
 			if (withdrawal) {
-				addRecord(list, previousDate, depositAmount, interestRate, RecordDescriptions.MSG_006_Partial_Withdrawal_Of_Deposit, true);
+				account.addRecord(previousDate, depositAmount, interestRate, RecordDescriptions.MSG_006_Partial_Withdrawal_Of_Deposit, true);
 				depositAmount = minDepositAmount;
 			}
 		}
 
-		addRecord(list, endDate, depositAmount, interestRate, RecordDescriptions.MSG_003_Close_Deposit, partialEndDate.isEqual(endDate));
+		account.addRecord(endDate, depositAmount, interestRate, RecordDescriptions.MSG_003_Close_Deposit, partialEndDate.isEqual(endDate));
 
-		return new DepositAccount(this, list);
+		return account;
 	}
 }
