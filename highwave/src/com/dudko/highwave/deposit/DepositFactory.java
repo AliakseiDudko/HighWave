@@ -27,7 +27,8 @@ public class DepositFactory {
 		deposits.add(new EasyChoiseDeposit(DepositNames.MSG_002_EasyChoise180, 180));
 		deposits.add(new AnnualDeposit());
 		deposits.add(new FourSeasonsDeposit());
-		deposits.add(new CatchMomentDeposit());
+		deposits.add(new CatchMomentDepositEUR());
+		deposits.add(new CatchMomentDepositUSD());
 		deposits.add(new SavingDeposit());
 		deposits.add(new SuccessfulDeposit());
 		deposits.add(new PrudentDeposit());
@@ -44,7 +45,8 @@ public class DepositFactory {
 		List<Deposit> list = new ArrayList<Deposit>();
 
 		for (Deposit deposit : deposits) {
-			if (deposit.currency == currency) {
+			if (deposit.currency == currency
+					|| (currency == Currency.CUR && (deposit.currency == Currency.EUR || deposit.currency == Currency.USD))) {
 				list.add(deposit);
 			}
 		}

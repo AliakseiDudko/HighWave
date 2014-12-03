@@ -7,7 +7,7 @@ import com.dudko.highwave.deposit.*;
 import com.dudko.highwave.globalize.*;
 import com.dudko.highwave.utils.*;
 
-public class CatchMomentDeposit extends Deposit {
+public abstract class CatchMomentDeposit extends Deposit {
 	public CatchMomentDeposit() {
 		bank = BankFactory.GetBank(BankCode.VTBBank);
 		name = DepositNames.MSG_010_CatchMoment;
