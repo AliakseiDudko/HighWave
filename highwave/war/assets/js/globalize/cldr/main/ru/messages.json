@@ -32,7 +32,8 @@
 	  "MSG_015_GoldenFleece": "Золотое руно",
 	  "MSG_016_ForGifts": "На подарки",
 	  "MSG_017_MagicianPlus9": "Чародей+ (9 месяцев)",
-	  "MSG_017_MagicianPlus12": "Чародей+ (12 месяцев)"
+	  "MSG_017_MagicianPlus12": "Чародей+ (12 месяцев)",
+	  "MSG_018_Dear": "Дорогой"
     },
     "currencies": {
       "BYR": "BYR",

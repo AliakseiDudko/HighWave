@@ -23,5 +23,6 @@ public enum DepositNames {
 	MSG_015_GoldenFleece,
 	MSG_016_ForGifts,
 	MSG_017_MagicianPlus9,
-	MSG_017_MagicianPlus12
+	MSG_017_MagicianPlus12,
+	MSG_018_Dear
 }

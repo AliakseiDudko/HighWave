@@ -39,6 +39,7 @@ public class DepositFactory {
 		deposits.add(new MagicianPlusDepositBYR(12));
 		deposits.add(new MagicianPlusDepositCUR(9));
 		deposits.add(new MagicianPlusDepositCUR(12));
+		deposits.add(new DearDeposit());
 	}
 
 	public Deposit[] GetAllDeposits(Currency currency) {
