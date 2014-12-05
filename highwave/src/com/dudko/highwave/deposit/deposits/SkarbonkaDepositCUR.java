@@ -8,6 +8,6 @@ public class SkarbonkaDepositCUR extends SkarbonkaDeposit {
 
 		currency = Currency.CUR;
 		interestRate = 4.5f;
-		minOpenAmount = 100f;
+		minOpenAmount = 100;
 	}
 }

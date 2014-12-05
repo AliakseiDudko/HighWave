@@ -10,7 +10,7 @@ import com.dudko.highwave.globalize.*;
 import com.dudko.highwave.utils.*;
 
 public abstract class StartDeposit extends Deposit {
-	protected float minOpenAmount;
+	protected long minOpenAmount;
 	protected float minDepositAmount;
 
 	public StartDeposit() {
@@ -20,7 +20,7 @@ public abstract class StartDeposit extends Deposit {
 	}
 
 	@Override
-	public DepositAccount calculateDeposit(float amount, int period) {
+	public DepositAccount calculateDeposit(long amount, int period) {
 		int depositTerm = 95;
 		int capitalizationPeriod = 30;
 

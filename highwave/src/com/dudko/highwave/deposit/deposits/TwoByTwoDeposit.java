@@ -17,7 +17,7 @@ public class TwoByTwoDeposit extends Deposit {
 	}
 
 	@Override
-	public DepositAccount calculateDeposit(float amount, int period) {
+	public DepositAccount calculateDeposit(long amount, int period) {
 		LocalDate currentDate = MinskLocalDate.now();
 		LocalDate endDate = currentDate.plusMonths(2);
 

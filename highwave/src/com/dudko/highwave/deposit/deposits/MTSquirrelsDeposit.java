@@ -21,8 +21,8 @@ public class MTSquirrelsDeposit extends Deposit {
 	}
 
 	@Override
-	public DepositAccount calculateDeposit(float amount, int period) {
-		float minOpenAmount = 500000.0f;
+	public DepositAccount calculateDeposit(long amount, int period) {
+		long minOpenAmount = 500000;
 		if (amount < minOpenAmount) {
 			return null;
 		}

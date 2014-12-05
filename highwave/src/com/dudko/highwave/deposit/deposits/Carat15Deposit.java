@@ -17,9 +17,9 @@ public class Carat15Deposit extends Deposit {
 	}
 
 	@Override
-	public DepositAccount calculateDeposit(float amount, int period) {
+	public DepositAccount calculateDeposit(long amount, int period) {
+		long minOpenAmount = 1000000;
 		float lowInterestRate = 0.1f;
-		float minOpenAmount = 1000000.0f;
 		if (amount < minOpenAmount) {
 			return null;
 		}

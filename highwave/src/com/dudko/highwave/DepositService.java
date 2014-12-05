@@ -36,11 +36,11 @@ public class DepositService {
 	}
 
 	@ApiMethod(name = "get.deposits.list", path = "deposits", httpMethod = HttpMethod.GET)
-	public DepositAccount[] getAllDeposites(@Named("amount") double amount, @Named("period") int period, @Named("currency") Currency currency) {
+	public DepositAccount[] getAllDeposites(@Named("amount") long amount, @Named("period") int period, @Named("currency") Currency currency) {
 		List<DepositAccount> list = new ArrayList<DepositAccount>();
 
 		for (Deposit deposit : depositFactory.GetAllDeposits(currency)) {
-			DepositAccount depositAccount = deposit.calculateDeposit((float) amount, period);
+			DepositAccount depositAccount = deposit.calculateDeposit(amount, period);
 			if (depositAccount != null) {
 				list.add(depositAccount);
 			}

@@ -9,7 +9,7 @@ public class StartDepositBYR extends StartDeposit {
 		currency = Currency.BYR;
 		interestRate = 28.0f;
 
-		minOpenAmount = 1000000.0f;
+		minOpenAmount = 1000000;
 		minDepositAmount = 3000000.0f;
 	}
 }

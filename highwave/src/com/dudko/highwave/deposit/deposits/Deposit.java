@@ -13,7 +13,7 @@ public abstract class Deposit {
 	public Currency currency;
 	public float interestRate;
 
-	public abstract DepositAccount calculateDeposit(float amount, int period);
+	public abstract DepositAccount calculateDeposit(long amount, int period);
 
 	protected float calculatePeriod(float amount, float interestRate, LocalDate startDate, LocalDate endDate) {
 		int period = Days.daysBetween(startDate, endDate).getDays();

@@ -17,9 +17,9 @@ public class FourSeasonsDeposit extends Deposit {
 	}
 
 	@Override
-	public DepositAccount calculateDeposit(float amount, int period) {
-		float minOpenAmount = 500.0f;
-		float minDepositAmount = 500.0f;
+	public DepositAccount calculateDeposit(long amount, int period) {
+		long minOpenAmount = 500;
+		long minDepositAmount = 500;
 		if (amount < minOpenAmount) {
 			return null;
 		}

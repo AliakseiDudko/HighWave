@@ -17,8 +17,8 @@ public class AnnualDeposit extends Deposit {
 	}
 
 	@Override
-	public DepositAccount calculateDeposit(float amount, int period) {
-		float minOpenAmount = 1000000f;
+	public DepositAccount calculateDeposit(long amount, int period) {
+		long minOpenAmount = 1000000;
 		if (amount < minOpenAmount) {
 			return null;
 		}

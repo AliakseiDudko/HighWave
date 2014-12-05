@@ -10,7 +10,7 @@ import com.dudko.highwave.globalize.*;
 import com.dudko.highwave.utils.*;
 
 public abstract class MagicianPlusDeposit extends Deposit {
-	protected float minOpenAmount;
+	protected long minOpenAmount;
 	protected float minDepositAmount;
 	protected float bonusInterest;
 	private int depositTermMonths;
@@ -24,7 +24,7 @@ public abstract class MagicianPlusDeposit extends Deposit {
 	}
 
 	@Override
-	public DepositAccount calculateDeposit(float amount, int period) {
+	public DepositAccount calculateDeposit(long amount, int period) {
 		if (amount < minOpenAmount) {
 			return null;
 		}

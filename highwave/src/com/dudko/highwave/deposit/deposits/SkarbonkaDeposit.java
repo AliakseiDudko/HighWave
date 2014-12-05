@@ -8,7 +8,7 @@ import com.dudko.highwave.globalize.*;
 import com.dudko.highwave.utils.*;
 
 public abstract class SkarbonkaDeposit extends Deposit {
-	protected float minOpenAmount;
+	protected long minOpenAmount;
 
 	public SkarbonkaDeposit() {
 		bank = BankFactory.GetBank(BankCode.VTBBank);
@@ -17,7 +17,7 @@ public abstract class SkarbonkaDeposit extends Deposit {
 	}
 
 	@Override
-	public DepositAccount calculateDeposit(float amount, int period) {
+	public DepositAccount calculateDeposit(long amount, int period) {
 		if (amount < minOpenAmount) {
 			return null;
 		}

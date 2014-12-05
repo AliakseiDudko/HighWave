@@ -9,7 +9,7 @@ public class MagicianPlusDepositCUR extends MagicianPlusDeposit {
 		currency = Currency.CUR;
 		interestRate = 5.7f;
 
-		minOpenAmount = 500.0f;
+		minOpenAmount = 500;
 		minDepositAmount = 500.0f;
 		bonusInterest = 0.5f;
 	}

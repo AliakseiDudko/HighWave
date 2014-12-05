@@ -8,6 +8,6 @@ public class SkarbonkaDepositBYR extends SkarbonkaDeposit {
 
 		currency = Currency.BYR;
 		interestRate = 29.0f;
-		minOpenAmount = 200000f;
+		minOpenAmount = 200000;
 	}
 }

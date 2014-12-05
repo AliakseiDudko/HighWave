@@ -9,7 +9,7 @@ public class StartDepositCUR extends StartDeposit {
 		currency = Currency.CUR;
 		interestRate = 4.25f;
 
-		minOpenAmount = 1.0f;
+		minOpenAmount = 1;
 		minDepositAmount = 1000.0f;
 	}
 }

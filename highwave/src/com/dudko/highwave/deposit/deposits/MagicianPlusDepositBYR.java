@@ -9,7 +9,7 @@ public class MagicianPlusDepositBYR extends MagicianPlusDeposit {
 		currency = Currency.BYR;
 		interestRate = 20.0f;
 
-		minOpenAmount = 5000000.0f;
+		minOpenAmount = 5000000;
 		minDepositAmount = 5000000.0f;
 		bonusInterest = 4.0f;
 	}
