@@ -51,10 +51,10 @@ public abstract class EarlierMoreDeposit extends Deposit {
 			account.addRecord(endDate, depositAmount, _interestRate, RecordDescriptions.MSG_002_Accrual_Of_Interest);
 		}
 
-		if (period == depositTerm) {
-			account.addRecord(endDate, depositAmount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
-		} else if (period <= depositTerm) {
+		if (period < depositTerm) {
 			account.addRecord(endDate, depositAmount, _interestRate, RecordDescriptions.MSG_005_Early_Withdrawal_Of_Deposit, true);
+		} else if (period == depositTerm) {
+			account.addRecord(endDate, depositAmount, _interestRate, RecordDescriptions.MSG_003_Close_Deposit, true);
 		} else {
 			_period = period - depositTerm;
 			currentDate = endDate.plusDays(_period);
