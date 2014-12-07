@@ -21,6 +21,7 @@ public class DepositFactory {
 		deposits.add(new MTSquirrelsDeposit(DepositNames.MSG_003_MTSquirrels1, 1));
 		deposits.add(new MTSquirrelsDeposit(DepositNames.MSG_003_MTSquirrels2, 2));
 		deposits.add(new MTSquirrelsDeposit(DepositNames.MSG_003_MTSquirrels3, 3));
+		deposits.add(new EarlierMore1Deposit());
 		deposits.add(new EarlierMore2Deposit());
 		deposits.add(new EasyChoiseDeposit(DepositNames.MSG_002_EasyChoise30, 30));
 		deposits.add(new EasyChoiseDeposit(DepositNames.MSG_002_EasyChoise90, 90));

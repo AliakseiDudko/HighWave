@@ -11,6 +11,7 @@
     },
     "depositNames": {
       "MSG_000_Annual": "Годовой",
+      "MSG_001_EarlierMore1": "Раньше-Больше",
 	  "MSG_001_EarlierMore2": "Раньше-Больше 2",
 	  "MSG_002_EasyChoise30": "Легкий выбор 30",
 	  "MSG_002_EasyChoise90": "Легкий выбор 90",
