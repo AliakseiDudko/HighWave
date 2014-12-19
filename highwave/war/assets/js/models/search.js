@@ -1,9 +1,9 @@
 define([ "backbone" ], function(Backbone) {
     var Search = Backbone.Model.extend({
         defaults: {
-            amount: 10000000,
-            period: 65,
-            currency: "BYR"
+            amount: 10000,
+            period: 95,
+            currency: "CUR"
         },
 
         validation: {
