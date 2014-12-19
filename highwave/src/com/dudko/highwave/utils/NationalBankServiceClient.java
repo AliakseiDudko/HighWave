@@ -80,7 +80,12 @@ public class NationalBankServiceClient {
 				String currencyCharCode = element.getElementsByTagName("CharCode").item(0).getChildNodes().item(0).getNodeValue();
 				String currencyRate = element.getElementsByTagName("Rate").item(0).getChildNodes().item(0).getNodeValue();
 
-				map.put(currencyCharCode, Double.parseDouble(currencyRate));
+				Double rate = Double.parseDouble(currencyRate);
+				if (date.isAfter(Constants.blackThursday)) {
+					rate *= 1.3;
+				}
+
+				map.put(currencyCharCode, rate);
 			}
 		}
 

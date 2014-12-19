@@ -55,7 +55,7 @@ public class NewsFactory {
 
 		Map<String, Double> map = NationalBankServiceClient.getExchangeRatesOnDate(lastDate);
 
-		String message = String.format("Официальный курс рубля на %s:\r\n", DateTimeFormat.forPattern("dd/MM/yy").print(lastDate));
+		String message = String.format("Математический курс рубля на %s:\r\n", DateTimeFormat.forPattern("dd/MM/yy").print(lastDate));
 		message += String.format("%s: %,.0f\r\n", Currency.USD.toString(), map.get(Currency.USD.toString()));
 		message += String.format("%s: %,.0f\r\n", Currency.EUR.toString(), map.get(Currency.EUR.toString()));
 		message += String.format("%s: %,.1f\r\n", Currency.RUB.toString(), map.get(Currency.RUB.toString()));
@@ -95,10 +95,10 @@ public class NewsFactory {
 		double monthAgoRub = todayStats.get(rub) - monthAgoStats.get(rub);
 		double yearAgoRub = todayStats.get(rub) - yearAgoStats.get(rub);
 
-		String message = "Изменение официального курса рубля за день/месяц/год:\r\n";
-		message += String.format("%s: %+,.0f/%+,.0f/%+,.0f\r\n", usd, yesterdayUsd, monthAgoUsd, yearAgoUsd);
-		message += String.format("%s: %+,.0f/%+,.0f/%+,.0f\r\n", eur, yesterdayEur, monthAgoEur, yearAgoEur);
-		message += String.format("%s: %+,.1f/%+,.1f/%+,.1f\r\n", rub, yesterdayRub, monthAgoRub, yearAgoRub);
+		String message = "Изменение математического курса за день/месяц/год:\r\n";
+		message += String.format("%s: %,.0f/%,.0f/%,.0f\r\n", usd, yesterdayUsd, monthAgoUsd, yearAgoUsd);
+		message += String.format("%s: %,.0f/%,.0f/%,.0f\r\n", eur, yesterdayEur, monthAgoEur, yearAgoEur);
+		message += String.format("%s: %,.1f/%,.1f/%,.1f\r\n", rub, yesterdayRub, monthAgoRub, yearAgoRub);
 
 		StatusUpdate tweet = createTweet(message, TweetType.ExchangeRateStats);
 		try {
