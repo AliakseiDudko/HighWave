@@ -13,7 +13,7 @@ public class SuccessfulDeposit extends Deposit {
 		name = DepositNames.MSG_012_Successful;
 		url = "http://tb.by/private/deposits/#valuta";
 		currency = Currency.CUR;
-		interestRate = 4.7f;
+		interestRate = 5.5f;
 	}
 
 	@Override

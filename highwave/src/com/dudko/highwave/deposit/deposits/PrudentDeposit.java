@@ -84,13 +84,13 @@ public class PrudentDeposit extends Deposit {
 		}
 
 		if (day <= 180) {
-			return 3.5f;
+			return 4.0f;
 		} else if (day <= 370) {
-			return 4.5f;
-		} else if (day <= 550) {
 			return 5.0f;
-		} else if (day <= 720) {
+		} else if (day <= 550) {
 			return 5.5f;
+		} else if (day <= 720) {
+			return 6.0f;
 		} else {
 			return lowInterestRate;
 		}

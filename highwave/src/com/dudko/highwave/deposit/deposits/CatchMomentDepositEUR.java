@@ -7,6 +7,6 @@ public class CatchMomentDepositEUR extends CatchMomentDeposit {
 		super();
 
 		currency = Currency.EUR;
-		interestRate = 6.0f;
+		interestRate = 4.5f;
 	}
 }
