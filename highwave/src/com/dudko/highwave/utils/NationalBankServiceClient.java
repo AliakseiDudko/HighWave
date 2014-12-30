@@ -81,8 +81,11 @@ public class NationalBankServiceClient {
 				String currencyRate = element.getElementsByTagName("Rate").item(0).getChildNodes().item(0).getNodeValue();
 
 				Double rate = Double.parseDouble(currencyRate);
-				if (date.isAfter(Constants.blackThursday)) {
+				if ((date.isEqual(Constants.tax30StartDay) || date.isAfter(Constants.tax30StartDay))
+						&& date.isBefore(Constants.tax20StartDay)) {
 					rate *= 1.3;
+				} else if (date.isEqual(Constants.tax20StartDay) || date.isAfter(Constants.tax20StartDay)) {
+					rate *= 1.2;
 				}
 
 				map.put(currencyCharCode, rate);
