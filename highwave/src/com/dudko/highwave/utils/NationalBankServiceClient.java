@@ -84,8 +84,11 @@ public class NationalBankServiceClient {
 				if ((date.isEqual(Constants.tax30StartDay) || date.isAfter(Constants.tax30StartDay))
 						&& date.isBefore(Constants.tax20StartDay)) {
 					rate *= 1.3;
-				} else if (date.isEqual(Constants.tax20StartDay) || date.isAfter(Constants.tax20StartDay)) {
+				} else if ((date.isEqual(Constants.tax20StartDay) || date.isAfter(Constants.tax20StartDay))
+						&& date.isBefore(Constants.tax10StartDay)) {
 					rate *= 1.2;
+				} else if (date.isEqual(Constants.tax10StartDay) || date.isAfter(Constants.tax10StartDay)) {
+					rate *= 1.1;
 				}
 
 				map.put(currencyCharCode, rate);
