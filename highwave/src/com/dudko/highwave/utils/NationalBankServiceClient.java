@@ -87,7 +87,8 @@ public class NationalBankServiceClient {
 				} else if ((date.isEqual(Constants.tax20StartDay) || date.isAfter(Constants.tax20StartDay))
 						&& date.isBefore(Constants.tax10StartDay)) {
 					rate *= 1.2;
-				} else if (date.isEqual(Constants.tax10StartDay) || date.isAfter(Constants.tax10StartDay)) {
+				} else if ((date.isEqual(Constants.tax10StartDay) || date.isAfter(Constants.tax10StartDay))
+						&& date.isBefore(Constants.taxEndDay)) {
 					rate *= 1.1;
 				}
 
